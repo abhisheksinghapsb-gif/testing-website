@@ -194,7 +194,13 @@ export default function TimelineSection({ scrollContainerRef }: TimelineSectionP
               </div>
               </div>
               <div className="genesis-timeline-marker" aria-label={`Stage ${stage.step}: ${stage.title}`}>
-                <span>{stage.step}</span>
+                <img
+                  className="genesis-timeline-marker-art"
+                  src={`/landing-pages/timeline/markers/genesis-milestone-${stage.step}.svg`}
+                  alt=""
+                  aria-hidden="true"
+                  draggable={false}
+                />
               </div>
             </article>
           ))}

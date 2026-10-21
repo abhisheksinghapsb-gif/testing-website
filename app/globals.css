@@ -1661,6 +1661,146 @@ body {
   }
 }
 
+/* GENESIS — Golden Journey milestone artwork */
+.genesis-timeline-marker {
+  --badge-inset: 4px;
+  isolation: isolate;
+}
+
+.genesis-timeline-marker-number {
+  position: relative;
+  z-index: 1;
+  transition: opacity 220ms ease;
+}
+
+.genesis-timeline-marker-art {
+  position: absolute;
+  inset: calc(-1 * var(--badge-inset));
+  width: calc(100% + 2 * var(--badge-inset));
+  height: calc(100% + 2 * var(--badge-inset));
+  object-fit: contain;
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 250ms ease, transform 300ms ease, filter 300ms ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.genesis-timeline-marker::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 104px;
+  height: 16px;
+  background: linear-gradient(to bottom, #fdd944 0%, #fdd944 48%, #f07527 48%, #f07527 100%);
+  transform: translate(-50%, -50%) scaleX(0.6);
+  opacity: 0;
+  transition: opacity 240ms ease, transform 300ms ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.genesis-timeline-marker.is-reached {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+}
+
+.genesis-timeline-marker.is-reached .genesis-timeline-marker-number {
+  opacity: 0;
+}
+
+.genesis-timeline-marker.is-reached .genesis-timeline-marker-art {
+  opacity: 1;
+  transform: scale(1);
+  filter: drop-shadow(0 0 8px rgba(255, 200, 55, 0.65));
+}
+
+.genesis-timeline-marker.is-current.is-reached {
+  box-shadow: none;
+}
+
+.genesis-timeline-marker.is-current.is-reached .genesis-timeline-marker-art {
+  transform: scale(1.08);
+  filter: drop-shadow(0 0 10px rgba(255, 215, 60, 0.95)) drop-shadow(0 0 20px rgba(255, 165, 0, 0.55));
+}
+
+.genesis-timeline-marker.is-current.is-reached::before {
+  opacity: 1;
+  transform: translate(-50%, -50%) scaleX(1);
+}
+
+@media (max-width: 639px) {
+  .genesis-timeline-marker {
+    --badge-inset: 3px;
+  }
+
+  .genesis-timeline-marker::before {
+    width: 52px;
+    height: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .genesis-timeline-marker-art,
+  .genesis-timeline-marker-number,
+  .genesis-timeline-marker::before {
+    transition: none;
+  }
+}
+
+/* GENESIS — Final SVG milestone styling */
+.genesis-timeline .genesis-timeline-marker {
+  position: relative;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+  isolation: isolate;
+}
+
+.genesis-timeline .genesis-timeline-marker-number {
+  display: none;
+}
+
+.genesis-timeline .genesis-timeline-marker-art {
+  position: absolute;
+  inset: auto;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  filter: brightness(0.8);
+  transition: transform 280ms ease, filter 280ms ease;
+  pointer-events: none;
+}
+
+.genesis-timeline .genesis-timeline-marker.is-reached,
+.genesis-timeline .genesis-timeline-marker.is-current {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.genesis-timeline .genesis-timeline-marker.is-reached .genesis-timeline-marker-art {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  filter: brightness(1) drop-shadow(0 0 9px rgba(255, 202, 50, 0.75));
+}
+
+.genesis-timeline .genesis-timeline-marker.is-current.is-reached .genesis-timeline-marker-art {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.08);
+  filter: brightness(1.12) drop-shadow(0 0 12px rgba(255, 215, 60, 0.95)) drop-shadow(0 0 22px rgba(255, 170, 0, 0.65));
+}
+
 @media (prefers-reduced-motion: reduce) {
   .genesis-timeline-card-inner {
     transition-duration: 1ms;
