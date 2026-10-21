@@ -1538,3 +1538,58 @@ body {
   }
 }
 
+/* Cinematic mobile Hero composition: compact controls, breathing room, and proportional artwork. */
+@media (max-width: 767px) {
+  .hero-gdai {
+    right: clamp(12px, 4vw, 18px) !important;
+    transform: none !important;
+  }
+
+  .hero-gdai img {
+    width: clamp(44px, 13vw, 54px);
+    height: auto;
+  }
+
+  .hero-controls {
+    top: clamp(58px, 10vh, 84px) !important;
+    right: clamp(12px, 4vw, 18px) !important;
+    margin-top: 0 !important;
+    gap: 10px;
+  }
+
+  .hero-menu-trigger img {
+    width: clamp(36px, 10vw, 42px);
+    height: auto;
+  }
+
+  .hero-logo {
+    top: clamp(14%, 18vh, 20%) !important;
+  }
+
+  .hero-logo img {
+    width: min(78vw, 340px) !important;
+    height: auto;
+  }
+
+  .hero-register {
+    bottom: clamp(34%, 37vh, 41%) !important;
+  }
+
+  .hero-register img {
+    width: min(72vw, 205px) !important;
+    height: auto;
+  }
+
+  .hero-colt {
+    left: 1% !important;
+    bottom: 27% !important;
+    width: min(48vw, 205px) !important;
+  }
+
+  .hero-leon {
+    right: 1% !important;
+    bottom: 26% !important;
+    width: min(46vw, 200px) !important;
+  }
+}
+

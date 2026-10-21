@@ -543,12 +543,11 @@ export default function Home() {
             rel="noopener noreferrer"
             className="hero-gdai pointer-events-auto absolute top-0 group transition-transform duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-black rounded-lg block cursor-pointer"
             style={{
-              animation: "banner-sway 4s ease-in-out infinite",
               right: "var(--gdai-right-offset, 20px)",
             }}
             aria-label="Visit IndieConnect (GDAI Club) - Opens in new tab"
           >
-            <div className="relative">
+            <div className="hero-gdai-sway relative" style={{ animation: "banner-sway 4s ease-in-out infinite" }}>
               <Image
                 src="/landing-pages/home/ui/group-1000012449.webp"
                 alt="GDAI Club Emblem"
@@ -619,6 +618,7 @@ export default function Home() {
           {/* Top-Right: Settings / Menu Button & Sound Mute Toggle */}
           <div ref={mobileMenuRef} className="hero-controls pointer-events-auto absolute right-6 top-0 flex items-center gap-3 mt-3">
             {/* Quick Audio Toggle */}
+            {isMobileViewport === false && (
             <button
               type="button"
               onClick={toggleMute}
@@ -632,6 +632,7 @@ export default function Home() {
             >
               {!isMuted ? "🔊" : "🔇"}
             </button>
+            )}
 
             {/* Menu Hamburger Button */}
             {isMobileViewport === true && (
