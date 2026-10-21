@@ -107,40 +107,46 @@ export default function Home() {
     const container = containerRef.current;
     if (!container) return;
 
-    const handleScroll = () => {
+    const sectionIds = ["hero", "about", "timeline", "prizepool", "sponsors", "faq"] as const;
+    const sectionElements = sectionIds.map((id) => document.getElementById(id));
+    let sectionOffsets = sectionElements.map((element, index) => element?.offsetTop ?? window.innerHeight * index);
+    let frame = 0;
+
+    const measureSectionOffsets = () => {
+      sectionOffsets = sectionElements.map((element, index) => element?.offsetTop ?? window.innerHeight * index);
+    };
+
+    const updateActiveSection = () => {
+      frame = 0;
       const scrollY = container.scrollTop;
       const height = window.innerHeight;
-      const aboutEl = document.getElementById("about");
-      const timelineEl = document.getElementById("timeline");
-      const prizepoolEl = document.getElementById("prizepool");
-      const sponsorsEl = document.getElementById("sponsors");
-      const faqEl = document.getElementById("faq");
-
-      const aboutTop = aboutEl?.offsetTop || height;
-      const timelineTop = timelineEl?.offsetTop || height * 2;
-      const prizepoolTop = prizepoolEl?.offsetTop || height * 3;
-      const sponsorsTop = sponsorsEl?.offsetTop || height * 4;
-      const faqTop = faqEl?.offsetTop || height * 5;
 
       let current: "hero" | "about" | "timeline" | "prizepool" | "sponsors" | "faq" = "hero";
-      if (scrollY >= faqTop - height * 0.35) {
+      if (scrollY >= sectionOffsets[5] - height * 0.35) {
         current = "faq";
-      } else if (scrollY >= sponsorsTop - height * 0.35) {
+      } else if (scrollY >= sectionOffsets[4] - height * 0.35) {
         current = "sponsors";
-      } else if (scrollY >= prizepoolTop - height * 0.35) {
+      } else if (scrollY >= sectionOffsets[3] - height * 0.35) {
         current = "prizepool";
-      } else if (scrollY >= timelineTop - height * 0.35) {
+      } else if (scrollY >= sectionOffsets[2] - height * 0.35) {
         current = "timeline";
-      } else if (scrollY >= aboutTop - height * 0.35) {
+      } else if (scrollY >= sectionOffsets[1] - height * 0.35) {
         current = "about";
-      } else {
-        current = "hero";
       }
 
       if (current !== lastSectionRef.current) {
         lastSectionRef.current = current;
         setActiveSection(current);
       }
+    };
+
+    const handleScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(updateActiveSection);
+    };
+
+    const handleResize = () => {
+      measureSectionOffsets();
+      handleScroll();
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -173,10 +179,15 @@ export default function Home() {
 
     container.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("resize", handleResize, { passive: true });
+    measureSectionOffsets();
+    updateActiveSection();
 
     return () => {
       container.removeEventListener("scroll", handleScroll);
       window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("resize", handleResize);
+      if (frame) window.cancelAnimationFrame(frame);
     };
   }, []);
 
@@ -329,7 +340,6 @@ export default function Home() {
             width={320}
             height={160}
             className="w-full h-full object-contain"
-            priority
           />
         </div>
 
@@ -554,7 +564,6 @@ export default function Home() {
                 width={70}
                 height={123}
                 className="drop-shadow-[0_4px_10px_rgba(220,38,38,0.45)] group-hover:scale-105 transition-transform"
-                priority
               />
               <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap px-2 py-0.5 rounded bg-black/80 text-[10px] text-amber-300 font-bold opacity-0 group-hover:opacity-100 transition-opacity border border-amber-500/40">
                 GDAI CLUB
@@ -579,7 +588,6 @@ export default function Home() {
                 width={195}
                 height={42}
                 className="h-8 sm:h-9 md:h-11 w-auto object-contain drop-shadow-[0_4px_8px_rgba(6,182,212,0.4)] group-hover:drop-shadow-[0_0_16px_rgba(6,182,212,0.85)]"
-                priority
               />
             </a>
 
@@ -594,7 +602,6 @@ export default function Home() {
                 width={195}
                 height={46}
                 className="h-8 sm:h-9 md:h-11 w-auto object-contain drop-shadow-[0_4px_8px_rgba(234,179,8,0.35)]"
-                priority
               />
             </div>
 
@@ -609,7 +616,6 @@ export default function Home() {
                 width={195}
                 height={44}
                 className="h-8 sm:h-9 md:h-11 w-auto object-contain drop-shadow-[0_4px_8px_rgba(34,197,94,0.35)]"
-                priority
               />
             </div>
           </nav>
@@ -650,7 +656,6 @@ export default function Home() {
                 width={65}
                 height={35}
                 className="h-9 md:h-10 w-auto object-contain drop-shadow-[0_3px_6px_rgba(0,0,0,0.5)] group-hover:drop-shadow-[0_0_12px_rgba(168,85,247,0.6)]"
-                priority
               />
             </button>
             )}
@@ -704,7 +709,7 @@ export default function Home() {
               width={460}
               height={290}
               className="w-[340px] md:w-[440px] lg:w-[490px] h-auto object-contain"
-              priority
+              preload
             />
 
             {/* Subtle Center Star Glint */}
@@ -821,7 +826,6 @@ export default function Home() {
               width={260}
               height={125}
               className="w-[210px] md:w-[250px] lg:w-[275px] h-auto object-contain drop-shadow-[0_8px_20px_rgba(0,0,0,0.85)]"
-              priority
             />
             {/* Particle sparkles on hover */}
             <div className="absolute -inset-3 bg-amber-400/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
@@ -852,7 +856,6 @@ export default function Home() {
               width={370}
               height={290}
               className="w-full h-auto object-contain drop-shadow-[0_10px_22px_rgba(0,0,0,0.75)] filter group-hover:brightness-110 transition-all"
-              priority
             />
             {coltRecoil && (
               <div 
@@ -885,7 +888,6 @@ export default function Home() {
               width={360}
               height={330}
               className="w-full h-auto object-contain drop-shadow-[0_10px_22px_rgba(0,0,0,0.75)] filter group-hover:brightness-110 transition-all"
-              priority
             />
             {leonActive && (
               <div 
@@ -910,7 +912,6 @@ export default function Home() {
             fill
             sizes="100vw"
             className="object-fill object-bottom select-none pointer-events-none"
-            priority
           />
         </div>
 
@@ -935,7 +936,6 @@ export default function Home() {
               width={300}
               height={365}
               className="w-full h-auto object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.7)]"
-              priority
             />
             {telescopeGlint && (
               <div 
@@ -968,7 +968,6 @@ export default function Home() {
               width={370}
               height={245}
               className="w-full h-auto object-contain drop-shadow-[0_8px_18px_rgba(0,0,0,0.65)]"
-              priority
             />
           </div>
         </div>
