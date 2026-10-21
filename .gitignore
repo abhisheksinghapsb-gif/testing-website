@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+
+# Next.js build output
+.next/
+out/
+build/
+
+# Vercel
+.vercel/
+
+# Environment files and secrets
+.env
+.env.*
+!.env.example
+*.pem
+
+# Logs and debug output
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# TypeScript build metadata
+*.tsbuildinfo
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Local scratch and screenshot artifacts
+scratch/
+screenshot_*.png
+sponsors_preview_*.png
+preview*.png

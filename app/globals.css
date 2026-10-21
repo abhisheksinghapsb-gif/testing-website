@@ -1,0 +1,1397 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: #030015;
+  --color-foreground: #ffffff;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-bangers);
+  --font-lilita: var(--font-lilita);
+}
+
+:root {
+  --gdai-right-offset: 200px;
+}
+
+/* ── ABOUT SECTION V3: ADAPTIVE FULL-SCREEN & REFERENCE ACCURATE ── */
+.about-section {
+  --about-content-left: clamp(33.5px, 3.5vw, 80px);
+  --about-content-top: clamp(16px, 2.2vh, 32px);
+  --about-heading-left: clamp(60px, 6vw, 102px);
+  --about-heading-width: clamp(440px, 28vw, 522px);
+  --about-panel-width: min(741px, calc(100vw - 80px));
+  --about-panel-height: min(695px, calc(100vh - 245px));
+  --about-panel-overlap-y: clamp(-93.5px, -7.5vh, -78px);
+  --about-panel-padding-top: clamp(68px, 8.2vh, 84px);
+  --about-panel-padding-x: clamp(28px, 2.3vw, 38px);
+  --about-panel-padding-bottom: clamp(22px, 3vh, 34px);
+  --about-text-size: clamp(20.5px, 1.55vw, 25.5px);
+  --about-text-line-height: 1.35;
+  --about-text-weight: 800;
+  --about-text-spacing: clamp(18px, 2.5vh, 30px);
+}
+
+.about-content-wrapper {
+  padding-left: var(--about-content-left);
+  padding-top: var(--about-content-top);
+  padding-right: 24px;
+  padding-bottom: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+.about-heading-group {
+  margin-left: var(--about-heading-left);
+  width: var(--about-heading-width);
+  aspect-ratio: 522 / 302;
+  position: relative;
+  z-index: 20;
+}
+
+.about-emblem {
+  left: 0;
+  top: 5.3%;
+  width: 27.78%;
+  height: 47.35%;
+}
+
+.about-banner {
+  left: 13.03%;
+  top: 0;
+  width: 83.91%;
+  height: 60.93%;
+}
+
+.about-title-genesis {
+  left: 2.30%;
+  top: 41.72%;
+  width: 97.70%;
+  height: 58.28%;
+}
+
+.about-info-panel {
+  position: relative;
+  z-index: 15;
+  margin-top: var(--about-panel-overlap-y);
+  width: var(--about-panel-width);
+  height: var(--about-panel-height, auto);
+  max-height: calc(100vh - 220px);
+  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.85));
+  display: flex;
+  flex-direction: column;
+}
+
+.about-panel-content {
+  padding-top: var(--about-panel-padding-top);
+  padding-left: var(--about-panel-padding-x);
+  padding-right: var(--about-panel-padding-x);
+  padding-bottom: var(--about-panel-padding-bottom);
+  font-family: var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: var(--about-text-weight, 800);
+  color: #000000;
+  letter-spacing: -0.015em;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+.about-description-p {
+  font-size: var(--about-text-size);
+  line-height: var(--about-text-line-height);
+  font-weight: inherit;
+  color: #000000;
+  margin: 0;
+}
+
+.about-description-p + .about-description-p {
+  margin-top: var(--about-text-spacing);
+}
+
+.about-texture-glow {
+  top: 43px;
+  left: clamp(380px, 29.5vw, 425px);
+  width: min(1015px, 70vw);
+  height: auto;
+  opacity: 0.49;
+}
+
+.about-overlay-gradient {
+  width: clamp(520px, 62vw, 927px);
+  background: linear-gradient(
+    to right,
+    rgba(3, 0, 21, 0.95) 0%,
+    rgba(3, 0, 21, 0.82) 48%,
+    rgba(3, 0, 21, 0.52) 75%,
+    rgba(3, 0, 21, 0) 100%
+  );
+  display: none;
+}
+
+/* ── Proportional Scaling for Standard Laptop (1366x768) ── */
+@media (min-width: 1025px) and (max-width: 1399px), (min-width: 1025px) and (max-height: 800px) and (max-width: 1600px) {
+  .about-section {
+    --about-content-left: clamp(24px, 3vw, 44px);
+    --about-content-top: 18px;
+    --about-heading-left: 82px;
+    --about-heading-width: 428px;
+    --about-panel-width: 608px;
+    --about-panel-height: min(570px, calc(100vh - 210px));
+    --about-panel-overlap-y: -76px;
+    --about-panel-padding-top: 70px;
+    --about-panel-padding-x: 30px;
+    --about-panel-padding-bottom: 32px;
+    --about-text-size: 21.5px;
+    --about-text-line-height: 1.36;
+    --about-text-spacing: 28px;
+  }
+}
+
+/* ── Tablet Landscape (1024x768) ── */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .about-section {
+    --about-content-left: 24px;
+    --about-content-top: 18px;
+    --about-heading-left: 60px;
+    --about-heading-width: 410px;
+    --about-panel-width: 580px;
+    --about-panel-height: min(544px, calc(100vh - 210px));
+    --about-panel-overlap-y: -72px;
+    --about-panel-padding-top: 66px;
+    --about-panel-padding-x: 28px;
+    --about-panel-padding-bottom: 30px;
+    --about-text-size: 20px;
+    --about-text-line-height: 1.36;
+    --about-text-spacing: 24px;
+  }
+}
+
+/* ── Tablet Portrait (768x1024) ── */
+@media (max-width: 768px) {
+  .about-section {
+    --about-content-left: 24px;
+    --about-content-top: 24px;
+    --about-heading-left: 20px;
+    --about-heading-width: min(100%, 450px);
+    --about-panel-width: min(100%, 650px);
+    --about-panel-height: min(609px, calc(100vh - 240px));
+    --about-panel-overlap-y: -75px;
+    --about-panel-padding-top: 74px;
+    --about-panel-padding-x: 30px;
+    --about-panel-padding-bottom: 34px;
+    --about-text-size: 22px;
+    --about-text-line-height: 1.36;
+    --about-text-spacing: 28px;
+  }
+
+  .about-overlay-gradient {
+    width: 100vw;
+    background: linear-gradient(
+      to bottom,
+      rgba(3, 0, 21, 0.78) 0%,
+      rgba(3, 0, 21, 0.92) 28%,
+      rgba(3, 0, 21, 0.85) 100%
+    );
+  }
+}
+
+/* ── Mobile Portrait (390px, 375px) ── */
+@media (max-width: 480px) {
+  .about-section {
+    --about-content-left: 16px;
+    --about-content-top: 16px;
+    --about-heading-left: 0px;
+    --about-heading-width: 100%;
+    --about-panel-width: 100%;
+    --about-panel-height: auto;
+    --about-panel-overlap-y: 12px;
+    --about-panel-padding-top: 44px;
+    --about-panel-padding-x: 18px;
+    --about-panel-padding-bottom: 22px;
+    --about-text-size: 14.5px;
+    --about-text-line-height: 1.32;
+    --about-text-spacing: 14px;
+  }
+}
+
+/* ── Small & Narrow Mobile (360px, 320px) ── */
+@media (max-width: 360px) {
+  .about-section {
+    --about-content-left: 10px;
+    --about-content-top: 12px;
+    --about-panel-padding-top: 38px;
+    --about-panel-padding-x: 14px;
+    --about-panel-padding-bottom: 18px;
+    --about-text-size: 13.5px;
+    --about-text-line-height: 1.3;
+    --about-text-spacing: 12px;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  background: #030015;
+  color: #ffffff;
+  font-family: var(--font-lilita), var(--font-bangers), sans-serif;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom sleek scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #05011a;
+}
+::-webkit-scrollbar-thumb {
+  background: #4f46e5;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #6366f1;
+}
+
+/* ── Star & Celestial Animations ────────────────────────────── */
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale3d(0.8, 0.8, 1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale3d(1.3, 1.3, 1);
+  }
+}
+
+@keyframes star-slow-drift {
+  0% {
+    transform: translate3d(0px, 0px, 0);
+  }
+  50% {
+    transform: translate3d(10px, -6px, 0);
+  }
+  100% {
+    transform: translate3d(0px, 0px, 0);
+  }
+}
+
+/* ── 100% LINEAR, CONTINUOUS, UNBROKEN METEOR STREAKS ───────── */
+/* These travel across the sky at constant speed without pausing, slowing down, or stalling */
+
+@keyframes meteor-fluent-1 {
+  0% {
+    opacity: 0;
+    transform: translate3d(-260px, -130px, 0) scale3d(0.65, 0.65, 1);
+  }
+  8% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(1400px, 700px, 0) scale3d(1, 1, 1);
+  }
+}
+
+@keyframes meteor-fluent-2 {
+  0% {
+    opacity: 0;
+    transform: translate3d(-220px, -110px, 0) scale3d(0.6, 0.6, 1);
+  }
+  8% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(1300px, 650px, 0) scale3d(0.9, 0.9, 1);
+  }
+}
+
+@keyframes meteor-fluent-3 {
+  0% {
+    opacity: 0;
+    transform: translate3d(-180px, -90px, 0) scale3d(0.55, 0.55, 1);
+  }
+  8% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(1200px, 600px, 0) scale3d(0.85, 0.85, 1);
+  }
+}
+
+@keyframes meteor-fluent-4 {
+  0% {
+    opacity: 0;
+    transform: translate3d(-200px, -100px, 0) scale3d(0.5, 0.5, 1);
+  }
+  8% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(1150px, 575px, 0) scale3d(0.8, 0.8, 1);
+  }
+}
+
+/* Ambient hero float */
+@keyframes float-hero {
+  0%, 100% {
+    transform: translate3d(0, 0px, 0);
+  }
+  50% {
+    transform: translate3d(0, -8px, 0);
+  }
+}
+
+@keyframes float-gentle {
+  0%, 100% {
+    transform: translate3d(0, 0px, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, -6px, 0) rotate(1.2deg);
+  }
+}
+
+@keyframes banner-sway {
+  0%, 100% {
+    transform: rotate(0deg);
+    transform-origin: top center;
+  }
+  50% {
+    transform: rotate(-2deg);
+    transform-origin: top center;
+  }
+}
+
+@keyframes balloon-bob {
+  0%, 100% {
+    transform: translate3d(0, 0px, 0) rotate(0deg);
+  }
+  30% {
+    transform: translate3d(0, -6px, 0) rotate(1.2deg);
+  }
+  70% {
+    transform: translate3d(0, -3px, 0) rotate(-1deg);
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 25px rgba(56, 189, 248, 0.65));
+  }
+  50% {
+    filter: drop-shadow(0 0 45px rgba(56, 189, 248, 0.95));
+  }
+}
+
+@keyframes register-pulse {
+  0%, 100% {
+    transform: scale3d(1, 1, 1);
+    filter: drop-shadow(0 0 16px rgba(245, 166, 35, 0.6));
+  }
+  50% {
+    transform: scale3d(1.03, 1.03, 1);
+    filter: drop-shadow(0 0 26px rgba(255, 215, 0, 0.9));
+  }
+}
+
+@keyframes planet-float {
+  0%, 100% {
+    transform: translate3d(0, 0px, 0);
+  }
+  50% {
+    transform: translate3d(0, -7px, 0);
+  }
+}
+
+@keyframes planet-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes planet-spin-reverse {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes planet-spin-slow {
+  0%, 100% {
+    transform: perspective(850px) rotate(-26deg) rotateY(-22deg) rotate(26deg) scale3d(1, 1, 1);
+  }
+  50% {
+    transform: perspective(850px) rotate(-26deg) rotateY(22deg) rotate(26deg) scale3d(1.03, 1.03, 1);
+  }
+}
+
+@keyframes planet-ring-natural {
+  0%, 100% {
+    transform: perspective(850px) rotate(-26deg) rotateY(-22deg) rotate(26deg) scale3d(1, 1, 1);
+  }
+  50% {
+    transform: perspective(850px) rotate(-26deg) rotateY(22deg) rotate(26deg) scale3d(1.03, 1.03, 1);
+  }
+}
+
+@keyframes planet-ring-direction {
+  0%, 100% {
+    transform: perspective(850px) rotate(-26deg) rotateY(-22deg) rotate(26deg) scale3d(1, 1, 1);
+  }
+  50% {
+    transform: perspective(850px) rotate(-26deg) rotateY(22deg) rotate(26deg) scale3d(1.03, 1.03, 1);
+  }
+}
+
+@keyframes asteroid-tumble {
+  0% {
+    transform: perspective(600px) rotate(0deg) rotateX(0deg) rotateY(0deg);
+  }
+  50% {
+    transform: perspective(600px) rotate(180deg) rotateX(16deg) rotateY(16deg);
+  }
+  100% {
+    transform: perspective(600px) rotate(360deg) rotateX(0deg) rotateY(0deg);
+  }
+}
+
+@keyframes glint {
+  0%, 100% {
+    opacity: 0;
+    transform: scale3d(0, 0, 1) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale3d(1.3, 1.3, 1) rotate(45deg);
+  }
+}
+
+/* Hardware accelerated animation classes */
+.gpu-accel {
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+/* ── Brawl Stars Sponsors Animations & Utilities ─────────── */
+@keyframes coin-float {
+  0%, 100% {
+    transform: translate3d(0, 0px, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0) rotate(3deg);
+  }
+}
+
+@keyframes gem-sparkle {
+  0%, 100% {
+    transform: scale3d(1, 1, 1) rotate(0deg);
+    filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.4));
+  }
+  50% {
+    transform: scale3d(1.15, 1.15, 1) rotate(6deg);
+    filter: drop-shadow(0 0 18px rgba(56, 189, 248, 0.85));
+  }
+}
+
+@keyframes badge-wobble {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.15) rotate(-6deg);
+  }
+  75% {
+    transform: scale(1.15) rotate(6deg);
+  }
+}
+
+@keyframes spike-eye-blink {
+  0%, 90%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  95% {
+    opacity: 0.1;
+    transform: scaleY(0.1);
+  }
+}
+
+@keyframes shine-sweep {
+  0% {
+    transform: translateX(-150%) skewX(-25deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.7;
+  }
+  80% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateX(250%) skewX(-25deg);
+    opacity: 0;
+  }
+}
+
+@keyframes card-shimmer {
+  0% {
+    transform: translateX(-150%) skewX(-20deg);
+  }
+  100% {
+    transform: translateX(250%) skewX(-20deg);
+  }
+}
+
+.brawl-title-stroke {
+  font-family: var(--font-lilita), sans-serif;
+  -webkit-text-stroke: 1.5px #000;
+  text-shadow: 0 4px 0 #000, 0 6px 12px rgba(0, 0, 0, 0.7);
+}
+
+.brawl-stroke-sm {
+  font-family: var(--font-lilita), sans-serif;
+  -webkit-text-stroke: 0.8px #000;
+  text-shadow: 0 2px 0 #000;
+}
+
+/* ── Prize Pool Interactive Animations ── */
+@keyframes brawler-shake {
+  0%, 100% {
+    transform: translateY(-10px) scale(1.08) rotate(0deg);
+  }
+  20% {
+    transform: translateY(-12px) scale(1.10) rotate(-2.5deg) translate3d(-3px, -2px, 0);
+  }
+  40% {
+    transform: translateY(-10px) scale(1.08) rotate(2deg) translate3d(3px, -1px, 0);
+  }
+  60% {
+    transform: translateY(-12px) scale(1.10) rotate(-2deg) translate3d(-2px, 2px, 0);
+  }
+  80% {
+    transform: translateY(-10px) scale(1.08) rotate(1.5deg) translate3d(2px, -2px, 0);
+  }
+}
+
+@keyframes arena-card-shake {
+  0%, 100% {
+    transform: translateY(-4px) scale(1.012) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-4px) scale(1.012) rotate(-0.4deg);
+  }
+  75% {
+    transform: translateY(-4px) scale(1.012) rotate(0.4deg);
+  }
+}
+
+@keyframes badge-shimmer-sweep {
+  0% {
+    transform: translateX(-150%) skewX(-25deg);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.8;
+  }
+  65% {
+    transform: translateX(180%) skewX(-25deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(180%) skewX(-25deg);
+    opacity: 0;
+  }
+}
+
+.animate-brawler-shake {
+  animation: brawler-shake 0.45s ease-in-out infinite;
+}
+
+.animate-arena-shake {
+  animation: arena-card-shake 0.6s ease-in-out infinite;
+}
+
+/* ── SHADOW SPIKE POPPING OUT ANIMATION ── */
+@keyframes spike-pop {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-3px, -14px, 0) scale(1.05);
+  }
+}
+
+.animate-spike-pop {
+  animation: spike-pop 3.5s ease-in-out infinite;
+}
+
+/* ── SPONSORS SECTION: ICON POP-OUT ANIMATIONS (NOT ON TEXT) ── */
+@keyframes icon-pop-crown {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  }
+  30% {
+    transform: translate3d(0, -6px, 0) scale(1.1) rotate(-3.5deg);
+  }
+  60% {
+    transform: translate3d(0, -2px, 0) scale(1.03) rotate(-1deg);
+  }
+}
+
+@keyframes icon-pop-gems {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  }
+  30% {
+    transform: translate3d(0, -6px, 0) scale(1.1) rotate(3.5deg);
+  }
+  60% {
+    transform: translate3d(0, -2px, 0) scale(1.03) rotate(1deg);
+  }
+}
+
+.animate-icon-pop-crown {
+  animation: icon-pop-crown 3.2s ease-in-out infinite;
+}
+
+.animate-icon-pop-gems {
+  animation: icon-pop-gems 3.2s 0.8s ease-in-out infinite;
+}
+
+/* ── PAST SPONSORS LOGO CARDS ENHANCED PERMANENT GLOW & RESTRAINED HOVER ── */
+.sponsor-glow-gamecloud {
+  filter: drop-shadow(0 0 14px rgba(56, 189, 248, 0.75)) drop-shadow(0 0 28px rgba(14, 165, 233, 0.45)) drop-shadow(0 6px 14px rgba(0, 0, 0, 0.65));
+  transition: transform 240ms cubic-bezier(0.25, 1, 0.5, 1), filter 240ms cubic-bezier(0.25, 1, 0.5, 1);
+  cursor: pointer;
+}
+
+.sponsor-glow-gamecloud:hover {
+  transform: translateY(-3.5px) scale(1.025);
+  filter: drop-shadow(0 0 22px rgba(56, 189, 248, 0.95)) drop-shadow(0 0 42px rgba(14, 165, 233, 0.65)) drop-shadow(0 8px 18px rgba(0, 0, 0, 0.8));
+}
+
+.sponsor-glow-gamedoora {
+  filter: drop-shadow(0 0 14px rgba(249, 115, 22, 0.75)) drop-shadow(0 0 28px rgba(234, 88, 12, 0.45)) drop-shadow(0 6px 14px rgba(0, 0, 0, 0.65));
+  transition: transform 240ms cubic-bezier(0.25, 1, 0.5, 1), filter 240ms cubic-bezier(0.25, 1, 0.5, 1);
+  cursor: pointer;
+}
+
+.sponsor-glow-gamedoora:hover {
+  transform: translateY(-3.5px) scale(1.025);
+  filter: drop-shadow(0 0 22px rgba(249, 115, 22, 0.95)) drop-shadow(0 0 42px rgba(234, 88, 12, 0.65)) drop-shadow(0 8px 18px rgba(0, 0, 0, 0.8));
+}
+
+/* ── FAQ ARCADE PANEL & QUESTION ROWS REFERENCE GEOMETRY ── */
+.faq-panel-body {
+  padding: 22px 45px;
+}
+
+.faq-question-btn {
+  padding-left: 28px;
+  padding-right: 28px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.faq-answer-content {
+  padding-left: 28px;
+  padding-right: 28px;
+  padding-top: 10px;
+  padding-bottom: 18px;
+}
+
+@media (max-width: 1024px) {
+  .faq-panel-body {
+    padding: 18px 32px;
+  }
+  .faq-question-btn {
+    padding-left: 22px;
+    padding-right: 22px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  .faq-answer-content {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+}
+
+@media (max-width: 640px) {
+  .faq-panel-body {
+    padding: 12px 16px;
+  }
+  .faq-question-btn {
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .faq-answer-content {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+/* ── PRIZE POOL SECTION: INTERACTIVE HOVER & MOBILE GALLERY ── */
+@keyframes prize-badge-wobble {
+  0% {
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+  20% {
+    transform: translateY(-6px) scale(1.038) rotate(-1.8deg);
+  }
+  45% {
+    transform: translateY(-5px) scale(1.035) rotate(1.5deg);
+  }
+  70% {
+    transform: translateY(-5px) scale(1.032) rotate(-0.8deg);
+  }
+  100% {
+    transform: translateY(-5px) scale(1.03) rotate(0deg);
+  }
+}
+
+.prize-badge-hover {
+  transition: transform 0.28s cubic-bezier(0.25, 1, 0.5, 1);
+  transform-origin: center center;
+  cursor: pointer;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .prize-badge-hover:hover {
+    animation: prize-badge-wobble 0.32s ease-out forwards;
+  }
+}
+
+@keyframes woody-wobble {
+  0% {
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-6px) scale(1.03) rotate(-1.8deg);
+  }
+  55% {
+    transform: translateY(-5px) scale(1.028) rotate(1.2deg);
+  }
+  80% {
+    transform: translateY(-5px) scale(1.025) rotate(-0.5deg);
+  }
+  100% {
+    transform: translateY(-5px) scale(1.025) rotate(0deg);
+  }
+}
+
+.woody-hover {
+  transition: transform 0.28s cubic-bezier(0.25, 1, 0.5, 1);
+  transform-origin: bottom center;
+  cursor: pointer;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .woody-hover:hover {
+    animation: woody-wobble 0.32s ease-out forwards;
+  }
+}
+
+@keyframes buzz-wobble {
+  0% {
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-6px) scale(1.03) rotate(1.8deg);
+  }
+  55% {
+    transform: translateY(-5px) scale(1.028) rotate(-1.2deg);
+  }
+  80% {
+    transform: translateY(-5px) scale(1.025) rotate(0.5deg);
+  }
+  100% {
+    transform: translateY(-5px) scale(1.025) rotate(0deg);
+  }
+}
+
+.buzz-hover {
+  transition: transform 0.28s cubic-bezier(0.25, 1, 0.5, 1);
+  transform-origin: bottom center;
+  cursor: pointer;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .buzz-hover:hover {
+    animation: buzz-wobble 0.32s ease-out forwards;
+  }
+}
+
+/* Mobile swipeable galleries */
+.prize-mobile-gallery {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.prize-mobile-gallery::-webkit-scrollbar {
+  display: none;
+}
+
+.prize-mobile-badge-item {
+  flex: 0 0 auto;
+  scroll-snap-align: center;
+}
+
+/* Home → About cinematic boundary. Decorative only: it adds no document
+   height and is not a separately tracked navigation section. */
+.home-section {
+  isolation: isolate;
+}
+
+.home-section::after {
+  content: "";
+  position: absolute;
+  z-index: 40;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: clamp(64px, 8vw, 112px);
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(7, 9, 28, 0), rgba(23, 16, 68, 0.58) 45%, #07091c 100%);
+  display: none;
+}
+
+.home-section::before {
+  content: "";
+  position: absolute;
+  z-index: 41;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(112, 64, 255, 0.82) 28%, rgba(123, 215, 255, 0.92) 50%, rgba(112, 64, 255, 0.82) 72%, transparent);
+  box-shadow: 0 0 10px rgba(112, 64, 255, 0.42);
+  display: none;
+}
+
+.about-section::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: clamp(64px, 8vw, 112px);
+  pointer-events: none;
+  background: linear-gradient(to bottom, #07091c 0%, rgba(16, 27, 66, 0.78) 48%, rgba(16, 27, 66, 0) 100%);
+  display: none;
+}
+
+/* Deliberate mobile composition: keep key controls readable while decorative
+   desktop scenery crops naturally around them. */
+/* Centered Timeline on tablets and compact screens. */
+@media (min-width: 640px) and (max-width: 1024px) {
+  .genesis-timeline-journey {
+    margin-inline: auto;
+    translate: none;
+  }
+
+  .genesis-timeline-stages,
+  .genesis-timeline-stage {
+    grid-template-columns: minmax(0, 1fr) 72px minmax(0, 1fr);
+  }
+
+  .genesis-timeline-track {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .genesis-timeline-card {
+    width: clamp(195px, 31vw, 270px);
+    max-width: calc(100% - 12px);
+  }
+
+  .genesis-timeline-stage-left > .genesis-timeline-card {
+    margin-right: clamp(8px, 2vw, 20px);
+  }
+
+  .genesis-timeline-stage-right > .genesis-timeline-card {
+    margin-left: clamp(8px, 2vw, 20px);
+  }
+
+  .genesis-timeline-marker {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-header {
+    --gdai-right-offset: 10px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .hero-gdai {
+    transform: scale(0.72);
+    transform-origin: top right;
+  }
+
+  .hero-nav {
+    top: 52px;
+    width: calc(100% - 20px);
+    margin-top: 0;
+    gap: 6px;
+    justify-content: space-between;
+  }
+
+  .hero-nav > * {
+    min-width: 0;
+    flex: 1 1 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero-nav img {
+    width: 100%;
+    max-width: 106px;
+    height: auto;
+    max-height: 30px;
+  }
+
+  .hero-controls {
+    top: 132px;
+    right: 12px;
+    margin-top: 0;
+    gap: 6px;
+  }
+
+  .hero-logo {
+    top: 18%;
+    width: 100%;
+  }
+
+  .hero-logo img {
+    width: min(84vw, 340px);
+    height: auto;
+  }
+
+  .hero-moon {
+    bottom: 24% !important;
+    width: 100%;
+  }
+
+  .hero-moon-halo {
+    width: min(100vw, 520px) !important;
+    height: min(64vw, 300px) !important;
+  }
+
+  .hero-moon-dome {
+    width: min(92vw, 460px) !important;
+    height: min(42vw, 210px) !important;
+    min-height: 150px;
+  }
+
+  .hero-register {
+    bottom: 34% !important;
+  }
+
+  .hero-register img {
+    width: min(52vw, 210px);
+    height: auto;
+  }
+
+  .hero-colt {
+    left: 2% !important;
+    bottom: 27% !important;
+    width: min(46vw, 220px) !important;
+  }
+
+  .hero-leon {
+    right: 2% !important;
+    bottom: 25.5% !important;
+    width: min(44vw, 210px) !important;
+  }
+
+  .hero-stage {
+    height: 30% !important;
+    min-height: 200px !important;
+  }
+
+  .hero-telescope {
+    left: 0 !important;
+    bottom: 13% !important;
+    width: min(30vw, 145px) !important;
+  }
+
+  .hero-balloon {
+    right: 0 !important;
+    bottom: 1% !important;
+    width: min(42vw, 175px) !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero-nav {
+    top: 46px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px 6px;
+  }
+
+  .hero-nav > * {
+    width: 100%;
+    min-width: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero-nav img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .hero-nav > :nth-child(3) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: min(50%, 120px);
+  }
+
+  .hero-controls {
+    top: 122px;
+    right: 10px;
+  }
+
+  .hero-logo { top: 20%; }
+  .hero-register { bottom: 33% !important; }
+}
+
+/* Keep the three artwork buttons inside the usable header width at every orientation. */
+.hero-nav {
+  gap: clamp(16px, 3vw, 48px);
+  max-width: calc(100% - 300px);
+}
+
+@media (min-width: 768px) and (max-width: 1100px) {
+  .hero-header {
+    --gdai-right-offset: 84px;
+  }
+
+  .hero-nav {
+    gap: 14px;
+    max-width: calc(100% - 260px);
+  }
+
+  .hero-nav img {
+    height: clamp(28px, 4vw, 38px);
+    width: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-nav {
+    left: 12px;
+    right: 12px;
+    width: auto;
+    max-width: none;
+    transform: none;
+    translate: none;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(4px, 1.5vw, 12px);
+    align-items: center;
+  }
+
+  .hero-nav > * {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .hero-nav img {
+    width: 100%;
+    max-width: 100%;
+    object-fit: contain;
+  }
+}
+
+@media (max-width: 767px) and (max-height: 600px) {
+  .hero-header {
+    --gdai-right-offset: 8px;
+  }
+
+  .hero-gdai {
+    transform: scale(0.58);
+  }
+
+  .hero-nav {
+    top: 44px;
+  }
+
+  .hero-nav img {
+    max-height: 24px;
+  }
+
+  .hero-controls {
+    top: 96px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero-nav {
+    top: 46px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px 6px;
+  }
+
+  .hero-nav > :nth-child(3) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: min(50%, 120px);
+  }
+
+  .hero-controls {
+    top: 122px;
+    right: 10px;
+  }
+}
+
+/* Static Timeline foundation. Scroll illumination is intentionally deferred to Phase 3. */
+.genesis-timeline {
+  min-height: 2200px;
+}
+
+.genesis-timeline-journey {
+  position: relative;
+  width: 100%;
+  max-width: 1152px;
+  min-height: 1900px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(16px, 2vw, 32px);
+  padding-right: clamp(16px, 2vw, 32px);
+}
+
+.genesis-timeline-stages {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 96px minmax(0, 1fr);
+  align-items: center;
+  min-height: 1800px;
+}
+
+.genesis-timeline-track {
+  position: absolute;
+  z-index: 1;
+  top: 96px;
+  bottom: 96px;
+  left: 50%;
+  width: 18px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: linear-gradient(180deg, #5b3614, #8a5a1c 50%, #4a2a12);
+  box-shadow: 0 0 14px rgba(217, 155, 47, 0.3);
+}
+
+.genesis-timeline-stage {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  width: 100%;
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(0, 1fr) 96px minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  align-items: center;
+  min-height: 450px;
+}
+
+.genesis-timeline-stage-left > .genesis-timeline-card {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: end;
+  margin-right: clamp(24px, 4vw, 72px);
+}
+
+.genesis-timeline-stage-right > .genesis-timeline-card {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: start;
+  margin-left: clamp(24px, 4vw, 72px);
+}
+
+.genesis-timeline-card {
+  width: clamp(220px, 22vw, 300px);
+}
+
+.genesis-timeline-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.genesis-timeline-marker {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: center;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border: 4px solid #f7c948;
+  border-radius: 50%;
+  background: #160d27;
+  color: #fff5b1;
+  font-size: 1rem;
+  font-weight: 900;
+  box-shadow: 0 0 0 7px rgba(98, 58, 18, 0.8), 0 0 18px rgba(247, 201, 72, 0.45);
+}
+
+@media (max-width: 639px) {
+  .genesis-timeline {
+    min-height: 1900px;
+  }
+
+  .genesis-timeline-journey {
+    min-height: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .genesis-timeline-stages {
+    grid-template-columns: minmax(0, 1fr) 56px minmax(0, 1fr);
+    min-height: 1600px;
+  }
+
+  .genesis-timeline-track {
+    top: 88px;
+    bottom: 88px;
+    left: 50%;
+    width: 12px;
+    transform: translateX(-50%);
+  }
+
+  .genesis-timeline-stage {
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr) 56px minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    min-height: 380px;
+  }
+
+  .genesis-timeline-stage-left > .genesis-timeline-card {
+    grid-column: 1;
+    grid-row: 1;
+    margin-left: 0;
+    margin-right: 6px;
+    justify-self: end;
+  }
+
+  .genesis-timeline-stage-right > .genesis-timeline-card {
+    grid-column: 3;
+    grid-row: 1;
+    margin-left: 6px;
+    margin-right: 0;
+    justify-self: start;
+  }
+
+  .genesis-timeline-card {
+    width: min(42vw, 170px);
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .genesis-timeline-marker {
+    grid-column: 2;
+    width: 48px;
+    height: 48px;
+    border-width: 3px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Keep all Home navigation artwork reachable on phones, including 430px layouts. */
+@media (max-width: 480px) {
+  .hero-header {
+    position: absolute;
+    inset-inline: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .hero-nav {
+    position: absolute;
+    top: 46px;
+    left: 12px;
+    right: clamp(88px, 24vw, 112px);
+    width: auto;
+    max-width: none;
+    margin: 0;
+    transform: none;
+    translate: none;
+    box-sizing: border-box;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px 6px;
+  }
+
+  .hero-nav > :nth-child(3) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: min(50%, 120px);
+  }
+
+  .hero-controls {
+    position: absolute;
+    top: 122px;
+    right: 10px;
+  }
+}
+
