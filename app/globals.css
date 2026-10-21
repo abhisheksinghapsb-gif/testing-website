@@ -31,6 +31,17 @@
   --about-text-spacing: clamp(18px, 2.5vh, 30px);
 }
 
+.about-bg-layer {
+  background: #030015;
+}
+
+.about-bg-image {
+  z-index: 1;
+  object-fit: cover;
+  object-position: center 42%;
+  opacity: 1;
+}
+
 .about-content-wrapper {
   padding-left: var(--about-content-left);
   padding-top: var(--about-content-top);
@@ -74,8 +85,9 @@
   z-index: 15;
   margin-top: var(--about-panel-overlap-y);
   width: var(--about-panel-width);
-  height: var(--about-panel-height, auto);
-  max-height: calc(100vh - 220px);
+  height: auto;
+  min-height: 0;
+  max-height: none;
   filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.85));
   display: flex;
   flex-direction: column;
@@ -955,6 +967,68 @@ body {
   .genesis-timeline-marker {
     width: 56px;
     height: 56px;
+  }
+}
+
+/* About layout contract: keep the desktop artwork sharp while allowing the
+   content panel to grow naturally on short viewports and mobile. */
+@media (min-width: 769px) {
+  .about-section {
+    height: auto !important;
+    max-height: none !important;
+    min-height: 100vh;
+    overflow: visible;
+  }
+
+  .about-content-wrapper {
+    height: auto;
+    min-height: 100vh;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-section {
+    min-height: 100svh;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible;
+  }
+
+  .about-bg-image {
+    object-fit: cover;
+    object-position: center 42%;
+  }
+
+  .about-content-wrapper {
+    height: auto;
+    min-height: 100svh;
+    padding-inline: 16px;
+  }
+
+  .about-heading-group {
+    width: min(87vw, 390px);
+    margin-inline: auto;
+  }
+
+  .about-info-panel {
+    width: min(100%, 650px);
+    min-height: 0;
+    height: auto;
+    max-height: none;
+  }
+
+  .about-description-p {
+    font-size: clamp(15px, 3.8vw, 17px);
+    line-height: 1.4;
+    font-weight: 700;
+  }
+
+  .about-panel-content {
+    padding-inline: clamp(18px, 5vw, 22px);
+  }
+
+  .about-description-p + .about-description-p {
+    margin-top: clamp(16px, 4vw, 20px);
   }
 }
 

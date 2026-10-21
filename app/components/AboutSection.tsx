@@ -18,7 +18,7 @@ export default function AboutSection() {
             alt="Neon Moonlit Mecha City Battle"
             loading="lazy"
             decoding="async"
-            className="about-bg-image absolute inset-0 w-full h-full object-contain object-center"
+            className="about-bg-image absolute inset-0 w-full h-full object-cover object-center"
           />
         </picture>
 
