@@ -903,7 +903,7 @@ export default function Home() {
     <AboutSection />
 
     {/* ── SECTION 3: STATIC TIMELINE FOUNDATION ───────────── */}
-    <TimelineSection />
+    <TimelineSection scrollContainerRef={containerRef} />
 
     {/* ── SECTION 4: PRIZE POOL (INTERACTIVE SHOWCASE) ───── */}
     <PrizePoolSection />

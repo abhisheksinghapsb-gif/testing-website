@@ -1236,6 +1236,38 @@ body {
   border-radius: 999px;
   background: linear-gradient(180deg, #5b3614, #8a5a1c 50%, #4a2a12);
   box-shadow: 0 0 14px rgba(217, 155, 47, 0.3);
+  overflow: visible;
+}
+
+.genesis-timeline-progress-fill {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: auto;
+  width: 100%;
+  height: var(--timeline-progress, 0%);
+  border-radius: inherit;
+  background: linear-gradient(180deg, #fff4a3 0%, #ffd447 38%, #f2a900 100%);
+  box-shadow: 0 0 8px rgba(255, 216, 73, 0.9), 0 0 18px rgba(247, 183, 43, 0.65);
+  pointer-events: none;
+}
+
+.genesis-timeline-traveling-light {
+  position: absolute;
+  z-index: 2;
+  top: var(--timeline-progress, 0%);
+  left: 50%;
+  width: 28px;
+  height: 28px;
+  border: 3px solid #fff6b0;
+  border-radius: 50%;
+  background: #ffd447;
+  box-shadow: 0 0 8px #fff0a3, 0 0 18px rgba(255, 193, 7, 0.95), 0 0 30px rgba(255, 174, 0, 0.55);
+  opacity: var(--timeline-light-opacity, 0);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 
 .genesis-timeline-stage {
@@ -1289,6 +1321,16 @@ body {
   font-size: 1rem;
   font-weight: 900;
   box-shadow: 0 0 0 7px rgba(98, 58, 18, 0.8), 0 0 18px rgba(247, 201, 72, 0.45);
+  transition: box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.genesis-timeline-marker.is-reached {
+  border-color: #ffe36a;
+  box-shadow: 0 0 0 7px rgba(121, 78, 19, 0.9), 0 0 22px rgba(255, 211, 61, 0.78);
+}
+
+.genesis-timeline-marker.is-current {
+  box-shadow: 0 0 0 8px rgba(121, 78, 19, 0.95), 0 0 30px rgba(255, 221, 83, 0.95);
 }
 
 @media (max-width: 639px) {
