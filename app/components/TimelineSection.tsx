@@ -3,10 +3,38 @@
 import { useEffect, useRef, type RefObject } from "react";
 
 const stages = [
-  { step: "01", title: "Registration", sub: "Unstop & IndieConnect", asset: "/landing-pages/timeline/stages/stage-registration.svg", side: "left" },
-  { step: "02", title: "Round 1", sub: "Online Tournament", asset: "/landing-pages/timeline/stages/stage-round1.svg", side: "right" },
-  { step: "03", title: "Round 2", sub: "Offline Showdown", asset: "/landing-pages/timeline/stages/stage-round2.svg", side: "left" },
-  { step: "04", title: "Result", sub: "Grand Champions", asset: "/landing-pages/timeline/stages/stage-result.svg", side: "right" },
+  {
+    step: "01",
+    title: "Registration",
+    sub: "Unstop & IndieConnect",
+    asset: "/landing-pages/timeline/stages/stage-registration.svg",
+    side: "left",
+    details: ["Platforms: Unstop & IndieConnect", "Opening date: To be announced", "Closing date: To be announced"],
+  },
+  {
+    step: "02",
+    title: "Round 1 — Online",
+    sub: "Online Tournament",
+    asset: "/landing-pages/timeline/stages/stage-round1.svg",
+    side: "right",
+    details: ["Format: Online", "Start date: To be announced", "End date: To be announced"],
+  },
+  {
+    step: "03",
+    title: "Round 2 — Offline",
+    sub: "Offline Showdown",
+    asset: "/landing-pages/timeline/stages/stage-round2.svg",
+    side: "left",
+    details: ["Format: Offline", "Dates: To be announced", "Venue: To be announced"],
+  },
+  {
+    step: "04",
+    title: "Results",
+    sub: "Grand Champions",
+    asset: "/landing-pages/timeline/stages/stage-result.svg",
+    side: "right",
+    details: ["Announcement date: To be announced", "Additional details: To be announced"],
+  },
 ] as const;
 
 type TimelineSectionProps = {
@@ -32,8 +60,11 @@ export default function TimelineSection({ scrollContainerRef }: TimelineSectionP
     const markers = Array.from(
       journey.querySelectorAll<HTMLElement>(".genesis-timeline-marker"),
     );
+    const stageElements = Array.from(
+      journey.querySelectorAll<HTMLElement>(".genesis-timeline-stage"),
+    );
 
-    if (markers.length !== stages.length) return;
+    if (markers.length !== stages.length || stageElements.length !== stages.length) return;
 
     track.dataset.runtime = "golden-journey-v1";
 
@@ -66,8 +97,12 @@ export default function TimelineSection({ scrollContainerRef }: TimelineSectionP
       );
 
       markers.forEach((marker, index) => {
-        marker.classList.toggle("is-reached", progress >= thresholds[index] - 0.002);
+        const reached = progress >= thresholds[index] - 0.002;
+        const opened = progress >= thresholds[index] + 0.002;
+
+        marker.classList.toggle("is-reached", reached);
         marker.classList.toggle("is-current", index === currentStage);
+        stageElements[index].classList.toggle("is-flipped", opened);
       });
     };
 
@@ -144,7 +179,19 @@ export default function TimelineSection({ scrollContainerRef }: TimelineSectionP
           {stages.map((stage) => (
             <article key={stage.step} className={`genesis-timeline-stage genesis-timeline-stage-${stage.side}`}>
               <div className="genesis-timeline-card">
+                <div className="genesis-timeline-card-inner">
+                <div className="genesis-timeline-card-back">
+                  <span className="genesis-timeline-card-step">STAGE {stage.step}</span>
+                  <h3>{stage.title}</h3>
+                  <p className="genesis-timeline-card-subtitle">{stage.sub}</p>
+                  <div className="genesis-timeline-card-details">
+                    {stage.details.map((detail) => <p key={detail}>{detail}</p>)}
+                  </div>
+                </div>
+                <div className="genesis-timeline-card-front">
                 <img src={stage.asset} alt={`${stage.title} — ${stage.sub}`} draggable={false} />
+                </div>
+              </div>
               </div>
               <div className="genesis-timeline-marker" aria-label={`Stage ${stage.step}: ${stage.title}`}>
                 <span>{stage.step}</span>

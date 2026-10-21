@@ -538,7 +538,7 @@ export default function Home() {
         <header className="hero-header absolute top-0 left-0 right-0 z-30 flex items-start justify-between px-6 pt-2 pointer-events-none">
           {/* Right-side GDAI Club Banner (External link to IndieConnect in new tab) */}
           <a
-            href="https://www.indieconnect.in/"
+            href="https://gdai.in/"
             target="_blank"
             rel="noopener noreferrer"
             className="hero-gdai pointer-events-auto absolute top-0 group transition-transform duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-black rounded-lg block cursor-pointer"
