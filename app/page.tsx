@@ -24,6 +24,9 @@ const STARS = Array.from({ length: 90 }, (_, i) => ({
 export default function Home() {
   // Sound mute state (Controls arcade SFX without opening any overlay)
   const [isMuted, setIsMuted] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobileViewport, setIsMobileViewport] = useState<boolean | null>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   // Character interactive animation states
   const [coltRecoil, setColtRecoil] = useState(false);
@@ -37,6 +40,46 @@ export default function Home() {
   const [isLogoHovered, setIsLogoHovered] = useState(false);
   const [activeSection, setActiveSection] = useState<"hero" | "about" | "timeline" | "prizepool" | "sponsors" | "faq">("hero");
   const lastSectionRef = useRef<"hero" | "about" | "timeline" | "prizepool" | "sponsors" | "faq">("hero");
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 767px)");
+    const updateViewport = () => {
+      setIsMobileViewport(media.matches);
+      setIsMobileMenuOpen(false);
+    };
+
+    updateViewport();
+    media.addEventListener("change", updateViewport);
+
+    return () => media.removeEventListener("change", updateViewport);
+  }, []);
+
+  useEffect(() => {
+    const handleMenuKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsMobileMenuOpen(false);
+    };
+
+    const handleOutsidePointer = (event: PointerEvent) => {
+      const target = event.target as Node;
+      if (isMobileMenuOpen && !mobileMenuRef.current?.contains(target)) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    const handleViewportResize = () => {
+      if (window.innerWidth >= 768) setIsMobileMenuOpen(false);
+    };
+
+    window.addEventListener("keydown", handleMenuKeyDown);
+    document.addEventListener("pointerdown", handleOutsidePointer);
+    window.addEventListener("resize", handleViewportResize, { passive: true });
+
+    return () => {
+      window.removeEventListener("keydown", handleMenuKeyDown);
+      document.removeEventListener("pointerdown", handleOutsidePointer);
+      window.removeEventListener("resize", handleViewportResize);
+    };
+  }, [isMobileMenuOpen]);
 
   useEffect(() => {
     let rafId: number;
@@ -170,6 +213,12 @@ export default function Home() {
     const next = !isMuted;
     setIsMuted(next);
     sounds.setMuted(next);
+  };
+
+  const handleMobileMenuNavigate = (sectionId: "prizepool" | "sponsors") => {
+    sounds.playClick();
+    setIsMobileMenuOpen(false);
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
   };
 
   const handleRegisterClick = () => {
@@ -515,6 +564,7 @@ export default function Home() {
           </a>
 
           {/* Top-Center: Navigation Buttons (BROCHURE — PRIZE — SPONSORS) */}
+          {isMobileViewport === false && (
           <nav className="hero-nav pointer-events-auto absolute md:left-1/2 md:-translate-x-1/2 top-0 mt-3 flex items-center justify-center gap-20 sm:gap-30 md:gap-40">
             {/* 1. BROCHURE Button (Opens the Genesis Brochure PDF in a new tab) */}
             <a
@@ -564,9 +614,10 @@ export default function Home() {
               />
             </div>
           </nav>
+          )}
 
           {/* Top-Right: Settings / Menu Button & Sound Mute Toggle */}
-          <div className="hero-controls pointer-events-auto absolute right-6 top-0 flex items-center gap-3 mt-3">
+          <div ref={mobileMenuRef} className="hero-controls pointer-events-auto absolute right-6 top-0 flex items-center gap-3 mt-3">
             {/* Quick Audio Toggle */}
             <button
               type="button"
@@ -583,10 +634,14 @@ export default function Home() {
             </button>
 
             {/* Menu Hamburger Button */}
+            {isMobileViewport === true && (
             <button
               type="button"
-              className="relative transition-all duration-200 hover:scale-108 active:scale-95 group focus:outline-none cursor-default"
+              onClick={() => setIsMobileMenuOpen((open) => !open)}
+              className="hero-menu-trigger relative transition-all duration-200 hover:scale-108 active:scale-95 group focus:outline-none cursor-pointer"
               aria-label="Navigation Menu"
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="hero-mobile-menu"
             >
               <Image
                 src="/landing-pages/home/ui/btn-settings.webp"
@@ -597,6 +652,27 @@ export default function Home() {
                 priority
               />
             </button>
+            )}
+
+            {isMobileViewport === true && isMobileMenuOpen && (
+              <div id="hero-mobile-menu" className="hero-mobile-menu" role="menu" aria-label="Mobile navigation">
+                <a
+                  href="/brochure"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  role="menuitem"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <Image src="/landing-pages/home/ui/nav-brochure.webp" alt="Brochure" width={195} height={44} />
+                </a>
+                <button type="button" role="menuitem" onClick={() => handleMobileMenuNavigate("prizepool")}>
+                  <Image src="/landing-pages/home/ui/nav-prize.webp" alt="Prize" width={195} height={44} />
+                </button>
+                <button type="button" role="menuitem" onClick={() => handleMobileMenuNavigate("sponsors")}>
+                  <Image src="/landing-pages/home/ui/nav-sponsors.webp" alt="Sponsors" width={195} height={44} />
+                </button>
+              </div>
+            )}
           </div>
         </header>
 

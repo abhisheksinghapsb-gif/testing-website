@@ -959,6 +959,85 @@ body {
 }
 
 @media (max-width: 767px) {
+  .hero-nav {
+    display: none;
+  }
+
+  .hero-menu-trigger {
+    display: block;
+  }
+
+  .hero-mobile-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    z-index: 80;
+    display: flex;
+    flex-direction: column;
+    width: min(224px, calc(100vw - 24px));
+    max-width: calc(100vw - 24px);
+    gap: 6px;
+    padding: 10px;
+    border: 2px solid #e5b83d;
+    border-radius: 12px;
+    background: rgba(12, 9, 38, 0.97);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.65);
+  }
+
+  .hero-mobile-menu a,
+  .hero-mobile-menu button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 6px;
+    border: 0;
+    border-radius: 8px;
+    background: rgba(39, 22, 91, 0.72);
+    cursor: pointer;
+    transition: background-color 160ms ease, transform 160ms ease;
+  }
+
+  .hero-mobile-menu a:hover,
+  .hero-mobile-menu button:hover,
+  .hero-mobile-menu a:focus-visible,
+  .hero-mobile-menu button:focus-visible {
+    background: rgba(112, 64, 255, 0.42);
+    outline: 2px solid rgba(247, 201, 72, 0.8);
+    outline-offset: 1px;
+    transform: translateY(-1px);
+  }
+
+  .hero-mobile-menu img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 158px;
+    max-height: 32px;
+    object-fit: contain;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero-mobile-menu {
+    width: min(176px, calc(100vw - 24px));
+    padding: 7px;
+  }
+
+  .hero-mobile-menu img {
+    max-width: 130px;
+    max-height: 27px;
+  }
+}
+
+@media (min-width: 768px) {
+  .hero-menu-trigger,
+  .hero-mobile-menu {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
   .hero-header {
     --gdai-right-offset: 10px;
     padding-left: 12px;
@@ -1434,6 +1513,28 @@ body {
     position: absolute;
     top: 122px;
     right: 10px;
+  }
+}
+
+/* Final Home navigation visibility contract. Keep this after the legacy responsive rules. */
+@media (min-width: 768px) {
+  .hero-nav {
+    display: flex !important;
+  }
+
+  .hero-menu-trigger,
+  .hero-mobile-menu {
+    display: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-nav {
+    display: none !important;
+  }
+
+  .hero-menu-trigger {
+    display: block !important;
   }
 }
 
