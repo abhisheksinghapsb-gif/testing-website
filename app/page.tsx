@@ -6,6 +6,7 @@ import { sounds } from "./components/sound";
 import AboutSection from "./components/AboutSection";
 import TimelineSection from "./components/TimelineSection";
 import PrizePoolSection from "./components/PrizePoolSection";
+import MemoriesSection from "./components/MemoriesSection";
 import SponsorsSection from "./components/SponsorsSection";
 import FAQSection from "./components/FAQSection";
 
@@ -36,7 +37,7 @@ export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
   const [isLogoHovered, setIsLogoHovered] = useState(false);
-  const lastSectionRef = useRef<"hero" | "about" | "timeline" | "prizepool" | "sponsors" | "faq">("hero");
+  const lastSectionRef = useRef<"hero" | "about" | "timeline" | "prizepool" | "memories" | "sponsors" | "faq">("hero");
 
   useEffect(() => {
     const media = window.matchMedia("(max-width: 767px)");
@@ -104,7 +105,7 @@ export default function Home() {
     const container = containerRef.current;
     if (!container) return;
 
-    const sectionIds = ["hero", "about", "timeline", "prizepool", "sponsors", "faq"] as const;
+    const sectionIds = ["hero", "about", "timeline", "prizepool", "memories", "sponsors", "faq"] as const;
     const sectionElements = sectionIds.map((id) => document.getElementById(id));
     let sectionOffsets = sectionElements.map((element, index) => element?.offsetTop ?? window.innerHeight * index);
     let frame = 0;
@@ -118,11 +119,13 @@ export default function Home() {
       const scrollY = container.scrollTop;
       const height = window.innerHeight;
 
-      let current: "hero" | "about" | "timeline" | "prizepool" | "sponsors" | "faq" = "hero";
-      if (scrollY >= sectionOffsets[5] - height * 0.35) {
+      let current: "hero" | "about" | "timeline" | "prizepool" | "memories" | "sponsors" | "faq" = "hero";
+      if (scrollY >= sectionOffsets[6] - height * 0.35) {
         current = "faq";
-      } else if (scrollY >= sectionOffsets[4] - height * 0.35) {
+      } else if (scrollY >= sectionOffsets[5] - height * 0.35) {
         current = "sponsors";
+      } else if (scrollY >= sectionOffsets[4] - height * 0.35) {
+        current = "memories";
       } else if (scrollY >= sectionOffsets[3] - height * 0.35) {
         current = "prizepool";
       } else if (scrollY >= sectionOffsets[2] - height * 0.35) {
@@ -154,6 +157,8 @@ export default function Home() {
         } else if (lastSectionRef.current === "timeline") {
           document.getElementById("prizepool")?.scrollIntoView({ behavior: "smooth" });
         } else if (lastSectionRef.current === "prizepool") {
+          document.getElementById("memories")?.scrollIntoView({ behavior: "smooth" });
+        } else if (lastSectionRef.current === "memories") {
           document.getElementById("sponsors")?.scrollIntoView({ behavior: "smooth" });
         } else if (lastSectionRef.current === "sponsors") {
           document.getElementById("faq")?.scrollIntoView({ behavior: "smooth" });
@@ -162,6 +167,8 @@ export default function Home() {
         if (lastSectionRef.current === "faq") {
           document.getElementById("sponsors")?.scrollIntoView({ behavior: "smooth" });
         } else if (lastSectionRef.current === "sponsors") {
+          document.getElementById("memories")?.scrollIntoView({ behavior: "smooth" });
+        } else if (lastSectionRef.current === "memories") {
           document.getElementById("prizepool")?.scrollIntoView({ behavior: "smooth" });
         } else if (lastSectionRef.current === "prizepool") {
           document.getElementById("timeline")?.scrollIntoView({ behavior: "smooth" });
@@ -955,10 +962,13 @@ export default function Home() {
     {/* ── SECTION 4: PRIZE POOL (INTERACTIVE SHOWCASE) ───── */}
     <PrizePoolSection />
 
-    {/* ── SECTION 5: SPONSORS (RESPONSIVE SHOWCASE) ──────── */}
+    {/* ── SECTION 5: MEMORIES (SCROLLAROIDS PHOTO JOURNEY) ─ */}
+    <MemoriesSection scrollContainerRef={containerRef} />
+
+    {/* ── SECTION 6: SPONSORS (RESPONSIVE SHOWCASE) ──────── */}
     <SponsorsSection />
 
-    {/* ── SECTION 6: FAQS (INTERACTIVE ACCORDION & CATEGORIES) ─ */}
+    {/* ── SECTION 7: FAQS (INTERACTIVE ACCORDION & CATEGORIES) ─ */}
     <FAQSection />
 
       {/* ── FULL-SCREEN VIEWPORT SIDE DOCK INDICATORS (6 SECTIONS) ──────── */}
