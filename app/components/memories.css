@@ -37,8 +37,12 @@
   translate: -50% -50%;
   width: 1600px;
   height: 1400px;
-  will-change: transform;
+  will-change: auto;
   pointer-events: none;
+}
+
+.memories-camera.is-animating {
+  will-change: transform;
 }
 
 .memories-photo {

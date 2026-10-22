@@ -102,8 +102,15 @@ export default function MemoriesSection({ scrollContainerRef }: MemoriesSectionP
             end: "bottom bottom",
             scrub: true,
             invalidateOnRefresh: true,
+              onEnter: () => camera.classList.add("is-animating"),
+              onEnterBack: () => camera.classList.add("is-animating"),
+              onLeave: () => camera.classList.remove("is-animating"),
+              onLeaveBack: () => camera.classList.remove("is-animating"),
             onUpdate: (self) => {
-              section.dataset.progress = self.progress.toFixed(3);
+                const progress = self.progress.toFixed(3);
+                if (section.dataset.progress !== progress) {
+                  section.dataset.progress = progress;
+                }
             },
           },
         });
@@ -134,13 +141,14 @@ export default function MemoriesSection({ scrollContainerRef }: MemoriesSectionP
           });
         }
       },
-      { root: scroller, rootMargin: "110% 0px", threshold: 0 },
+      { root: scroller, rootMargin: "25% 0px", threshold: 0 },
     );
     observer.observe(section);
 
     return () => {
       disposed = true;
       observer.disconnect();
+      camera.classList.remove("is-animating");
       contextHolder.current?.revert();
     };
   }, [scrollContainerRef]);
@@ -175,7 +183,8 @@ export default function MemoriesSection({ scrollContainerRef }: MemoriesSectionP
                 height={700}
                 sizes="(max-width: 639px) 76vw, (max-width: 1023px) 320px, 360px"
                 className="memories-photo-image"
-                loading="lazy"
+                loading={memory.id === 1 ? "eager" : "lazy"}
+                fetchPriority={memory.id === 1 ? "high" : "auto"}
               />
               <figcaption className="memories-photo-caption">
                 MEMORY {String(memory.id).padStart(2, "0")}
