@@ -22,8 +22,6 @@ const STARS = Array.from({ length: 90 }, (_, i) => ({
 }));
 
 export default function Home() {
-  // Sound mute state (Controls arcade SFX without opening any overlay)
-  const [isMuted, setIsMuted] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobileViewport, setIsMobileViewport] = useState<boolean | null>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
@@ -216,12 +214,6 @@ export default function Home() {
     if (logoRef.current) {
       logoRef.current.style.transform = "perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
     }
-  };
-
-  const toggleMute = () => {
-    const next = !isMuted;
-    setIsMuted(next);
-    sounds.setMuted(next);
   };
 
   const handleMobileMenuNavigate = (sectionId: "prizepool" | "sponsors") => {
@@ -619,25 +611,8 @@ export default function Home() {
           </nav>
           )}
 
-          {/* Top-Right: Settings / Menu Button & Sound Mute Toggle */}
+            {/* Top-Right: Mobile Menu Button */}
           <div ref={mobileMenuRef} className="hero-controls pointer-events-auto absolute right-6 top-0 flex items-center gap-3 mt-3">
-            {/* Quick Audio Toggle */}
-            {isMobileViewport === false && (
-            <button
-              type="button"
-              onClick={toggleMute}
-              className={`w-9 h-9 rounded-xl flex items-center justify-center text-sm font-bold border transition-all hover:scale-110 active:scale-90 cursor-pointer ${
-                !isMuted 
-                  ? "bg-purple-900/60 border-purple-500/60 text-purple-200 shadow-[0_0_12px_rgba(168,85,247,0.4)]" 
-                  : "bg-red-950/70 border-red-500/60 text-red-300"
-              }`}
-              title={!isMuted ? "Mute Arcade SFX" : "Unmute Arcade SFX"}
-              aria-label={!isMuted ? "Mute Arcade SFX" : "Unmute Arcade SFX"}
-            >
-              {!isMuted ? "🔊" : "🔇"}
-            </button>
-            )}
-
             {/* Menu Hamburger Button */}
             {isMobileViewport === true && (
             <button
