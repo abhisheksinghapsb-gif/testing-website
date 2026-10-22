@@ -2011,7 +2011,7 @@ body {
   }
 
   .hero-gdai {
-    top: var(--mobile-header-inset) !important;
+    top: 0 !important;
     right: calc(
       var(--mobile-header-inset) +
       var(--mobile-menu-width) +
@@ -2021,12 +2021,12 @@ body {
   }
 
   .hero-gdai img {
-    width: clamp(44px, 13vw, 54px);
+    width: clamp(52px, 15vw, 64px);
     height: auto;
   }
 
   .hero-controls {
-    top: var(--mobile-header-inset) !important;
+    top: 0 !important;
     right: var(--mobile-header-inset) !important;
     margin-top: 0 !important;
     display: flex;
