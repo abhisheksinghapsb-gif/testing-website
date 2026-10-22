@@ -3,11 +3,7 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import { sounds } from "./sound";
 
-export interface PrizePoolSectionProps {
-  onSectionActive?: (active: boolean) => void;
-}
-
-export default function PrizePoolSection({ onSectionActive }: PrizePoolSectionProps) {
+export default function PrizePoolSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLDivElement>(null);
   const lastSoundRef = useRef<number>(0);
@@ -50,7 +46,7 @@ export default function PrizePoolSection({ onSectionActive }: PrizePoolSectionPr
     <section
       id="prizepool"
       ref={sectionRef}
-      className="relative w-full h-screen min-h-screen flex flex-col items-center justify-center overflow-hidden select-none bg-[#030015] shrink-0 text-white"
+      className="relative w-full min-h-screen h-auto md:h-screen flex flex-col items-center justify-center overflow-visible md:overflow-hidden select-none bg-[#030015] shrink-0 text-white"
     >
       {/* ── 1. COSMIC BRAWL STARS BACKGROUND LAYERS ──────── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
@@ -252,7 +248,7 @@ export default function PrizePoolSection({ onSectionActive }: PrizePoolSectionPr
       </div>
 
       {/* ── 3. MOBILE STACK (< 768px): 2 STACKED ARENAS WITH HORIZONTAL SWIPEABLE GALLERIES ──────── */}
-      <div className="flex md:hidden relative z-10 flex-col w-full px-4 py-8 gap-5 items-center">
+      <div className="prize-mobile-section flex md:hidden relative z-10 flex-col w-full items-center">
         {/* Mobile Main Arcade Title */}
         <div className="w-[88%] max-w-[340px] drop-shadow-[0_6px_14px_rgba(0,0,0,0.85)]">
           <img
@@ -263,52 +259,44 @@ export default function PrizePoolSection({ onSectionActive }: PrizePoolSectionPr
         </div>
 
         {/* Mobile Arena 1: Main Tournament (PRIZES) */}
-        <div className="relative w-full max-w-[480px] bg-gradient-to-b from-[#0E58F6]/95 to-[#092C82]/98 rounded-2xl border-[3px] border-[#20CEFF] shadow-[0_8px_24px_rgba(0,0,0,0.75)] overflow-hidden pt-3 pb-4">
+        <section className="prize-mobile-arena prize-mobile-main-arena relative w-full max-w-[480px] bg-gradient-to-b from-[#0E58F6]/95 to-[#092C82]/98 rounded-2xl border-[3px] border-[#20CEFF] shadow-[0_8px_24px_rgba(0,0,0,0.75)] overflow-hidden pt-3 pb-4" aria-labelledby="mobile-prizes-heading">
           {/* Header Bar */}
-          <div className="flex items-center justify-between px-4 pb-2 border-b-2 border-[#20CEFF]/30">
+          <div className="flex items-center justify-center px-4 pt-6 pb-3 border-b-2 border-[#20CEFF]/30">
             <img
               src="/landing-pages/prize-pool/ui/title-prizes.svg"
               alt="PRIZES"
-              className="h-9 sm:h-11 w-auto object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]"
+              id="mobile-prizes-heading"
+              className="relative top-4 h-9 sm:h-11 w-auto object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]"
             />
-            {/* Woody Avatar in Header */}
-            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-[#20CEFF] bg-[#030015]/80 overflow-hidden flex items-center justify-center shadow-[0_0_12px_rgba(32,206,255,0.4)] flex-shrink-0">
-              <img
-                src="/landing-pages/prize-pool/characters/woody.svg"
-                alt="Woody"
-                className="w-[140%] h-[140%] object-contain object-top mt-1"
-              />
-            </div>
           </div>
 
-          {/* Swipeable Prize Badge Gallery (1st, 2nd, 3rd) */}
-          <div className="prize-mobile-gallery gap-3.5 px-4 pt-3 pb-1">
-            <div className="prize-mobile-badge-item w-[180px] sm:w-[200px]">
+          <div className="prize-mobile-rewards">
+            <article className="prize-mobile-reward-card">
               <img
                 src="/landing-pages/prize-pool/badges/badge-main-1st.svg"
                 alt="1st Place ₹17,500"
-                className="w-full h-auto object-contain drop-shadow-[0_6px_14px_rgba(0,0,0,0.65)]"
+                className="prize-mobile-reward-art"
               />
-            </div>
-            <div className="prize-mobile-badge-item w-[180px] sm:w-[200px]">
+            </article>
+            <article className="prize-mobile-reward-card">
               <img
                 src="/landing-pages/prize-pool/badges/badge-main-2nd.svg"
                 alt="2nd Place ₹15,000"
-                className="w-full h-auto object-contain drop-shadow-[0_6px_14px_rgba(0,0,0,0.65)]"
+                className="prize-mobile-reward-art"
               />
-            </div>
-            <div className="prize-mobile-badge-item w-[180px] sm:w-[200px]">
+            </article>
+            <article className="prize-mobile-reward-card">
               <img
                 src="/landing-pages/prize-pool/badges/badge-main-3rd.svg"
                 alt="3rd Place ₹12,500"
-                className="w-full h-auto object-contain drop-shadow-[0_6px_14px_rgba(0,0,0,0.65)]"
+                className="prize-mobile-reward-art"
               />
-            </div>
+            </article>
           </div>
-          <p className="text-center text-xs text-cyan-300/80 font-bold tracking-wider mt-1 uppercase">
-            Swipe badges →
-          </p>
-        </div>
+          <div className="prize-mobile-character prize-mobile-character-woody" aria-hidden="true">
+            <img src="/landing-pages/prize-pool/characters/woody.svg" alt="" className="w-full h-full object-contain object-bottom" />
+          </div>
+        </section>
 
         {/* Decorative Purple Gem between arenas */}
         <div className="w-14 h-14 -my-2 drop-shadow-[0_4px_12px_rgba(154,69,255,0.8)] pointer-events-none">
@@ -321,45 +309,37 @@ export default function PrizePoolSection({ onSectionActive }: PrizePoolSectionPr
         </div>
 
         {/* Mobile Arena 2: VR Track */}
-        <div className="relative w-full max-w-[480px] bg-gradient-to-b from-[#0E58F6]/95 to-[#092C82]/98 rounded-2xl border-[3px] border-[#20CEFF] shadow-[0_8px_24px_rgba(0,0,0,0.75)] overflow-hidden pt-3 pb-4">
+        <section className="prize-mobile-arena prize-mobile-vr-arena relative w-full max-w-[480px] bg-gradient-to-b from-[#0E58F6]/95 to-[#092C82]/98 rounded-2xl border-[3px] border-[#20CEFF] shadow-[0_8px_24px_rgba(0,0,0,0.75)] overflow-hidden pt-3 pb-4" aria-labelledby="mobile-vr-heading">
           {/* Header Bar */}
-          <div className="flex items-center justify-between px-4 pb-2 border-b-2 border-[#20CEFF]/30">
+          <div className="flex items-center justify-center px-4 pt-6 pb-3 border-b-2 border-[#20CEFF]/30">
             <img
               src="/landing-pages/prize-pool/ui/title-vr-track.svg"
               alt="VR TRACK"
-              className="h-9 sm:h-11 w-auto object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]"
+              id="mobile-vr-heading"
+              className="relative top-4 h-9 sm:h-11 w-auto object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]"
             />
-            {/* Buzz Lightyear Avatar in Header */}
-            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-[#20CEFF] bg-[#030015]/80 overflow-hidden flex items-center justify-center shadow-[0_0_12px_rgba(32,206,255,0.4)] flex-shrink-0">
-              <img
-                src="/landing-pages/prize-pool/characters/buzzlight.svg"
-                alt="Buzz Lightyear"
-                className="w-[140%] h-[140%] object-contain object-top mt-1"
-              />
-            </div>
           </div>
 
-          {/* Swipeable VR Badge Gallery (1st, 2nd) */}
-          <div className="prize-mobile-gallery gap-3.5 px-4 pt-3 pb-1">
-            <div className="prize-mobile-badge-item w-[180px] sm:w-[200px]">
+          <div className="prize-mobile-rewards">
+            <article className="prize-mobile-reward-card">
               <img
                 src="/landing-pages/prize-pool/badges/badge-vr-1st.svg"
                 alt="VR 1st Place ₹10,000"
-                className="w-full h-auto object-contain drop-shadow-[0_6px_14px_rgba(0,0,0,0.65)]"
+                className="prize-mobile-reward-art"
               />
-            </div>
-            <div className="prize-mobile-badge-item w-[180px] sm:w-[200px]">
+            </article>
+            <article className="prize-mobile-reward-card">
               <img
                 src="/landing-pages/prize-pool/badges/badge-vr-2nd.svg"
                 alt="VR 2nd Place ₹5,000"
-                className="w-full h-auto object-contain drop-shadow-[0_6px_14px_rgba(0,0,0,0.65)]"
+                className="prize-mobile-reward-art"
               />
-            </div>
+            </article>
           </div>
-          <p className="text-center text-xs text-cyan-300/80 font-bold tracking-wider mt-1 uppercase">
-            Swipe badges →
-          </p>
-        </div>
+          <div className="prize-mobile-character prize-mobile-character-buzz" aria-hidden="true">
+            <img src="/landing-pages/prize-pool/characters/buzzlight.svg" alt="" className="w-full h-full object-contain object-bottom" />
+          </div>
+        </section>
       </div>
     </section>
   );

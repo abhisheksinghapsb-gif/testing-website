@@ -866,24 +866,129 @@ body {
   }
 }
 
-/* Mobile swipeable galleries */
-.prize-mobile-gallery {
+/* Mobile vertical rewards showcase */
+.prize-mobile-section {
+  --prize-mobile-side-space: clamp(12px, 4vw, 20px);
+  --prize-mobile-nav-clearance: clamp(24px, 8vw, 40px);
+  --prize-mobile-heading-height: clamp(32px, 9vw, 40px);
+  --prize-mobile-badge-width: min(100%, clamp(165px, 48vw, 195px));
+  --prize-mobile-reward-gap: clamp(18px, 5vw, 24px);
+  --prize-mobile-character-bottom: 0px;
+  padding-left: var(--prize-mobile-side-space);
+  padding-right: calc(var(--prize-mobile-side-space) + var(--prize-mobile-nav-clearance));
+  padding-block: clamp(24px, 6vh, 48px);
+  gap: clamp(18px, 4vw, 28px);
+}
+
+.prize-mobile-arena {
+  min-width: 0;
+  width: 100%;
+}
+
+.prize-mobile-rewards {
   display: flex;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-snap-type: x mandatory;
-  overscroll-behavior-x: contain;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
+  flex-direction: column;
+  gap: var(--prize-mobile-reward-gap);
+  padding: clamp(12px, 4vw, 18px);
 }
 
-.prize-mobile-gallery::-webkit-scrollbar {
-  display: none;
+.prize-mobile-reward-card {
+  display: grid;
+  place-items: center;
+  min-height: 0;
+  padding: clamp(12px, 3vw, 18px);
+  border: 1px solid rgba(32, 206, 255, 0.36);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(12, 87, 224, 0.48), rgba(4, 25, 91, 0.56));
+  box-shadow: inset 0 0 18px rgba(32, 206, 255, 0.08);
 }
 
-.prize-mobile-badge-item {
+.prize-mobile-reward-art {
+  display: block;
+  width: var(--prize-mobile-badge-width);
+  height: auto;
+  object-fit: contain;
+  margin-inline: auto;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.65));
+}
+
+.prize-mobile-character {
+  position: absolute;
+  bottom: var(--prize-mobile-character-bottom);
+  z-index: 2;
+  pointer-events: none;
+  width: clamp(100px, 32vw, 170px);
+  height: auto;
+  aspect-ratio: 487 / 436;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.72));
+}
+
+.prize-mobile-character-woody {
+  left: clamp(6px, 2vw, 14px);
+  width: clamp(95px, 28vw, 145px);
+  transform: translateY(18%);
+}
+
+.prize-mobile-character-buzz {
+  right: clamp(6px, 2vw, 14px);
+  width: clamp(100px, 30vw, 155px);
+  aspect-ratio: 624 / 535;
+  transform: translateY(18%);
+}
+
+.prize-mobile-main-arena {
+  padding-bottom: clamp(100px, 28vw, 150px);
+}
+
+.prize-mobile-vr-arena {
+  padding-bottom: clamp(110px, 30vw, 165px);
+}
+
+.prize-mobile-gem {
   flex: 0 0 auto;
-  scroll-snap-align: center;
+}
+
+.prize-mobile-reward-art img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 480px) {
+  .prize-mobile-section {
+    --prize-mobile-side-space: 12px;
+    --prize-mobile-nav-clearance: 28px;
+    padding-block: 24px 40px;
+    gap: 18px;
+  }
+
+  .prize-mobile-rewards {
+    gap: var(--prize-mobile-reward-gap);
+    padding: 12px;
+  }
+
+  .prize-mobile-reward-card {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 340px) {
+  .prize-mobile-section {
+    --prize-mobile-nav-clearance: 24px;
+    --prize-mobile-badge-width: min(100%, 165px);
+  }
+
+  .prize-mobile-reward-art {
+    width: var(--prize-mobile-badge-width);
+  }
+
+  .prize-mobile-main-arena {
+    padding-bottom: 96px;
+  }
+
+  .prize-mobile-vr-arena {
+    padding-bottom: 106px;
+  }
 }
 
 /* Home → About cinematic boundary. Decorative only: it adds no document
