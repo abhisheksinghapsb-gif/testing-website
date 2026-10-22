@@ -179,8 +179,9 @@ export default function MemoriesSection({ scrollContainerRef }: MemoriesSectionP
                 height={700}
                 sizes="(max-width: 639px) 76vw, (max-width: 1023px) 320px, 360px"
                 className="memories-photo-image"
-                loading={memory.id === 1 ? "eager" : "lazy"}
-                fetchPriority={memory.id === 1 ? "high" : "auto"}
+                loading="lazy"
+                fetchPriority="auto"
+                decoding="async"
               />
               <figcaption className="memories-photo-caption">
                 MEMORY {String(memory.id).padStart(2, "0")}

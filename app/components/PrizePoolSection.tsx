@@ -51,7 +51,7 @@ export default function PrizePoolSection() {
       {/* ── 1. COSMIC BRAWL STARS BACKGROUND LAYERS ──────── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
         <img loading="lazy" decoding="async"
-          src="/landing-pages/prize-pool/backgrounds/bg-cosmic-pattern.svg"
+          src="/landing-pages/shared/backgrounds/cosmic-background.webp"
           alt=""
           aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover object-center"

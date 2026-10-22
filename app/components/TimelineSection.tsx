@@ -159,7 +159,7 @@ export default function TimelineSection({ scrollContainerRef }: TimelineSectionP
   return (
     <section ref={sectionRef} id="timeline" className="genesis-timeline relative w-full overflow-hidden bg-[#030015] text-white" aria-label="Genesis Event Timeline Roadmap">
       <div className="absolute inset-0 pointer-events-none">
-        <img loading="lazy" decoding="async" src="/landing-pages/timeline/backgrounds/cosmic-background.svg" alt="" aria-hidden="true" className="h-full w-full object-cover opacity-75" />
+        <img loading="lazy" decoding="async" src="/landing-pages/shared/backgrounds/cosmic-background.webp" alt="" aria-hidden="true" className="h-full w-full object-cover opacity-75" />
         <div className="absolute inset-0 bg-[#030015]/35" />
       </div>
 
@@ -193,7 +193,7 @@ export default function TimelineSection({ scrollContainerRef }: TimelineSectionP
                 </div>
               </div>
               </div>
-              <div className="genesis-timeline-marker" aria-label={`Stage ${stage.step}: ${stage.title}`}>
+              <div className="genesis-timeline-marker">
                 <img loading="lazy" decoding="async"
                   className="genesis-timeline-marker-art"
                   src={`/landing-pages/timeline/markers/genesis-milestone-${stage.step}.svg`}

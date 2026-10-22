@@ -71,7 +71,8 @@ export default function SponsorsSection() {
           fill
           sizes="100vw"
           className="object-cover opacity-85 mix-blend-screen select-none pointer-events-none"
-          priority
+          loading="lazy"
+          decoding="async"
         />
         {/* Soft vignette overlay */}
         <div className="absolute inset-0 bg-radial-gradient from-transparent via-[#030015]/30 to-[#030015]/80 pointer-events-none" />
@@ -92,7 +93,8 @@ export default function SponsorsSection() {
               alt="Genesis Crown"
               fill
               className="object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)] drop-shadow-[0_0_12px_rgba(234,179,8,0.4)]"
-              priority
+              loading="lazy"
+              decoding="async"
             />
           </div>
 
@@ -103,7 +105,8 @@ export default function SponsorsSection() {
               alt="SPONSORS"
               fill
               className="object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.8)]"
-              priority
+              loading="lazy"
+              decoding="async"
             />
           </div>
 
@@ -114,7 +117,8 @@ export default function SponsorsSection() {
               alt="Gems and Credits Box"
               fill
               className="object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)] drop-shadow-[0_0_14px_rgba(6,182,212,0.45)]"
-              priority
+              loading="lazy"
+              decoding="async"
             />
           </div>
         </header>
@@ -131,7 +135,8 @@ export default function SponsorsSection() {
                 alt="Past Sponsors Cabinet Frame"
                 fill
                 className="object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.7)]"
-                priority
+                loading="lazy"
+                decoding="async"
               />
             </div>
 
@@ -142,7 +147,8 @@ export default function SponsorsSection() {
                 alt="Past Sponsors Border"
                 fill
                 className="object-contain"
-                priority
+                loading="lazy"
+                decoding="async"
               />
             </div>
 
@@ -155,7 +161,8 @@ export default function SponsorsSection() {
                   alt="GameCloud Technologies Private Limited"
                   fill
                   className="object-contain"
-                  priority
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
 
@@ -166,7 +173,8 @@ export default function SponsorsSection() {
                   alt="GameDoora"
                   fill
                   className="object-contain"
-                  priority
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
             </div>
@@ -182,7 +190,8 @@ export default function SponsorsSection() {
                 alt="Sponsors Console Frame"
                 fill
                 className="object-contain drop-shadow-[0_12px_28px_rgba(0,0,0,0.7)]"
-                priority
+                loading="lazy"
+                decoding="async"
               />
             </div>
 
@@ -201,7 +210,8 @@ export default function SponsorsSection() {
                       alt={card.name}
                       fill
                       className="object-contain drop-shadow-[0_4px_10px_rgba(0,0,0,0.6)] group-hover:drop-shadow-[0_10px_20px_rgba(0,0,0,0.85)]"
-                      priority
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                 </div>
@@ -227,7 +237,8 @@ export default function SponsorsSection() {
                       alt={card.name}
                       fill
                       className="object-contain drop-shadow-[0_4px_10px_rgba(0,0,0,0.6)] group-hover:drop-shadow-[0_10px_20px_rgba(0,0,0,0.85)]"
-                      priority
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                 </div>
@@ -261,7 +272,8 @@ export default function SponsorsSection() {
                       alt={card.name}
                       fill
                       className="object-contain drop-shadow-[0_6px_14px_rgba(0,0,0,0.7)]"
-                      priority
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                 </div>
@@ -298,7 +310,8 @@ export default function SponsorsSection() {
           alt="Shadow Spike"
           fill
           className="object-contain"
-          priority
+          loading="lazy"
+          decoding="async"
         />
       </div>
     </section>

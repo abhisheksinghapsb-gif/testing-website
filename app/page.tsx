@@ -259,7 +259,7 @@ export default function Home() {
   };
 
   return (
-    <div 
+    <main
       ref={containerRef}
       className="relative w-full h-screen overflow-y-auto overflow-x-hidden select-none bg-[#030015]"
       style={{
@@ -492,6 +492,8 @@ export default function Home() {
               alt="Purple Ringed Planet"
               width={330}
               height={170}
+              loading="eager"
+              fetchPriority="high"
               className="w-full h-full object-contain drop-shadow-[0_0_28px_rgba(168,85,247,0.4)]"
             />
           </div>
@@ -1058,6 +1060,6 @@ export default function Home() {
           aria-label="Frequently Asked Questions"
         />
       </aside>}
-    </div>
+    </main>
   );
 }
