@@ -29,10 +29,6 @@ const MEMORIES: Memory[] = [
   { id: 8, src: "/landing-pages/memories/photos/memory-08.webp", x: 60, y: 87, tilt: -5 },
 ];
 
-function scrollToSection(sectionId: string) {
-  document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth", block: "start" });
-}
-
 export default function MemoriesSection({ scrollContainerRef }: MemoriesSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const cameraRef = useRef<HTMLDivElement>(null);
@@ -194,14 +190,6 @@ export default function MemoriesSection({ scrollContainerRef }: MemoriesSectionP
         </div>
 
         <header className="memories-header">
-          <button
-            type="button"
-            className="memories-icon-button memories-back"
-            aria-label="Back to Prize Pool"
-            onClick={() => scrollToSection("prizepool")}
-          >
-            <Image src="/landing-pages/memories/ui/memories-back.svg" alt="" width={195} height={135} />
-          </button>
           <Image
             className="memories-title"
             src="/landing-pages/memories/ui/memories-title.svg"
