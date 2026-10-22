@@ -38,7 +38,6 @@ export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
   const [isLogoHovered, setIsLogoHovered] = useState(false);
-  const [activeSection, setActiveSection] = useState<"hero" | "about" | "timeline" | "prizepool" | "sponsors" | "faq">("hero");
   const lastSectionRef = useRef<"hero" | "about" | "timeline" | "prizepool" | "sponsors" | "faq">("hero");
 
   useEffect(() => {
@@ -136,7 +135,6 @@ export default function Home() {
 
       if (current !== lastSectionRef.current) {
         lastSectionRef.current = current;
-        setActiveSection(current);
       }
     };
 
@@ -650,13 +648,11 @@ export default function Home() {
               aria-expanded={isMobileMenuOpen}
               aria-controls="hero-mobile-menu"
             >
-              <Image
-                src="/landing-pages/home/ui/btn-settings.webp"
-                alt="Settings Menu"
-                width={65}
-                height={35}
-                className="h-9 md:h-10 w-auto object-contain drop-shadow-[0_3px_6px_rgba(0,0,0,0.5)] group-hover:drop-shadow-[0_0_12px_rgba(168,85,247,0.6)]"
-              />
+              <span className="hero-menu-icon" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </span>
             </button>
             )}
 
@@ -991,7 +987,7 @@ export default function Home() {
     <FAQSection />
 
       {/* ── FULL-SCREEN VIEWPORT SIDE DOCK INDICATORS (6 SECTIONS) ──────── */}
-      <aside aria-label="Page Sections" className="fixed right-3 sm:right-6 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-3 pointer-events-auto">
+      {false && <aside aria-label="Page Sections" className="fixed right-3 sm:right-6 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-3 pointer-events-auto">
         <button
           type="button"
           onClick={() => {
@@ -999,7 +995,7 @@ export default function Home() {
             document.getElementById("hero")?.scrollIntoView({ behavior: "smooth" });
           }}
           className={`w-3.5 h-3.5 rounded-full transition-all duration-300 border-2 cursor-pointer ${
-            activeSection === "hero"
+            false
               ? "bg-amber-400 border-white scale-125 shadow-[0_0_12px_#fbbf24]"
               : "bg-blue-950/80 border-blue-400/50 hover:bg-blue-700 hover:scale-110"
           }`}
@@ -1013,7 +1009,7 @@ export default function Home() {
             document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
           }}
           className={`w-3.5 h-3.5 rounded-full transition-all duration-300 border-2 cursor-pointer ${
-            activeSection === "about"
+            false
               ? "bg-red-500 border-white scale-125 shadow-[0_0_12px_#ef4444]"
               : "bg-blue-950/80 border-blue-400/50 hover:bg-blue-700 hover:scale-110"
           }`}
@@ -1027,7 +1023,7 @@ export default function Home() {
             document.getElementById("timeline")?.scrollIntoView({ behavior: "smooth" });
           }}
           className={`w-3.5 h-3.5 rounded-full transition-all duration-300 border-2 cursor-pointer ${
-            activeSection === "timeline"
+            false
               ? "bg-cyan-400 border-white scale-125 shadow-[0_0_12px_#22d3ee]"
               : "bg-blue-950/80 border-blue-400/50 hover:bg-blue-700 hover:scale-110"
           }`}
@@ -1041,7 +1037,7 @@ export default function Home() {
             document.getElementById("prizepool")?.scrollIntoView({ behavior: "smooth" });
           }}
           className={`w-3.5 h-3.5 rounded-full transition-all duration-300 border-2 cursor-pointer ${
-            activeSection === "prizepool"
+            false
               ? "bg-yellow-400 border-white scale-125 shadow-[0_0_12px_#facc15]"
               : "bg-blue-950/80 border-blue-400/50 hover:bg-blue-700 hover:scale-110"
           }`}
@@ -1055,7 +1051,7 @@ export default function Home() {
             document.getElementById("sponsors")?.scrollIntoView({ behavior: "smooth" });
           }}
           className={`w-3.5 h-3.5 rounded-full transition-all duration-300 border-2 cursor-pointer ${
-            activeSection === "sponsors"
+            false
               ? "bg-emerald-400 border-white scale-125 shadow-[0_0_12px_#34d399]"
               : "bg-blue-950/80 border-blue-400/50 hover:bg-blue-700 hover:scale-110"
           }`}
@@ -1069,14 +1065,14 @@ export default function Home() {
             document.getElementById("faq")?.scrollIntoView({ behavior: "smooth" });
           }}
           className={`w-3.5 h-3.5 rounded-full transition-all duration-300 border-2 cursor-pointer ${
-            activeSection === "faq"
+            false
               ? "bg-purple-400 border-white scale-125 shadow-[0_0_12px_#c084fc]"
               : "bg-blue-950/80 border-blue-400/50 hover:bg-blue-700 hover:scale-110"
           }`}
           title="Frequently Asked Questions"
           aria-label="Frequently Asked Questions"
         />
-      </aside>
+      </aside>}
     </div>
   );
 }

@@ -1997,8 +1997,26 @@ body {
 
 /* Cinematic mobile Hero composition: compact controls, breathing room, and proportional artwork. */
 @media (max-width: 767px) {
+  .hero-header {
+    --mobile-header-inset: clamp(10px, 3vw, 16px);
+    --mobile-menu-width: clamp(44px, 12vw, 52px);
+    --mobile-header-gap: clamp(8px, 2.5vw, 12px);
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    width: 100%;
+    padding-inline: var(--mobile-header-inset);
+    padding-top: var(--mobile-header-inset);
+    box-sizing: border-box;
+  }
+
   .hero-gdai {
-    right: clamp(12px, 4vw, 18px) !important;
+    top: var(--mobile-header-inset) !important;
+    right: calc(
+      var(--mobile-header-inset) +
+      var(--mobile-menu-width) +
+      var(--mobile-header-gap)
+    ) !important;
     transform: none !important;
   }
 
@@ -2008,15 +2026,35 @@ body {
   }
 
   .hero-controls {
-    top: clamp(58px, 10vh, 84px) !important;
-    right: clamp(12px, 4vw, 18px) !important;
+    top: var(--mobile-header-inset) !important;
+    right: var(--mobile-header-inset) !important;
     margin-top: 0 !important;
-    gap: 10px;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--mobile-header-gap);
   }
 
-  .hero-menu-trigger img {
-    width: clamp(36px, 10vw, 42px);
-    height: auto;
+  .hero-menu-trigger {
+    width: var(--mobile-menu-width);
+    height: var(--mobile-menu-width);
+    display: grid !important;
+    place-items: center;
+  }
+
+  .hero-menu-icon {
+    display: flex;
+    width: clamp(28px, 8vw, 36px);
+    flex-direction: column;
+    gap: clamp(5px, 1.5vw, 7px);
+  }
+
+  .hero-menu-icon span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   }
 
   .hero-logo {
@@ -2049,4 +2087,3 @@ body {
     width: min(46vw, 200px) !important;
   }
 }
-
