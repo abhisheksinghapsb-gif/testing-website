@@ -869,15 +869,38 @@ body {
 /* Mobile vertical rewards showcase */
 .prize-mobile-section {
   --prize-mobile-side-space: clamp(12px, 4vw, 20px);
-  --prize-mobile-nav-clearance: clamp(24px, 8vw, 40px);
   --prize-mobile-heading-height: clamp(32px, 9vw, 40px);
   --prize-mobile-badge-width: min(100%, clamp(165px, 48vw, 195px));
   --prize-mobile-reward-gap: clamp(18px, 5vw, 24px);
   --prize-mobile-character-bottom: 0px;
-  padding-left: var(--prize-mobile-side-space);
-  padding-right: calc(var(--prize-mobile-side-space) + var(--prize-mobile-nav-clearance));
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 640px;
+  margin-inline: auto;
+  padding-inline: var(--prize-mobile-side-space);
   padding-block: clamp(24px, 6vh, 48px);
   gap: clamp(18px, 4vw, 28px);
+}
+
+@media (max-width: 767px) {
+  .prize-mobile-centered {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 640px;
+    margin-inline: auto;
+    padding-inline: clamp(14px, 4vw, 24px);
+    transform: none;
+    translate: none;
+  }
+
+  .prize-mobile-centered .prize-mobile-arena {
+    box-sizing: border-box;
+    width: 100%;
+    margin-inline: auto;
+  }
 }
 
 .prize-mobile-arena {
@@ -957,7 +980,6 @@ body {
 @media (max-width: 480px) {
   .prize-mobile-section {
     --prize-mobile-side-space: 12px;
-    --prize-mobile-nav-clearance: 28px;
     padding-block: 24px 40px;
     gap: 18px;
   }
@@ -974,7 +996,6 @@ body {
 
 @media (max-width: 340px) {
   .prize-mobile-section {
-    --prize-mobile-nav-clearance: 24px;
     --prize-mobile-badge-width: min(100%, 165px);
   }
 

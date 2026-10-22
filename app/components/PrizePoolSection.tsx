@@ -248,7 +248,7 @@ export default function PrizePoolSection() {
       </div>
 
       {/* ── 3. MOBILE STACK (< 768px): 2 STACKED ARENAS WITH HORIZONTAL SWIPEABLE GALLERIES ──────── */}
-      <div className="prize-mobile-section flex md:hidden relative z-10 flex-col w-full items-center">
+      <div className="prize-mobile-centered prize-mobile-section flex md:hidden relative z-10 flex-col w-full items-center">
         {/* Mobile Main Arcade Title */}
         <div className="w-[88%] max-w-[340px] drop-shadow-[0_6px_14px_rgba(0,0,0,0.85)]">
           <img
