@@ -77,7 +77,7 @@ export default function FAQSection() {
       {/* ── 1. COSMIC BRAWL STARS PATTERN BACKGROUND ── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
         <picture>
-          <img
+          <img loading="lazy" decoding="async"
             src="/landing-pages/faq/backgrounds/bg-cosmic-faq.svg"
             alt=""
             aria-hidden="true"
@@ -105,7 +105,7 @@ export default function FAQSection() {
         <div className="relative w-full flex flex-col items-center shrink-0">
           <h2 className="sr-only">Frequently Asked Questions</h2>
           <div className="relative w-[260px] sm:w-[320px] md:w-[380px] lg:w-[430px] h-[48px] sm:h-[58px] md:h-[68px] lg:h-[76px] pointer-events-none drop-shadow-[0_8px_20px_rgba(0,0,0,0.85)]">
-            <img
+            <img loading="lazy" decoding="async"
               src="/landing-pages/faq/ui/faq-banner.svg"
               alt="FAQs"
               className="w-full h-full object-contain pointer-events-none"
@@ -137,7 +137,7 @@ export default function FAQSection() {
                   isTransitioning ? "opacity-0 scale-95" : "opacity-100 scale-100"
                 }`}
               >
-                <img
+                <img loading="lazy" decoding="async"
                   src={currentCategoryData.headerSvg}
                   alt={currentCategoryData.label}
                   className="h-full w-auto max-w-[190px] sm:max-w-[240px] md:max-w-[270px] object-contain pointer-events-none drop-shadow-[0_3px_6px_rgba(0,0,0,0.7)]"
@@ -203,7 +203,7 @@ export default function FAQSection() {
               >
                 {/* Visual SVG Navigation Tag from Figma reference */}
                 <div className="h-[18px] sm:h-[24px] md:h-[28px] flex items-center justify-center">
-                  <img
+                  <img loading="lazy" decoding="async"
                     src={cat.navSvg}
                     alt={cat.label}
                     className={`h-full w-auto object-contain pointer-events-none transition-all duration-200 ${

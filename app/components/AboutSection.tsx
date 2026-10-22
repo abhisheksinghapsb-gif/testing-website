@@ -23,7 +23,7 @@ export default function AboutSection() {
         </picture>
 
         {/* Texture Glow & Energy Beam (Right side on desktop) */}
-        {/* <img
+        {/* <img loading="lazy" decoding="async"
           src="/landing-pages/about/ui/texture-glow.svg"
           alt=""
           aria-hidden="true"
@@ -31,7 +31,7 @@ export default function AboutSection() {
         /> */}
 
         {/* Accent Tech Lines (Top-left HUD stripes) */}
-        <img
+        <img loading="lazy" decoding="async"
           src="/landing-pages/about/ui/accent-lines.svg"
           alt=""
           aria-hidden="true"
@@ -51,14 +51,14 @@ export default function AboutSection() {
         {/* ── Coherent Heading Group (Emblem + Yellow ABOUT + White GENESIS) ── */}
         <div className="about-heading-group relative flex-shrink-0">
           {/* Yellow Skull-Star Emblem */}
-          <img
+          <img loading="lazy" decoding="async"
             src="/landing-pages/about/ui/genesis-emblem.svg"
             alt="Genesis Star Emblem"
             className="about-emblem absolute pointer-events-none select-none z-25 drop-shadow-[0_4px_10px_rgba(0,0,0,0.7)]"
           />
 
           {/* Yellow ABOUT Heading Banner */}
-          <img
+          <img loading="lazy" decoding="async"
             src="/landing-pages/about/ui/heading-about.svg"
             alt="ABOUT"
             className="about-banner absolute pointer-events-none select-none z-21 drop-shadow-[0_8px_16px_rgba(0,0,0,0.85)]"
@@ -67,7 +67,7 @@ export default function AboutSection() {
           {/* White GENESIS Heading (Complete, unclipped title) */}
           <picture>
             <source srcSet="/landing-pages/about/ui/heading-genesis.webp" type="image/webp" />
-            <img
+            <img loading="lazy" decoding="async"
               src="/landing-pages/about/ui/heading-genesis.svg"
               alt="GENESIS"
               className="about-title-genesis absolute pointer-events-none select-none z-22 drop-shadow-[0_10px_22px_rgba(0,0,0,0.9)]"
@@ -78,7 +78,7 @@ export default function AboutSection() {
         {/* ── Light-Blue Information Panel (Vector 38 Polygon Shape) ── */}
         <div className="about-info-panel relative flex-shrink-0">
           {/* Pale-Blue SVG Polygon Background Shape */}
-          <img
+          <img loading="lazy" decoding="async"
             src="/landing-pages/about/ui/info-panel.svg"
             alt=""
             aria-hidden="true"

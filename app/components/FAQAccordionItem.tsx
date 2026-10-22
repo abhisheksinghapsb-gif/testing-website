@@ -66,7 +66,7 @@ export default function FAQAccordionItem({
 
           {/* Master Figma SVG on sm+ viewports */}
           <div className="hidden sm:flex items-center pointer-events-none select-none max-w-full">
-            <img
+            <img loading="lazy" decoding="async"
               src={item.questionSvg}
               alt=""
               aria-hidden="true"
@@ -89,7 +89,7 @@ export default function FAQAccordionItem({
           }`}
           aria-hidden="true"
         >
-          <img
+          <img loading="lazy" decoding="async"
             src="/landing-pages/faq/ui/icon-plus.svg"
             alt=""
             className="w-[14px] h-[14px] sm:w-[16px] sm:h-[16px] md:w-[17px] md:h-[17px] object-contain pointer-events-none"

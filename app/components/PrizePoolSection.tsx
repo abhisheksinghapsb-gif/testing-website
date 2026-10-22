@@ -50,13 +50,13 @@ export default function PrizePoolSection() {
     >
       {/* ── 1. COSMIC BRAWL STARS BACKGROUND LAYERS ──────── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-        <img
+        <img loading="lazy" decoding="async"
           src="/landing-pages/prize-pool/backgrounds/bg-cosmic-pattern.svg"
           alt=""
           aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover object-center"
         />
-        <img
+        <img loading="lazy" decoding="async"
           src="/landing-pages/prize-pool/backgrounds/bg-blue-icons.svg"
           alt=""
           aria-hidden="true"
@@ -94,7 +94,7 @@ export default function PrizePoolSection() {
           >
           {/* Main Arcade Heading: PRIZE POOL */}
           <div className="absolute top-[28px] left-1/2 -translate-x-1/2 w-[527px] h-[116px] z-30 pointer-events-none drop-shadow-[0_8px_20px_rgba(0,0,0,0.8)]">
-            <img
+            <img loading="lazy" decoding="async"
               src="/landing-pages/prize-pool/ui/title-prizepool.svg"
               alt="PRIZE POOL"
               className="w-full h-full object-contain"
@@ -104,7 +104,7 @@ export default function PrizePoolSection() {
           {/* ── UPPER ARENA: MAIN TOURNAMENT (PRIZES) ──────── */}
           <div className="absolute left-[67px] top-[187px] width-[1315px] w-[1315px] h-[361px] z-20">
             {/* Clean Blue Arena Frame (No red X, no duplicate baked-in badges) */}
-            <img
+            <img loading="lazy" decoding="async"
               src="/landing-pages/prize-pool/ui/arena-upper-frame.svg"
               alt=""
               aria-hidden="true"
@@ -113,7 +113,7 @@ export default function PrizePoolSection() {
 
             {/* Arena Title: PRIZES */}
             <div className="absolute -top-[30px] left-1/2 -translate-x-1/2 w-[274px] h-[73px] z-15 pointer-events-none drop-shadow-[0_6px_14px_rgba(0,0,0,0.8)]">
-              <img
+              <img loading="lazy" decoding="async"
                 src="/landing-pages/prize-pool/ui/title-prizes.svg"
                 alt="PRIZES"
                 className="w-full h-full object-contain"
@@ -126,7 +126,7 @@ export default function PrizePoolSection() {
               className="woody-hover absolute left-[15px] -top-[107px] w-[487px] h-[436px] z-12 drop-shadow-[0_10px_24px_rgba(0,0,0,0.85)]"
               title="Woody Colt"
             >
-              <img
+              <img loading="lazy" decoding="async"
                 src="/landing-pages/prize-pool/characters/woody.svg"
                 alt="Woody"
                 className="w-full h-full object-contain pointer-events-none"
@@ -140,7 +140,7 @@ export default function PrizePoolSection() {
               className="prize-badge-hover absolute left-[540px] top-[36px] w-[246px] h-[316px] z-10 drop-shadow-[0_10px_20px_rgba(0,0,0,0.7)]"
               title="1st Place — ₹17,500"
             >
-              <img
+              <img loading="lazy" decoding="async"
                 src="/landing-pages/prize-pool/badges/badge-main-1st.svg"
                 alt="1st Place ₹17,500"
                 className="w-full h-full object-contain pointer-events-none"
@@ -153,7 +153,7 @@ export default function PrizePoolSection() {
               className="prize-badge-hover absolute left-[782px] top-[45px] w-[246px] h-[304px] z-10 drop-shadow-[0_10px_20px_rgba(0,0,0,0.7)]"
               title="2nd Place — ₹15,000"
             >
-              <img
+              <img loading="lazy" decoding="async"
                 src="/landing-pages/prize-pool/badges/badge-main-2nd.svg"
                 alt="2nd Place ₹15,000"
                 className="w-full h-full object-contain pointer-events-none"
@@ -166,7 +166,7 @@ export default function PrizePoolSection() {
               className="prize-badge-hover absolute left-[1023px] top-[40px] w-[247px] h-[306px] z-10 drop-shadow-[0_10px_20px_rgba(0,0,0,0.7)]"
               title="3rd Place — ₹12,500"
             >
-              <img
+              <img loading="lazy" decoding="async"
                 src="/landing-pages/prize-pool/badges/badge-main-3rd.svg"
                 alt="3rd Place ₹12,500"
                 className="w-full h-full object-contain pointer-events-none"
@@ -176,7 +176,7 @@ export default function PrizePoolSection() {
 
           {/* ── DECORATIVE PURPLE GEM ──────── */}
           <div className="absolute left-[55px] top-[530px] w-[145px] h-[155px] z-25 pointer-events-none drop-shadow-[0_6px_16px_rgba(154,69,255,0.7)]">
-            <img
+            <img loading="lazy" decoding="async"
               src="/landing-pages/prize-pool/ui/gem-purple.svg"
               alt=""
               aria-hidden="true"
@@ -187,7 +187,7 @@ export default function PrizePoolSection() {
           {/* ── LOWER ARENA: VR TRACK ──────── */}
           <div className="absolute left-[95px] top-[598px] width-[1251px] w-[1251px] h-[397px] z-20">
             {/* Clean Blue Arena Frame (No red X, no duplicate baked-in badges) */}
-            <img
+            <img loading="lazy" decoding="async"
               src="/landing-pages/prize-pool/ui/arena-lower-frame.svg"
               alt=""
               aria-hidden="true"
@@ -196,7 +196,7 @@ export default function PrizePoolSection() {
 
             {/* Arena Title: VR TRACK */}
             <div className="absolute -top-[30px] left-1/2 -translate-x-1/2 w-[363px] h-[70px] z-15 pointer-events-none drop-shadow-[0_6px_14px_rgba(0,0,0,0.8)]">
-              <img
+              <img loading="lazy" decoding="async"
                 src="/landing-pages/prize-pool/ui/title-vr-track.svg"
                 alt="VR TRACK"
                 className="w-full h-full object-contain"
@@ -210,7 +210,7 @@ export default function PrizePoolSection() {
               className="prize-badge-hover absolute left-[95px] top-[34px] w-[276px] h-[352px] z-10 drop-shadow-[0_10px_20px_rgba(0,0,0,0.7)]"
               title="VR 1st Place — ₹10,000"
             >
-              <img
+              <img loading="lazy" decoding="async"
                 src="/landing-pages/prize-pool/badges/badge-vr-1st.svg"
                 alt="VR 1st Place ₹10,000"
                 className="w-full h-full object-contain pointer-events-none"
@@ -223,7 +223,7 @@ export default function PrizePoolSection() {
               className="prize-badge-hover absolute left-[417px] top-[38px] w-[276px] h-[340px] z-10 drop-shadow-[0_10px_20px_rgba(0,0,0,0.7)]"
               title="VR 2nd Place — ₹5,000"
             >
-              <img
+              <img loading="lazy" decoding="async"
                 src="/landing-pages/prize-pool/badges/badge-vr-2nd.svg"
                 alt="VR 2nd Place ₹5,000"
                 className="w-full h-full object-contain pointer-events-none"
@@ -236,7 +236,7 @@ export default function PrizePoolSection() {
               className="buzz-hover absolute right-[15px] -top-[115px] w-[624px] h-[535px] z-12 drop-shadow-[0_10px_24px_rgba(0,0,0,0.85)]"
               title="Buzz Lightyear"
             >
-              <img
+              <img loading="lazy" decoding="async"
                 src="/landing-pages/prize-pool/characters/buzzlight.svg"
                 alt="Buzz Lightyear"
                 className="w-full h-full object-contain pointer-events-none"
@@ -251,7 +251,7 @@ export default function PrizePoolSection() {
       <div className="prize-mobile-centered prize-mobile-section flex md:hidden relative z-10 flex-col w-full items-center">
         {/* Mobile Main Arcade Title */}
         <div className="w-[88%] max-w-[340px] drop-shadow-[0_6px_14px_rgba(0,0,0,0.85)]">
-          <img
+          <img loading="lazy" decoding="async"
             src="/landing-pages/prize-pool/ui/title-prizepool.svg"
             alt="PRIZE POOL"
             className="w-full h-auto object-contain"
@@ -262,7 +262,7 @@ export default function PrizePoolSection() {
         <section className="prize-mobile-arena prize-mobile-main-arena relative w-full max-w-[480px] bg-gradient-to-b from-[#0E58F6]/95 to-[#092C82]/98 rounded-2xl border-[3px] border-[#20CEFF] shadow-[0_8px_24px_rgba(0,0,0,0.75)] overflow-hidden pt-3 pb-4" aria-labelledby="mobile-prizes-heading">
           {/* Header Bar */}
           <div className="flex items-center justify-center px-4 pt-6 pb-3 border-b-2 border-[#20CEFF]/30">
-            <img
+            <img loading="lazy" decoding="async"
               src="/landing-pages/prize-pool/ui/title-prizes.svg"
               alt="PRIZES"
               id="mobile-prizes-heading"
@@ -272,21 +272,21 @@ export default function PrizePoolSection() {
 
           <div className="prize-mobile-rewards">
             <article className="prize-mobile-reward-card">
-              <img
+              <img loading="lazy" decoding="async"
                 src="/landing-pages/prize-pool/badges/badge-main-1st.svg"
                 alt="1st Place ₹17,500"
                 className="prize-mobile-reward-art"
               />
             </article>
             <article className="prize-mobile-reward-card">
-              <img
+              <img loading="lazy" decoding="async"
                 src="/landing-pages/prize-pool/badges/badge-main-2nd.svg"
                 alt="2nd Place ₹15,000"
                 className="prize-mobile-reward-art"
               />
             </article>
             <article className="prize-mobile-reward-card">
-              <img
+              <img loading="lazy" decoding="async"
                 src="/landing-pages/prize-pool/badges/badge-main-3rd.svg"
                 alt="3rd Place ₹12,500"
                 className="prize-mobile-reward-art"
@@ -294,13 +294,13 @@ export default function PrizePoolSection() {
             </article>
           </div>
           <div className="prize-mobile-character prize-mobile-character-woody" aria-hidden="true">
-            <img src="/landing-pages/prize-pool/characters/woody.svg" alt="" className="w-full h-full object-contain object-bottom" />
+            <img loading="lazy" decoding="async" src="/landing-pages/prize-pool/characters/woody.svg" alt="" className="w-full h-full object-contain object-bottom" />
           </div>
         </section>
 
         {/* Decorative Purple Gem between arenas */}
         <div className="w-14 h-14 -my-2 drop-shadow-[0_4px_12px_rgba(154,69,255,0.8)] pointer-events-none">
-          <img
+          <img loading="lazy" decoding="async"
             src="/landing-pages/prize-pool/ui/gem-purple.svg"
             alt=""
             aria-hidden="true"
@@ -312,7 +312,7 @@ export default function PrizePoolSection() {
         <section className="prize-mobile-arena prize-mobile-vr-arena relative w-full max-w-[480px] bg-gradient-to-b from-[#0E58F6]/95 to-[#092C82]/98 rounded-2xl border-[3px] border-[#20CEFF] shadow-[0_8px_24px_rgba(0,0,0,0.75)] overflow-hidden pt-3 pb-4" aria-labelledby="mobile-vr-heading">
           {/* Header Bar */}
           <div className="flex items-center justify-center px-4 pt-6 pb-3 border-b-2 border-[#20CEFF]/30">
-            <img
+            <img loading="lazy" decoding="async"
               src="/landing-pages/prize-pool/ui/title-vr-track.svg"
               alt="VR TRACK"
               id="mobile-vr-heading"
@@ -322,14 +322,14 @@ export default function PrizePoolSection() {
 
           <div className="prize-mobile-rewards">
             <article className="prize-mobile-reward-card">
-              <img
+              <img loading="lazy" decoding="async"
                 src="/landing-pages/prize-pool/badges/badge-vr-1st.svg"
                 alt="VR 1st Place ₹10,000"
                 className="prize-mobile-reward-art"
               />
             </article>
             <article className="prize-mobile-reward-card">
-              <img
+              <img loading="lazy" decoding="async"
                 src="/landing-pages/prize-pool/badges/badge-vr-2nd.svg"
                 alt="VR 2nd Place ₹5,000"
                 className="prize-mobile-reward-art"
@@ -337,7 +337,7 @@ export default function PrizePoolSection() {
             </article>
           </div>
           <div className="prize-mobile-character prize-mobile-character-buzz" aria-hidden="true">
-            <img src="/landing-pages/prize-pool/characters/buzzlight.svg" alt="" className="w-full h-full object-contain object-bottom" />
+            <img loading="lazy" decoding="async" src="/landing-pages/prize-pool/characters/buzzlight.svg" alt="" className="w-full h-full object-contain object-bottom" />
           </div>
         </section>
       </div>

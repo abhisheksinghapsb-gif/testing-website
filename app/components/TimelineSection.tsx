@@ -159,14 +159,14 @@ export default function TimelineSection({ scrollContainerRef }: TimelineSectionP
   return (
     <section ref={sectionRef} id="timeline" className="genesis-timeline relative w-full overflow-hidden bg-[#030015] text-white" aria-label="Genesis Event Timeline Roadmap">
       <div className="absolute inset-0 pointer-events-none">
-        <img src="/landing-pages/timeline/backgrounds/cosmic-background.svg" alt="" aria-hidden="true" className="h-full w-full object-cover opacity-75" />
+        <img loading="lazy" decoding="async" src="/landing-pages/timeline/backgrounds/cosmic-background.svg" alt="" aria-hidden="true" className="h-full w-full object-cover opacity-75" />
         <div className="absolute inset-0 bg-[#030015]/35" />
       </div>
 
       <header className="relative z-10 flex justify-center px-4 pt-20 sm:pt-24">
         <div className="relative flex items-center justify-center">
-          <img src="/landing-pages/timeline/backgrounds/heading-banner.svg" alt="Tournament Timeline" className="h-12 w-auto sm:h-14 md:h-16" />
-          <img src="/landing-pages/timeline/ui/heading-text.svg" alt="TIMELINE" className="absolute h-6 w-auto sm:h-7 md:h-8" />
+          <img loading="lazy" decoding="async" src="/landing-pages/timeline/backgrounds/heading-banner.svg" alt="Tournament Timeline" className="h-12 w-auto sm:h-14 md:h-16" />
+          <img loading="lazy" decoding="async" src="/landing-pages/timeline/ui/heading-text.svg" alt="TIMELINE" className="absolute h-6 w-auto sm:h-7 md:h-8" />
         </div>
       </header>
 
@@ -189,12 +189,12 @@ export default function TimelineSection({ scrollContainerRef }: TimelineSectionP
                   </div>
                 </div>
                 <div className="genesis-timeline-card-front">
-                <img src={stage.asset} alt={`${stage.title} — ${stage.sub}`} draggable={false} />
+                <img loading="lazy" decoding="async" src={stage.asset} alt={`${stage.title} — ${stage.sub}`} draggable={false} />
                 </div>
               </div>
               </div>
               <div className="genesis-timeline-marker" aria-label={`Stage ${stage.step}: ${stage.title}`}>
-                <img
+                <img loading="lazy" decoding="async"
                   className="genesis-timeline-marker-art"
                   src={`/landing-pages/timeline/markers/genesis-milestone-${stage.step}.svg`}
                   alt=""
