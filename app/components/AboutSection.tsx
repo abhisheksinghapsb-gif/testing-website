@@ -1,99 +1,107 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 
 export default function AboutSection() {
   return (
     <section
       id="about"
-      className="about-section relative w-full min-h-screen md:h-screen md:max-h-screen flex flex-col justify-start items-start overflow-hidden select-none bg-[#030015] flex-shrink-0"
+      className="about-section relative w-full min-h-screen flex flex-col justify-center items-start overflow-hidden select-none bg-[#030015] flex-shrink-0 py-12 sm:py-16 md:py-20"
+      aria-label="About GENESIS Tournament"
     >
-      {/* ── 1. LAYERED SCENIC BACKGROUND ─────────────────────── */}
+      {/* ── 1. LAYERED SCENIC CITY BACKGROUND ─────────────────── */}
       <div className="about-bg-layer absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Base Scenic City: Neon Moonlit Mecha City Battle (High-Fidelity 4320x3072 Master Asset) */}
-        <picture>
-          <source srcSet="/landing-pages/about/backgrounds/background-city-hq.webp" type="image/webp" />
-          <img
-            src="/landing-pages/about/backgrounds/background-city-hq.webp"
-            alt="Neon Moonlit Mecha City Battle"
-            loading="lazy"
-            decoding="async"
-            className="about-bg-image absolute inset-0 w-full h-full object-cover object-center"
-          />
-        </picture>
-
-        {/* Texture Glow & Energy Beam (Right side on desktop) */}
-        {/* <img loading="lazy" decoding="async"
-          src="/landing-pages/about/ui/texture-glow.svg"
-          alt=""
-          aria-hidden="true"
-          className="about-texture-glow absolute pointer-events-none hidden md:block"
-        /> */}
-
-        {/* Accent Tech Lines (Top-left HUD stripes) */}
-        <img loading="lazy" decoding="async"
-          src="/landing-pages/about/ui/accent-lines.svg"
-          alt=""
-          aria-hidden="true"
-          className="about-accent-lines absolute top-0 left-0 pointer-events-none opacity-60 hidden sm:block"
+        {/* Neon Moonlit Mecha City Battle Background */}
+        <Image
+          src="/landing-pages/about/backgrounds/background-city-hq.webp"
+          alt="Neon Moonlit Mecha City Battle"
+          fill
+          priority={false}
+          sizes="100vw"
+          className="object-cover object-center sm:object-[center_35%] opacity-90"
         />
 
-        {/* Subtle Edge Transitions: Visual continuity between Hero above and Timeline below */}
-        {/* <div
-          className="absolute top-0 inset-x-0 h-40 sm:h-56 bg-gradient-to-b from-[#030015] via-[#030015]/80 to-transparent pointer-events-none z-10"
+        {/* Ambient Dark Gradient on Left for High Readability & Scenic Right View */}
+        <div
+          className="absolute inset-0 bg-gradient-to-r from-[#030015]/90 via-[#030015]/65 to-transparent pointer-events-none"
           aria-hidden="true"
-        /> */}
+        />
+
+        {/* Top & Bottom Atmospheric Vignettes */}
+        <div
+          className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-[#030015] to-transparent pointer-events-none"
+          aria-hidden="true"
+        />
+        <div
+          className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-[#030015] to-transparent pointer-events-none"
+          aria-hidden="true"
+        />
+
+        {/* Accent Tech Lines (Top-left HUD stripes) */}
+        <div className="absolute top-4 left-4 w-48 h-auto pointer-events-none opacity-40 hidden sm:block">
+          <Image
+            src="/landing-pages/about/ui/accent-lines.svg"
+            alt=""
+            width={200}
+            height={60}
+            className="w-full h-auto object-contain"
+          />
+        </div>
       </div>
 
-      {/* ── 2. FOREGROUND CONTENT (HEADING + INFO PANEL) ──────── */}
-      <div className="about-content-wrapper relative z-10 w-full h-full flex flex-col justify-start">
+      {/* ── 2. FOREGROUND CONTENT: HEADING + BRAWL STARS INFO PANEL ── */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-8 md:px-12 flex flex-col items-start justify-center">
         
         {/* ── Coherent Heading Group (Emblem + Yellow ABOUT + White GENESIS) ── */}
-        <div className="about-heading-group relative flex-shrink-0">
-          {/* Yellow Skull-Star Emblem */}
-          <img loading="lazy" decoding="async"
-            src="/landing-pages/about/ui/genesis-emblem.svg"
-            alt="Genesis Star Emblem"
-            className="about-emblem absolute pointer-events-none select-none z-25 drop-shadow-[0_4px_10px_rgba(0,0,0,0.7)]"
-          />
+        <div className="relative mb-4 sm:mb-6 flex flex-col items-start">
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Yellow Skull-Star Emblem */}
+            <div className="relative w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 flex-shrink-0 drop-shadow-[0_4px_12px_rgba(0,0,0,0.85)]">
+              <Image
+                src="/landing-pages/about/ui/genesis-emblem.svg"
+                alt="Genesis Star Emblem"
+                fill
+                className="object-contain"
+              />
+            </div>
 
-          {/* Yellow ABOUT Heading Banner */}
-          <img loading="lazy" decoding="async"
-            src="/landing-pages/about/ui/heading-about.svg"
-            alt="ABOUT"
-            className="about-banner absolute pointer-events-none select-none z-21 drop-shadow-[0_8px_16px_rgba(0,0,0,0.85)]"
-          />
+            {/* Yellow ABOUT Heading Banner */}
+            <div className="relative w-36 sm:w-48 md:w-60 h-10 sm:h-12 md:h-16 drop-shadow-[0_6px_14px_rgba(0,0,0,0.85)]">
+              <Image
+                src="/landing-pages/about/ui/heading-about.svg"
+                alt="ABOUT"
+                fill
+                className="object-contain object-left"
+              />
+            </div>
+          </div>
 
-          {/* White GENESIS Heading (Complete, unclipped title) */}
-          <picture>
-            <source srcSet="/landing-pages/about/ui/heading-genesis.webp" type="image/webp" />
-            <img loading="lazy" decoding="async"
-              src="/landing-pages/about/ui/heading-genesis.svg"
+          {/* White GENESIS Heading */}
+          <div className="relative w-56 sm:w-72 md:w-96 h-12 sm:h-16 md:h-20 -mt-2 sm:-mt-3 drop-shadow-[0_8px_18px_rgba(0,0,0,0.9)]">
+            <Image
+              src="/landing-pages/about/ui/heading-genesis.webp"
               alt="GENESIS"
-              className="about-title-genesis absolute pointer-events-none select-none z-22 drop-shadow-[0_10px_22px_rgba(0,0,0,0.9)]"
+              fill
+              className="object-contain object-left"
             />
-          </picture>
+          </div>
         </div>
 
-        {/* ── Light-Blue Information Panel (Vector 38 Polygon Shape) ── */}
-        <div className="about-info-panel relative flex-shrink-0">
-          {/* Pale-Blue SVG Polygon Background Shape */}
-          <img loading="lazy" decoding="async"
-            src="/landing-pages/about/ui/info-panel.svg"
-            alt=""
-            aria-hidden="true"
-            className="about-panel-bg absolute inset-0 w-full h-full pointer-events-none select-none"
-            style={{ objectFit: "fill" }}
-          />
+        {/* ── High-Fidelity Responsive Brawl Stars Info Panel ── */}
+        <div className="about-card-panel relative w-full max-w-[700px] rounded-2xl sm:rounded-3xl bg-[#CEEEFE] border-[3.5px] border-[#080D1D] shadow-[0_8px_0_#6EB5DD,0_16px_32px_rgba(0,0,0,0.85)] p-5 sm:p-7 md:p-9 text-[#080D1D] overflow-hidden">
+          
+          {/* Subtle Inner Accent Highlight */}
+          <div className="absolute top-0 left-0 right-0 h-1.5 bg-white/60 pointer-events-none" />
 
-          {/* Panel Description Content */}
-          <div className="about-panel-content relative z-10">
-            <p className="about-description-p">
+          {/* Content Copy Preserved Exactly */}
+          <div className="relative z-10 flex flex-col gap-4 sm:gap-5 font-sans font-bold leading-relaxed text-sm sm:text-base md:text-[17px]">
+            <p className="text-[#080D1D] m-0">
               Brawlers, gear up! The GDXR Club is dropping into the arena with
               the Fifth Edition of GENESIS 2026 — and this time, the battle is
               closer to home than ever!
             </p>
-            <p className="about-description-p">
+            <p className="text-[#080D1D] m-0">
               After the last showdown in 2025, GENESIS is back, bigger and
               bolder. This isn&apos;t just about pixels, code, or pressing buttons —
               it&apos;s about unleashing your inner Brawler, teaming up, showing
@@ -102,6 +110,12 @@ export default function AboutSection() {
               history!
             </p>
           </div>
+
+          {/* Corner Screw Rivets for authentic arcade cabinet feel */}
+          <div className="absolute top-2.5 left-2.5 w-2 h-2 rounded-full bg-[#080D1D]/30 border border-[#080D1D]/50 pointer-events-none" />
+          <div className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-[#080D1D]/30 border border-[#080D1D]/50 pointer-events-none" />
+          <div className="absolute bottom-2.5 left-2.5 w-2 h-2 rounded-full bg-[#080D1D]/30 border border-[#080D1D]/50 pointer-events-none" />
+          <div className="absolute bottom-2.5 right-2.5 w-2 h-2 rounded-full bg-[#080D1D]/30 border border-[#080D1D]/50 pointer-events-none" />
         </div>
 
       </div>

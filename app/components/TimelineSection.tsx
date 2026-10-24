@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, type RefObject } from "react";
+import React, { useEffect, useRef, type RefObject } from "react";
+import Image from "next/image";
 
 const stages = [
   {
@@ -10,6 +11,7 @@ const stages = [
     asset: "/landing-pages/timeline/stages/stage-registration.svg",
     side: "left",
     details: ["Platforms: Unstop & IndieConnect", "Opening date: To be announced", "Closing date: To be announced"],
+    icon: "📝",
   },
   {
     step: "02",
@@ -18,6 +20,7 @@ const stages = [
     asset: "/landing-pages/timeline/stages/stage-round1.svg",
     side: "right",
     details: ["Format: Online", "Start date: To be announced", "End date: To be announced"],
+    icon: "🌐",
   },
   {
     step: "03",
@@ -26,6 +29,7 @@ const stages = [
     asset: "/landing-pages/timeline/stages/stage-round2.svg",
     side: "left",
     details: ["Format: Offline", "Dates: To be announced", "Venue: To be announced"],
+    icon: "⚔️",
   },
   {
     step: "04",
@@ -34,6 +38,7 @@ const stages = [
     asset: "/landing-pages/timeline/stages/stage-result.svg",
     side: "right",
     details: ["Announcement date: To be announced", "Additional details: To be announced"],
+    icon: "🏆",
   },
 ] as const;
 
@@ -50,23 +55,20 @@ export default function TimelineSection({ scrollContainerRef }: TimelineSectionP
   const trackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const section = sectionRef.current;
     const journey = journeyRef.current;
     const track = trackRef.current;
     const scroller = scrollContainerRef.current;
 
-    if (!section || !journey || !track || !scroller) return;
+    if (!journey || !track || !scroller) return;
 
     const markers = Array.from(
-      journey.querySelectorAll<HTMLElement>(".genesis-timeline-marker"),
+      journey.querySelectorAll<HTMLElement>(".brawl-timeline-marker")
     );
-    const stageElements = Array.from(
-      journey.querySelectorAll<HTMLElement>(".genesis-timeline-stage"),
+    const cardElements = Array.from(
+      journey.querySelectorAll<HTMLElement>(".brawl-timeline-card")
     );
 
-    if (markers.length !== stages.length || stageElements.length !== stages.length) return;
-
-    track.dataset.runtime = "golden-journey-v1";
+    if (markers.length !== stages.length || cardElements.length !== stages.length) return;
 
     let markerCenters: number[] = [];
     let firstMarkerY = 0;
@@ -76,43 +78,45 @@ export default function TimelineSection({ scrollContainerRef }: TimelineSectionP
     const updateProgress = () => {
       if (markerCenters.length !== markers.length || lastMarkerY <= firstMarkerY) return;
 
-      const activationY = scroller.scrollTop + scroller.clientHeight * 0.58;
+      const activationY = scroller.scrollTop + scroller.clientHeight * 0.55;
       const progress = clamp(
         (activationY - firstMarkerY) / (lastMarkerY - firstMarkerY),
         0,
-        1,
+        1
       );
-      const percent = `${(progress * 100).toFixed(3)}%`;
+      const percent = `${(progress * 100).toFixed(2)}%`;
 
       track.style.setProperty("--timeline-progress", percent);
-      track.style.setProperty("--timeline-light-opacity", "1");
-      track.dataset.progress = progress.toFixed(4);
 
       const thresholds = markerCenters.map((center) =>
-        clamp((center - firstMarkerY) / (lastMarkerY - firstMarkerY), 0, 1),
+        clamp((center - firstMarkerY) / (lastMarkerY - firstMarkerY), 0, 1)
       );
+
       const currentStage = thresholds.reduce(
         (current, threshold, index) => (progress >= threshold ? index : current),
-        0,
+        0
       );
 
       markers.forEach((marker, index) => {
-        const reached = progress >= thresholds[index] - 0.002;
-        const opened = progress >= thresholds[index] + 0.002;
+        const reached = progress >= thresholds[index] - 0.04;
+        const isCurrent = index === currentStage;
 
         marker.classList.toggle("is-reached", reached);
-        marker.classList.toggle("is-current", index === currentStage);
-        stageElements[index].classList.toggle("is-flipped", opened);
+        marker.classList.toggle("is-current", isCurrent);
+        cardElements[index].classList.toggle("is-reached", reached);
+        cardElements[index].classList.toggle("is-current", isCurrent);
       });
     };
 
     const measureGeometry = () => {
       const journeyRect = journey.getBoundingClientRect();
       const scrollerRect = scroller.getBoundingClientRect();
+
       markerCenters = markers.map((marker) => {
         const rect = marker.getBoundingClientRect();
         return scroller.scrollTop + rect.top + rect.height / 2 - scrollerRect.top;
       });
+
       firstMarkerY = markerCenters[0];
       lastMarkerY = markerCenters[markerCenters.length - 1];
 
@@ -120,7 +124,6 @@ export default function TimelineSection({ scrollContainerRef }: TimelineSectionP
       const trackTop = firstRect.top + firstRect.height / 2 - journeyRect.top;
 
       track.style.top = `${trackTop}px`;
-      track.style.bottom = "auto";
       track.style.height = `${Math.max(1, lastMarkerY - firstMarkerY)}px`;
       updateProgress();
     };
@@ -157,52 +160,138 @@ export default function TimelineSection({ scrollContainerRef }: TimelineSectionP
   }, [scrollContainerRef]);
 
   return (
-    <section ref={sectionRef} id="timeline" className="genesis-timeline relative w-full overflow-hidden bg-[#030015] text-white" aria-label="Genesis Event Timeline Roadmap">
-      <div className="absolute inset-0 pointer-events-none">
-        <img loading="lazy" decoding="async" src="/landing-pages/shared/backgrounds/cosmic-background.webp" alt="" aria-hidden="true" className="h-full w-full object-cover opacity-75" />
-        <div className="absolute inset-0 bg-[#030015]/35" />
+    <section
+      ref={sectionRef}
+      id="timeline"
+      className="brawl-timeline-section relative w-full overflow-hidden bg-[#030015] text-white py-16 sm:py-24"
+      aria-label="Genesis Event Timeline Roadmap"
+    >
+      {/* ── Background Cosmic Texture ─────────────────────── */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+        <Image
+          src="/landing-pages/shared/backgrounds/cosmic-background.webp"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover opacity-60"
+        />
+        <div className="absolute inset-0 bg-[#030015]/60" />
+        <div className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-[#030015] to-transparent pointer-events-none" />
+        <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-[#030015] to-transparent pointer-events-none" />
       </div>
 
-      <header className="relative z-10 flex justify-center px-4 pt-20 sm:pt-24">
+      {/* ── Heading Banner ─────────────────────────────────── */}
+      <header className="relative z-10 flex flex-col items-center justify-center px-4 mb-10 sm:mb-16">
         <div className="relative flex items-center justify-center">
-          <img loading="lazy" decoding="async" src="/landing-pages/timeline/backgrounds/heading-banner.svg" alt="Tournament Timeline" className="h-12 w-auto sm:h-14 md:h-16" />
-          <img loading="lazy" decoding="async" src="/landing-pages/timeline/ui/heading-text.svg" alt="TIMELINE" className="absolute h-6 w-auto sm:h-7 md:h-8" />
+          <Image
+            src="/landing-pages/timeline/backgrounds/heading-banner.svg"
+            alt="Tournament Timeline"
+            width={340}
+            height={68}
+            className="h-12 sm:h-14 md:h-16 w-auto object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.8)]"
+          />
+          <Image
+            src="/landing-pages/timeline/ui/heading-text.svg"
+            alt="TIMELINE"
+            width={180}
+            height={36}
+            className="absolute h-6 sm:h-7 md:h-8 w-auto object-contain drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+          />
         </div>
       </header>
 
-      <div ref={journeyRef} className="genesis-timeline-journey relative z-10 mx-auto mt-8 w-full max-w-6xl px-4 pb-20 sm:px-8 sm:pb-28">
-        <div ref={trackRef} className="genesis-timeline-track" data-runtime="golden-journey-v1" aria-hidden="true">
-          <div className="genesis-timeline-progress-fill" />
-          <div className="genesis-timeline-traveling-light" />
+      {/* ── Checkpoint Route Journey Container ────────────── */}
+      <div
+        ref={journeyRef}
+        className="brawl-timeline-journey relative z-10 mx-auto w-full max-w-5xl px-4 sm:px-8"
+      >
+        {/* Dynamic Route Track Line (Center on desktop, left-aligned on mobile) */}
+        <div
+          ref={trackRef}
+          className="brawl-timeline-track absolute z-1 pointer-events-none"
+          aria-hidden="true"
+        >
+          {/* Base Dark Rail */}
+          <div className="w-full h-full bg-[#080D1D] rounded-full border-2 border-[#17244D]" />
+          {/* Glowing Fill Line */}
+          <div className="brawl-timeline-progress-fill absolute top-0 left-0 right-0 rounded-full bg-gradient-to-b from-[#FFD447] via-[#55D9FF] to-[#9964FF] shadow-[0_0_12px_#FFD447]" />
         </div>
-        <div className="genesis-timeline-stages">
+
+        {/* ── Checkpoint Stages ────────────────────────────── */}
+        <div className="brawl-timeline-stages flex flex-col gap-12 sm:gap-16 md:gap-20">
           {stages.map((stage) => (
-            <article key={stage.step} className={`genesis-timeline-stage genesis-timeline-stage-${stage.side}`}>
-              <div className="genesis-timeline-card">
-                <div className="genesis-timeline-card-inner">
-                <div className="genesis-timeline-card-back">
-                  <span className="genesis-timeline-card-step">STAGE {stage.step}</span>
-                  <h3>{stage.title}</h3>
-                  <p className="genesis-timeline-card-subtitle">{stage.sub}</p>
-                  <div className="genesis-timeline-card-details">
-                    {stage.details.map((detail) => <p key={detail}>{detail}</p>)}
+            <div
+              key={stage.step}
+              className={`brawl-timeline-stage-row relative flex items-center w-full ${
+                stage.side === "left"
+                  ? "md:flex-row flex-row"
+                  : "md:flex-row-reverse flex-row"
+              }`}
+            >
+              {/* Card Container (45% width on desktop, flex-1 on mobile) */}
+              <div
+                className={`brawl-timeline-card-wrapper w-full md:w-[45%] flex ${
+                  stage.side === "left"
+                    ? "md:justify-end justify-start pl-14 sm:pl-16 md:pl-0"
+                    : "md:justify-start justify-start pl-14 sm:pl-16 md:pl-0"
+                }`}
+              >
+                <article className="brawl-timeline-card relative w-full max-w-[420px] rounded-2xl bg-gradient-to-b from-[#1C2C5E] to-[#121E42] border-[3px] border-[#080D1D] shadow-[0_6px_0_#080D1D,0_12px_24px_rgba(0,0,0,0.7)] p-4 sm:p-5 transition-all duration-300">
+                  
+                  {/* Card Header: Stage Badge + Visual Asset Thumbnail */}
+                  <div className="flex items-start justify-between gap-3 mb-3 pb-3 border-b-2 border-[#080D1D]/60">
+                    <div className="flex flex-col items-start gap-1">
+                      <span className="brawl-stage-badge inline-flex items-center gap-1 font-lilita text-xs text-[#080D1D] bg-[#FFD447] border border-[#080D1D] px-2.5 py-0.5 rounded-full shadow-[0_2px_0_#C78316]">
+                        STAGE {stage.step}
+                      </span>
+                      <h3 className="font-lilita text-xl sm:text-2xl text-white tracking-wide leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] mt-1">
+                        {stage.title}
+                      </h3>
+                      <p className="font-sans text-xs sm:text-sm font-bold text-cyan-300 tracking-wide">
+                        {stage.sub}
+                      </p>
+                    </div>
+
+                    {/* Stage Visual Art Badge */}
+                    <div className="relative w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 drop-shadow-[0_4px_10px_rgba(0,0,0,0.8)]">
+                      <Image
+                        src={stage.asset}
+                        alt={`${stage.title} stage art`}
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="genesis-timeline-card-front">
-                <img loading="lazy" decoding="async" src={stage.asset} alt={`${stage.title} — ${stage.sub}`} draggable={false} />
-                </div>
+
+                  {/* Stage Essential Details List — 100% visible immediately without flip or hover */}
+                  <div className="flex flex-col gap-1.5 font-sans text-xs sm:text-sm text-slate-200">
+                    {stage.details.map((detail, idx) => (
+                      <div
+                        key={idx}
+                        className="flex items-center gap-2 bg-[#070B24]/70 px-2.5 py-1.5 rounded-lg border border-blue-500/20"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 flex-shrink-0 shadow-[0_0_4px_#55D9FF]" />
+                        <span className="font-medium text-slate-200 leading-snug">
+                          {detail}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </article>
               </div>
-              </div>
-              <div className="genesis-timeline-marker">
-                <img loading="lazy" decoding="async"
-                  className="genesis-timeline-marker-art"
+
+              {/* Central Milestone Marker */}
+              <div className="brawl-timeline-marker absolute z-10 flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#17244D] border-[3px] border-[#080D1D] shadow-[0_0_0_4px_#080D1D,0_4px_12px_rgba(0,0,0,0.8)] transition-all duration-300">
+                <Image
                   src={`/landing-pages/timeline/markers/genesis-milestone-${stage.step}.svg`}
                   alt=""
-                  aria-hidden="true"
-                  draggable={false}
+                  width={48}
+                  height={48}
+                  className="w-full h-full object-contain pointer-events-none transition-transform duration-300"
                 />
               </div>
-            </article>
+
+            </div>
           ))}
         </div>
       </div>

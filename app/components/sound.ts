@@ -2,7 +2,19 @@
 
 class SoundManager {
   private ctx: AudioContext | null = null;
-  private muted: boolean = false;
+  private muted: boolean = true;
+  private listeners: Set<(muted: boolean) => void> = new Set();
+
+  constructor() {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("genesis_sfx_muted");
+      if (saved !== null) {
+        this.muted = saved === "true";
+      } else {
+        this.muted = true; // Default to muted per specifications
+      }
+    }
+  }
 
   private initCtx() {
     if (!this.ctx && typeof window !== "undefined") {
@@ -18,10 +30,29 @@ class SoundManager {
 
   public setMuted(muted: boolean) {
     this.muted = muted;
+    if (typeof window !== "undefined") {
+      localStorage.setItem("genesis_sfx_muted", String(muted));
+    }
+    this.listeners.forEach((listener) => listener(muted));
+  }
+
+  public toggleMute(): boolean {
+    const next = !this.muted;
+    this.setMuted(next);
+    if (!next) {
+      // Play a quick confirmation pop on unmute
+      this.playPop();
+    }
+    return next;
   }
 
   public isMuted(): boolean {
     return this.muted;
+  }
+
+  public subscribe(listener: (muted: boolean) => void): () => void {
+    this.listeners.add(listener);
+    return () => this.listeners.delete(listener);
   }
 
   public playHover() {

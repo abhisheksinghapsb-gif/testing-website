@@ -1,345 +1,241 @@
 "use client";
 
-import React, { useRef, useEffect, useState, useCallback } from "react";
+import React, { useCallback, useRef } from "react";
+import Image from "next/image";
 import { sounds } from "./sound";
 
 export default function PrizePoolSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLDivElement>(null);
   const lastSoundRef = useRef<number>(0);
-  const [scale, setScale] = useState<number>(1);
 
-  // Play hover sound with safety cooldown and hover media-query guard
   const handleItemHover = useCallback(() => {
     if (typeof window === "undefined") return;
-    // Don't play hover sound on touch devices
     if (!window.matchMedia("(hover: hover)").matches) return;
 
     const now = Date.now();
-    if (now - lastSoundRef.current > 130) {
+    if (now - lastSoundRef.current > 120) {
       lastSoundRef.current = now;
       sounds.playHover();
     }
   }, []);
 
-  // Responsive dynamic scaling for desktop/laptop canvas (1440 x 1024 base)
-  useEffect(() => {
-    const updateScaling = () => {
-      if (typeof window === "undefined") return;
-      const vw = window.innerWidth;
-      const vh = window.innerHeight;
-      if (vw < 768) return;
-
-      // Fit both arenas completely on one page (100vh) without vertical overflow
-      const scaleW = (vw * 0.95) / 1440;
-      const scaleH = (vh * 0.94) / 1024;
-      const newScale = Math.min(scaleW, scaleH);
-      setScale(Number(newScale.toFixed(4)));
-    };
-
-    updateScaling();
-    window.addEventListener("resize", updateScaling, { passive: true });
-    return () => window.removeEventListener("resize", updateScaling);
-  }, []);
-
   return (
     <section
       id="prizepool"
-      ref={sectionRef}
-      className="relative w-full min-h-screen h-auto md:h-screen flex flex-col items-center justify-center overflow-visible md:overflow-hidden select-none bg-[#030015] shrink-0 text-white"
+      className="brawl-prizepool-section relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden select-none bg-[#030015] py-16 sm:py-20 md:py-24 text-white"
+      aria-label="Genesis Prize Pool Rewards"
     >
-      {/* ── 1. COSMIC BRAWL STARS BACKGROUND LAYERS ──────── */}
+      {/* ── Background Cosmic Texture & Brawl Stars Pattern ── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-        <img loading="lazy" decoding="async"
+        <Image
           src="/landing-pages/shared/backgrounds/cosmic-background.webp"
           alt=""
-          aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover object-center"
+          fill
+          sizes="100vw"
+          className="object-cover opacity-60"
         />
-        <img loading="lazy" decoding="async"
+        <Image
           src="/landing-pages/prize-pool/backgrounds/bg-blue-icons.svg"
           alt=""
-          aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover object-center opacity-85 mix-blend-screen"
+          fill
+          sizes="100vw"
+          className="object-cover opacity-70 mix-blend-screen"
         />
-        {/* Subtle Halftone Vignette Shading */}
-        <div
-          className="absolute inset-0 bg-radial-[circle_at_center,transparent_45%,rgba(3,0,21,0.7)_100%] pointer-events-none"
-          aria-hidden="true"
-        />
-        {/* Subtle Edge Transitions: Visual continuity between Timeline above and Sponsors below */}
-        <div className="absolute top-0 inset-x-0 h-24 sm:h-32 bg-gradient-to-b from-[#030015] to-transparent pointer-events-none" />
-        <div className="absolute bottom-0 inset-x-0 h-24 sm:h-32 bg-gradient-to-t from-[#030015] to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-[#030015]/40" />
+        <div className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-[#030015] to-transparent pointer-events-none" />
+        <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-[#030015] to-transparent pointer-events-none" />
       </div>
 
-      {/* ── 2. DESKTOP / LAPTOP / TABLET STAGE (md: >= 768px) ──────── */}
-      <div className="hidden md:flex relative z-10 w-full h-full items-center justify-center">
-        <div
-          style={{
-            width: `${Math.round(1440 * scale)}px`,
-            height: `${Math.round(1024 * scale)}px`,
-            position: "relative",
-          }}
-        >
-          <div
-            ref={canvasRef}
-            className="relative w-[1440px] h-[1024px] flex-shrink-0"
-            style={{
-              transform: `scale(${scale})`,
-              transformOrigin: "top left",
-              position: "absolute",
-              top: 0,
-              left: 0,
-            }}
-          >
-          {/* Main Arcade Heading: PRIZE POOL */}
-          <div className="absolute top-[28px] left-1/2 -translate-x-1/2 w-[527px] h-[116px] z-30 pointer-events-none drop-shadow-[0_8px_20px_rgba(0,0,0,0.8)]">
-            <img loading="lazy" decoding="async"
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 md:px-8 flex flex-col items-center">
+        
+        {/* ── 1. MAIN ARCADE TITLE: PRIZE POOL ──────────────── */}
+        <header className="relative w-full flex flex-col items-center mb-8 sm:mb-12">
+          <div className="relative w-72 sm:w-96 md:w-[480px] h-16 sm:h-20 md:h-24 drop-shadow-[0_8px_20px_rgba(0,0,0,0.85)]">
+            <Image
               src="/landing-pages/prize-pool/ui/title-prizepool.svg"
               alt="PRIZE POOL"
-              className="w-full h-full object-contain"
+              fill
+              className="object-contain"
             />
           </div>
+          <p className="font-lilita text-sm sm:text-base text-cyan-300 tracking-widest uppercase mt-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+            TOTAL CASH AWARDS • ₹60,000 + SWAG & GADGETS
+          </p>
+        </header>
 
-          {/* ── UPPER ARENA: MAIN TOURNAMENT (PRIZES) ──────── */}
-          <div className="absolute left-[67px] top-[187px] width-[1315px] w-[1315px] h-[361px] z-20">
-            {/* Clean Blue Arena Frame (No red X, no duplicate baked-in badges) */}
-            <img loading="lazy" decoding="async"
-              src="/landing-pages/prize-pool/ui/arena-upper-frame.svg"
-              alt=""
-              aria-hidden="true"
-              className="absolute inset-0 w-full h-full pointer-events-none z-1"
-            />
-
-            {/* Arena Title: PRIZES */}
-            <div className="absolute -top-[30px] left-1/2 -translate-x-1/2 w-[274px] h-[73px] z-15 pointer-events-none drop-shadow-[0_6px_14px_rgba(0,0,0,0.8)]">
-              <img loading="lazy" decoding="async"
-                src="/landing-pages/prize-pool/ui/title-prizes.svg"
-                alt="PRIZES"
-                className="w-full h-full object-contain"
-              />
-            </div>
-
-            {/* Woody Character (Left side, unclipped silhouette, playful hover wobble) */}
-            <div
-              onPointerEnter={handleItemHover}
-              className="woody-hover absolute left-[15px] -top-[107px] w-[487px] h-[436px] z-12 drop-shadow-[0_10px_24px_rgba(0,0,0,0.85)]"
-              title="Woody Colt"
-            >
-              <img loading="lazy" decoding="async"
-                src="/landing-pages/prize-pool/characters/woody.svg"
-                alt="Woody"
-                className="w-full h-full object-contain pointer-events-none"
-              />
-            </div>
-
-            {/* 3 Main Tournament Badges (Independent Hover Pop-Out & Wobble) */}
-            {/* 1st Prize: ₹17,500 */}
-            <div
-              onPointerEnter={handleItemHover}
-              className="prize-badge-hover absolute left-[540px] top-[36px] w-[246px] h-[316px] z-10 drop-shadow-[0_10px_20px_rgba(0,0,0,0.7)]"
-              title="1st Place — ₹17,500"
-            >
-              <img loading="lazy" decoding="async"
-                src="/landing-pages/prize-pool/badges/badge-main-1st.svg"
-                alt="1st Place ₹17,500"
-                className="w-full h-full object-contain pointer-events-none"
-              />
-            </div>
-
-            {/* 2nd Prize: ₹15,000 */}
-            <div
-              onPointerEnter={handleItemHover}
-              className="prize-badge-hover absolute left-[782px] top-[45px] w-[246px] h-[304px] z-10 drop-shadow-[0_10px_20px_rgba(0,0,0,0.7)]"
-              title="2nd Place — ₹15,000"
-            >
-              <img loading="lazy" decoding="async"
-                src="/landing-pages/prize-pool/badges/badge-main-2nd.svg"
-                alt="2nd Place ₹15,000"
-                className="w-full h-full object-contain pointer-events-none"
-              />
-            </div>
-
-            {/* 3rd Prize: ₹12,500 */}
-            <div
-              onPointerEnter={handleItemHover}
-              className="prize-badge-hover absolute left-[1023px] top-[40px] w-[247px] h-[306px] z-10 drop-shadow-[0_10px_20px_rgba(0,0,0,0.7)]"
-              title="3rd Place — ₹12,500"
-            >
-              <img loading="lazy" decoding="async"
-                src="/landing-pages/prize-pool/badges/badge-main-3rd.svg"
-                alt="3rd Place ₹12,500"
-                className="w-full h-full object-contain pointer-events-none"
-              />
-            </div>
-          </div>
-
-          {/* ── DECORATIVE PURPLE GEM ──────── */}
-          <div className="absolute left-[55px] top-[530px] w-[145px] h-[155px] z-25 pointer-events-none drop-shadow-[0_6px_16px_rgba(154,69,255,0.7)]">
-            <img loading="lazy" decoding="async"
-              src="/landing-pages/prize-pool/ui/gem-purple.svg"
-              alt=""
-              aria-hidden="true"
-              className="w-full h-full object-contain"
-            />
-          </div>
-
-          {/* ── LOWER ARENA: VR TRACK ──────── */}
-          <div className="absolute left-[95px] top-[598px] width-[1251px] w-[1251px] h-[397px] z-20">
-            {/* Clean Blue Arena Frame (No red X, no duplicate baked-in badges) */}
-            <img loading="lazy" decoding="async"
-              src="/landing-pages/prize-pool/ui/arena-lower-frame.svg"
-              alt=""
-              aria-hidden="true"
-              className="absolute inset-0 w-full h-full pointer-events-none z-1"
-            />
-
-            {/* Arena Title: VR TRACK */}
-            <div className="absolute -top-[30px] left-1/2 -translate-x-1/2 w-[363px] h-[70px] z-15 pointer-events-none drop-shadow-[0_6px_14px_rgba(0,0,0,0.8)]">
-              <img loading="lazy" decoding="async"
-                src="/landing-pages/prize-pool/ui/title-vr-track.svg"
-                alt="VR TRACK"
-                className="w-full h-full object-contain"
-              />
-            </div>
-
-            {/* 2 VR Track Badges (Independent Hover Pop-Out & Wobble) */}
-            {/* 1st Prize VR: ₹10,000 */}
-            <div
-              onPointerEnter={handleItemHover}
-              className="prize-badge-hover absolute left-[95px] top-[34px] w-[276px] h-[352px] z-10 drop-shadow-[0_10px_20px_rgba(0,0,0,0.7)]"
-              title="VR 1st Place — ₹10,000"
-            >
-              <img loading="lazy" decoding="async"
-                src="/landing-pages/prize-pool/badges/badge-vr-1st.svg"
-                alt="VR 1st Place ₹10,000"
-                className="w-full h-full object-contain pointer-events-none"
-              />
-            </div>
-
-            {/* 2nd Prize VR: ₹5,000 */}
-            <div
-              onPointerEnter={handleItemHover}
-              className="prize-badge-hover absolute left-[417px] top-[38px] w-[276px] h-[340px] z-10 drop-shadow-[0_10px_20px_rgba(0,0,0,0.7)]"
-              title="VR 2nd Place — ₹5,000"
-            >
-              <img loading="lazy" decoding="async"
-                src="/landing-pages/prize-pool/badges/badge-vr-2nd.svg"
-                alt="VR 2nd Place ₹5,000"
-                className="w-full h-full object-contain pointer-events-none"
-              />
-            </div>
-
-            {/* Buzz Lightyear Character (Right side, unclipped silhouette, subtle hover wobble) */}
-            <div
-              onPointerEnter={handleItemHover}
-              className="buzz-hover absolute right-[15px] -top-[115px] w-[624px] h-[535px] z-12 drop-shadow-[0_10px_24px_rgba(0,0,0,0.85)]"
-              title="Buzz Lightyear"
-            >
-              <img loading="lazy" decoding="async"
-                src="/landing-pages/prize-pool/characters/buzzlight.svg"
-                alt="Buzz Lightyear"
-                className="w-full h-full object-contain pointer-events-none"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      </div>
-
-      {/* ── 3. MOBILE STACK (< 768px): 2 STACKED ARENAS WITH HORIZONTAL SWIPEABLE GALLERIES ──────── */}
-      <div className="prize-mobile-centered prize-mobile-section flex md:hidden relative z-10 flex-col w-full items-center">
-        {/* Mobile Main Arcade Title */}
-        <div className="w-[88%] max-w-[340px] drop-shadow-[0_6px_14px_rgba(0,0,0,0.85)]">
-          <img loading="lazy" decoding="async"
-            src="/landing-pages/prize-pool/ui/title-prizepool.svg"
-            alt="PRIZE POOL"
-            className="w-full h-auto object-contain"
-          />
-        </div>
-
-        {/* Mobile Arena 1: Main Tournament (PRIZES) */}
-        <section className="prize-mobile-arena prize-mobile-main-arena relative w-full max-w-[480px] bg-gradient-to-b from-[#0E58F6]/95 to-[#092C82]/98 rounded-2xl border-[3px] border-[#20CEFF] shadow-[0_8px_24px_rgba(0,0,0,0.75)] overflow-hidden pt-3 pb-4" aria-labelledby="mobile-prizes-heading">
-          {/* Header Bar */}
-          <div className="flex items-center justify-center px-4 pt-6 pb-3 border-b-2 border-[#20CEFF]/30">
-            <img loading="lazy" decoding="async"
+        {/* ── 2. UPPER ARENA: MAIN TOURNAMENT PODIUM ────────── */}
+        <div className="relative w-full rounded-3xl bg-gradient-to-b from-[#182654]/90 to-[#0F1B3E]/95 border-[3.5px] border-[#080D1D] shadow-[0_10px_0_#080D1D,0_20px_40px_rgba(0,0,0,0.85),inset_0_2px_0_rgba(85,217,255,0.3)] p-4 sm:p-6 md:p-8 mb-10 sm:mb-14 overflow-visible">
+          
+          {/* Arena Header Tag */}
+          <div className="absolute -top-6 sm:-top-8 left-1/2 -translate-x-1/2 w-48 sm:w-64 md:w-72 h-12 sm:h-16 drop-shadow-[0_6px_14px_rgba(0,0,0,0.85)]">
+            <Image
               src="/landing-pages/prize-pool/ui/title-prizes.svg"
-              alt="PRIZES"
-              id="mobile-prizes-heading"
-              className="relative top-4 h-9 sm:h-11 w-auto object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]"
+              alt="MAIN PRIZES"
+              fill
+              className="object-contain"
             />
           </div>
 
-          <div className="prize-mobile-rewards">
-            <article className="prize-mobile-reward-card">
-              <img loading="lazy" decoding="async"
-                src="/landing-pages/prize-pool/badges/badge-main-1st.svg"
-                alt="1st Place ₹17,500"
-                className="prize-mobile-reward-art"
-              />
-            </article>
-            <article className="prize-mobile-reward-card">
-              <img loading="lazy" decoding="async"
-                src="/landing-pages/prize-pool/badges/badge-main-2nd.svg"
-                alt="2nd Place ₹15,000"
-                className="prize-mobile-reward-art"
-              />
-            </article>
-            <article className="prize-mobile-reward-card">
-              <img loading="lazy" decoding="async"
-                src="/landing-pages/prize-pool/badges/badge-main-3rd.svg"
-                alt="3rd Place ₹12,500"
-                className="prize-mobile-reward-art"
-              />
-            </article>
+          {/* Woody Character (Placed decoratively on the left flank) */}
+          <div
+            onPointerEnter={handleItemHover}
+            className="hidden xl:block absolute -left-12 -bottom-6 w-56 h-56 pointer-events-auto cursor-pointer transition-transform duration-200 hover:scale-105 drop-shadow-[0_8px_18px_rgba(0,0,0,0.8)]"
+            title="Woody Colt"
+          >
+            <Image
+              src="/landing-pages/prize-pool/characters/woody.svg"
+              alt="Woody Colt"
+              fill
+              className="object-contain"
+            />
           </div>
-          <div className="prize-mobile-character prize-mobile-character-woody" aria-hidden="true">
-            <img loading="lazy" decoding="async" src="/landing-pages/prize-pool/characters/woody.svg" alt="" className="w-full h-full object-contain object-bottom" />
-          </div>
-        </section>
 
-        {/* Decorative Purple Gem between arenas */}
-        <div className="w-14 h-14 -my-2 drop-shadow-[0_4px_12px_rgba(154,69,255,0.8)] pointer-events-none">
-          <img loading="lazy" decoding="async"
-            src="/landing-pages/prize-pool/ui/gem-purple.svg"
-            alt=""
-            aria-hidden="true"
-            className="w-full h-full object-contain"
-          />
+          {/* Podium Grid (2nd | 1st (Taller) | 3rd) */}
+          <div className="pt-6 sm:pt-8 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-end justify-items-center max-w-4xl mx-auto">
+            
+            {/* 2nd Place Card (Silver - Left) */}
+            <div
+              onPointerEnter={handleItemHover}
+              className="order-2 md:order-1 relative w-full max-w-[260px] rounded-2xl bg-gradient-to-b from-[#1E3266] to-[#122045] border-[3px] border-[#080D1D] shadow-[0_6px_0_#080D1D,0_10px_20px_rgba(0,0,0,0.6)] p-4 flex flex-col items-center transition-transform duration-200 hover:-translate-y-2 group cursor-pointer"
+            >
+              <span className="font-lilita text-xs text-cyan-300 bg-[#070B24] px-3 py-1 rounded-full border border-cyan-400/30 mb-2">
+                2ND PLACE
+              </span>
+              <div className="relative w-40 sm:w-44 h-52 sm:h-56 drop-shadow-[0_8px_16px_rgba(0,0,0,0.7)] group-hover:scale-105 transition-transform">
+                <Image
+                  src="/landing-pages/prize-pool/badges/badge-main-2nd.svg"
+                  alt="2nd Place ₹15,000"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <span className="font-lilita text-2xl text-cyan-200 mt-2 tracking-wide">
+                ₹15,000
+              </span>
+            </div>
+
+            {/* 1st Place Card (Gold - Center & Highest) */}
+            <div
+              onPointerEnter={handleItemHover}
+              className="order-1 md:order-2 relative w-full max-w-[290px] rounded-2xl bg-gradient-to-b from-[#253E7E] to-[#16254E] border-[3.5px] border-[#FFD447] shadow-[0_8px_0_#C78316,0_0_30px_rgba(255,212,71,0.35)] p-5 flex flex-col items-center transition-transform duration-200 hover:-translate-y-2 md:-translate-y-4 group cursor-pointer"
+            >
+              <div className="absolute -top-3.5 px-4 py-1 rounded-full bg-[#FFD447] text-[#080D1D] font-lilita text-xs tracking-wider shadow-[0_2px_0_#C78316]">
+                ★ CHAMPIONS ★
+              </div>
+              <span className="font-lilita text-sm text-[#FFD447] mt-1 mb-2">
+                1ST PLACE
+              </span>
+              <div className="relative w-48 sm:w-52 h-60 sm:h-64 drop-shadow-[0_10px_24px_rgba(255,212,71,0.5)] group-hover:scale-105 transition-transform">
+                <Image
+                  src="/landing-pages/prize-pool/badges/badge-main-1st.svg"
+                  alt="1st Place ₹17,500"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <span className="font-lilita text-3xl text-[#FFD447] mt-2 tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+                ₹17,500
+              </span>
+            </div>
+
+            {/* 3rd Place Card (Bronze - Right) */}
+            <div
+              onPointerEnter={handleItemHover}
+              className="order-3 relative w-full max-w-[260px] rounded-2xl bg-gradient-to-b from-[#1E3266] to-[#122045] border-[3px] border-[#080D1D] shadow-[0_6px_0_#080D1D,0_10px_20px_rgba(0,0,0,0.6)] p-4 flex flex-col items-center transition-transform duration-200 hover:-translate-y-2 group cursor-pointer"
+            >
+              <span className="font-lilita text-xs text-amber-300 bg-[#070B24] px-3 py-1 rounded-full border border-amber-400/30 mb-2">
+                3RD PLACE
+              </span>
+              <div className="relative w-40 sm:w-44 h-52 sm:h-56 drop-shadow-[0_8px_16px_rgba(0,0,0,0.7)] group-hover:scale-105 transition-transform">
+                <Image
+                  src="/landing-pages/prize-pool/badges/badge-main-3rd.svg"
+                  alt="3rd Place ₹12,500"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <span className="font-lilita text-2xl text-amber-200 mt-2 tracking-wide">
+                ₹12,500
+              </span>
+            </div>
+
+          </div>
         </div>
 
-        {/* Mobile Arena 2: VR Track */}
-        <section className="prize-mobile-arena prize-mobile-vr-arena relative w-full max-w-[480px] bg-gradient-to-b from-[#0E58F6]/95 to-[#092C82]/98 rounded-2xl border-[3px] border-[#20CEFF] shadow-[0_8px_24px_rgba(0,0,0,0.75)] overflow-hidden pt-3 pb-4" aria-labelledby="mobile-vr-heading">
-          {/* Header Bar */}
-          <div className="flex items-center justify-center px-4 pt-6 pb-3 border-b-2 border-[#20CEFF]/30">
-            <img loading="lazy" decoding="async"
+        {/* ── 3. LOWER ARENA: VR TRACK REWARDS ──────────────── */}
+        <div className="relative w-full max-w-4xl rounded-3xl bg-gradient-to-b from-[#1C2C5E]/90 to-[#121E42]/95 border-[3.5px] border-[#080D1D] shadow-[0_10px_0_#080D1D,0_20px_40px_rgba(0,0,0,0.85),inset_0_2px_0_rgba(153,100,255,0.3)] p-4 sm:p-6 md:p-8 overflow-visible">
+          
+          {/* VR Arena Header Tag */}
+          <div className="absolute -top-6 sm:-top-8 left-1/2 -translate-x-1/2 w-52 sm:w-72 md:w-80 h-12 sm:h-16 drop-shadow-[0_6px_14px_rgba(0,0,0,0.85)]">
+            <Image
               src="/landing-pages/prize-pool/ui/title-vr-track.svg"
               alt="VR TRACK"
-              id="mobile-vr-heading"
-              className="relative top-4 h-9 sm:h-11 w-auto object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]"
+              fill
+              className="object-contain"
             />
           </div>
 
-          <div className="prize-mobile-rewards">
-            <article className="prize-mobile-reward-card">
-              <img loading="lazy" decoding="async"
-                src="/landing-pages/prize-pool/badges/badge-vr-1st.svg"
-                alt="VR 1st Place ₹10,000"
-                className="prize-mobile-reward-art"
-              />
-            </article>
-            <article className="prize-mobile-reward-card">
-              <img loading="lazy" decoding="async"
-                src="/landing-pages/prize-pool/badges/badge-vr-2nd.svg"
-                alt="VR 2nd Place ₹5,000"
-                className="prize-mobile-reward-art"
-              />
-            </article>
+          {/* Buzz Lightyear Character (Placed decoratively on the right flank) */}
+          <div
+            onPointerEnter={handleItemHover}
+            className="hidden xl:block absolute -right-12 -bottom-6 w-56 h-56 pointer-events-auto cursor-pointer transition-transform duration-200 hover:scale-105 drop-shadow-[0_8px_18px_rgba(0,0,0,0.8)]"
+            title="Buzz Lightyear"
+          >
+            <Image
+              src="/landing-pages/prize-pool/characters/buzzlight.svg"
+              alt="Buzz Lightyear"
+              fill
+              className="object-contain"
+            />
           </div>
-          <div className="prize-mobile-character prize-mobile-character-buzz" aria-hidden="true">
-            <img loading="lazy" decoding="async" src="/landing-pages/prize-pool/characters/buzzlight.svg" alt="" className="w-full h-full object-contain object-bottom" />
+
+          {/* VR Badges (1st Place & 2nd Place) */}
+          <div className="pt-6 sm:pt-8 grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10 items-center justify-items-center max-w-2xl mx-auto">
+            
+            {/* 1st Place VR */}
+            <div
+              onPointerEnter={handleItemHover}
+              className="relative w-full max-w-[260px] rounded-2xl bg-gradient-to-b from-[#243468] to-[#14224A] border-[3px] border-[#9964FF] shadow-[0_6px_0_#080D1D,0_0_20px_rgba(153,100,255,0.3)] p-4 flex flex-col items-center transition-transform duration-200 hover:-translate-y-2 group cursor-pointer"
+            >
+              <span className="font-lilita text-xs text-purple-300 bg-[#070B24] px-3 py-1 rounded-full border border-purple-400/30 mb-2">
+                VR 1ST PLACE
+              </span>
+              <div className="relative w-40 sm:w-48 h-52 sm:h-56 drop-shadow-[0_8px_16px_rgba(0,0,0,0.7)] group-hover:scale-105 transition-transform">
+                <Image
+                  src="/landing-pages/prize-pool/badges/badge-vr-1st.svg"
+                  alt="VR 1st Place ₹10,000"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <span className="font-lilita text-2xl text-purple-200 mt-2 tracking-wide">
+                ₹10,000
+              </span>
+            </div>
+
+            {/* 2nd Place VR */}
+            <div
+              onPointerEnter={handleItemHover}
+              className="relative w-full max-w-[260px] rounded-2xl bg-gradient-to-b from-[#1E2E5E] to-[#121E42] border-[3px] border-[#080D1D] shadow-[0_6px_0_#080D1D,0_10px_20px_rgba(0,0,0,0.6)] p-4 flex flex-col items-center transition-transform duration-200 hover:-translate-y-2 group cursor-pointer"
+            >
+              <span className="font-lilita text-xs text-cyan-300 bg-[#070B24] px-3 py-1 rounded-full border border-cyan-400/30 mb-2">
+                VR 2ND PLACE
+              </span>
+              <div className="relative w-40 sm:w-48 h-52 sm:h-56 drop-shadow-[0_8px_16px_rgba(0,0,0,0.7)] group-hover:scale-105 transition-transform">
+                <Image
+                  src="/landing-pages/prize-pool/badges/badge-vr-2nd.svg"
+                  alt="VR 2nd Place ₹5,000"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <span className="font-lilita text-2xl text-cyan-200 mt-2 tracking-wide">
+                ₹5,000
+              </span>
+            </div>
+
           </div>
-        </section>
+        </div>
+
       </div>
     </section>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, type RefObject } from "react";
+import React, { useEffect, useRef, useState, type RefObject } from "react";
 import Image from "next/image";
 import "./memories.css";
 
@@ -8,197 +8,229 @@ type MemoriesSectionProps = {
   scrollContainerRef: RefObject<HTMLDivElement | null>;
 };
 
-type Memory = {
+interface MemoryPhoto {
   id: number;
   src: string;
-  x: number;
-  y: number;
   tilt: number;
-};
+}
 
-// Replace the files in public/landing-pages/memories/photos/ with actual photos.
-// These coordinates (percent of the virtual canvas) define the scrapbook layout.
-const MEMORIES: Memory[] = [
-  { id: 1, src: "/landing-pages/memories/photos/memory-01.webp", x: 22, y: 19, tilt: -9 },
-  { id: 2, src: "/landing-pages/memories/photos/memory-02.webp", x: 71, y: 24, tilt: 7 },
-  { id: 3, src: "/landing-pages/memories/photos/memory-03.webp", x: 44, y: 50, tilt: -6 },
-  { id: 4, src: "/landing-pages/memories/photos/memory-04.webp", x: 82, y: 72, tilt: 10 },
-  { id: 5, src: "/landing-pages/memories/photos/memory-05.webp", x: 20, y: 77, tilt: -12 },
-  { id: 6, src: "/landing-pages/memories/photos/memory-06.webp", x: 52, y: 14, tilt: 6 },
-  { id: 7, src: "/landing-pages/memories/photos/memory-07.webp", x: 15, y: 49, tilt: 8 },
-  { id: 8, src: "/landing-pages/memories/photos/memory-08.webp", x: 60, y: 87, tilt: -5 },
+const MEMORIES: MemoryPhoto[] = [
+  { id: 1, src: "/landing-pages/memories/photos/memory-01.webp", tilt: -2.5 },
+  { id: 2, src: "/landing-pages/memories/photos/memory-02.webp", tilt: 2 },
+  { id: 3, src: "/landing-pages/memories/photos/memory-03.webp", tilt: -1.5 },
+  { id: 4, src: "/landing-pages/memories/photos/memory-04.webp", tilt: 2.5 },
+  { id: 5, src: "/landing-pages/memories/photos/memory-05.webp", tilt: -2 },
+  { id: 6, src: "/landing-pages/memories/photos/memory-06.webp", tilt: 1.8 },
+  { id: 7, src: "/landing-pages/memories/photos/memory-07.webp", tilt: -2.2 },
+  { id: 8, src: "/landing-pages/memories/photos/memory-08.webp", tilt: 1.5 },
 ];
 
 export default function MemoriesSection({ scrollContainerRef }: MemoriesSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
-  const cameraRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const mobileGalleryRef = useRef<HTMLDivElement>(null);
+  const [activeMobileIndex, setActiveMobileIndex] = useState(0);
 
+  // Desktop subtle camera pan across 200vh
   useEffect(() => {
     const section = sectionRef.current;
-    const camera = cameraRef.current;
+    const track = trackRef.current;
     const scroller = scrollContainerRef.current;
-    if (!section || !camera || !scroller) return;
 
-    // A static, fully readable layout is used for reduced-motion visitors.
+    if (!section || !track || !scroller) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    let disposed = false;
-    const contextHolder: { current: { revert: () => void } | null } = { current: null };
-    let started = false;
+    let frame = 0;
 
-    const initialise = async () => {
-      if (started) return;
-      started = true;
+    const handleScroll = () => {
+      if (window.innerWidth < 768) return;
+      const sectionRect = section.getBoundingClientRect();
+      const scrollerRect = scroller.getBoundingClientRect();
 
-      // The animation library is downloaded only when the section is nearby.
-      const [gsapModule, scrollTriggerModule] = await Promise.all([
-        import("gsap"),
-        import("gsap/ScrollTrigger"),
-      ]);
-      if (disposed) return;
+      const topOffset = sectionRect.top - scrollerRect.top;
+      const totalScrollable = section.clientHeight - window.innerHeight;
+      if (totalScrollable <= 0) return;
 
-      const gsap = gsapModule.gsap;
-      const ScrollTrigger = scrollTriggerModule.ScrollTrigger;
-      gsap.registerPlugin(ScrollTrigger);
-
-      // ScrollTrigger owns only this Memories animation. It must use the
-      // existing page-level scroll container; do NOT use window scroll.
-      contextHolder.current = gsap.context(() => {
-        const isPhone = () => scroller.clientWidth < 640;
-        const scaleForViewport = () =>
-          isPhone() ? 0.96 : scroller.clientWidth < 1024 ? 1.06 : 1.19;
-
-        const target = (memory: Memory) => {
-          const scale = scaleForViewport();
-          const cameraWidth = camera.offsetWidth;
-          const cameraHeight = camera.offsetHeight;
-          return {
-            x: -(memory.x / 100 - 0.5) * cameraWidth * scale,
-            y: -(memory.y / 100 - 0.5) * cameraHeight * scale,
-            scale,
-            rotation: -memory.tilt * 0.14,
-          };
-        };
-
-        // First photograph in focus before scrolling begins.
-        gsap.set(camera, {
-          x: () => target(MEMORIES[0]).x,
-          y: () => target(MEMORIES[0]).y,
-          scale: () => target(MEMORIES[0]).scale,
-          rotation: () => target(MEMORIES[0]).rotation,
-          transformOrigin: "50% 50%",
-        });
-
-        const timeline = gsap.timeline({
-          defaults: { ease: "none" },
-          scrollTrigger: {
-            trigger: section,
-            scroller,
-            start: "top top",
-            end: "bottom bottom",
-            scrub: true,
-            invalidateOnRefresh: true,
-              onEnter: () => camera.classList.add("is-animating"),
-              onEnterBack: () => camera.classList.add("is-animating"),
-              onLeave: () => camera.classList.remove("is-animating"),
-              onLeaveBack: () => camera.classList.remove("is-animating"),
-            onUpdate: (self) => {
-                const progress = self.progress.toFixed(3);
-                if (section.dataset.progress !== progress) {
-                  section.dataset.progress = progress;
-                }
-            },
-          },
-        });
-
-        for (let index = 1; index < MEMORIES.length; index += 1) {
-          const memory = MEMORIES[index];
-          timeline.to(camera, {
-            x: () => target(memory).x,
-            y: () => target(memory).y,
-            scale: () => target(memory).scale,
-            rotation: () => target(memory).rotation,
-            duration: 1,
-          });
-        }
-
-        ScrollTrigger.refresh();
-      }, section);
+      const progress = Math.min(1, Math.max(0, -topOffset / totalScrollable));
+      
+      // Pan the track smoothly from 0% to -50% (revealing photos 1-4 then 5-8)
+      const maxTranslateX = track.scrollWidth - window.innerWidth + 80;
+      if (maxTranslateX > 0) {
+        track.style.transform = `translate3d(-${(progress * maxTranslateX).toFixed(1)}px, 0, 0)`;
+      }
     };
 
-    // A static initial section remains visible while its animation loads.
-    // root is deliberately the custom page scroll container, not window.
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) {
-          observer.disconnect();
-          void initialise().catch((error) => {
-            console.error("[GENESIS Memories] Animation unavailable", error);
-          });
-        }
-      },
-      { root: scroller, rootMargin: "25% 0px", threshold: 0 },
-    );
-    observer.observe(section);
+    const scheduleUpdate = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        handleScroll();
+      });
+    };
+
+    scroller.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate, { passive: true });
+    handleScroll();
 
     return () => {
-      disposed = true;
-      observer.disconnect();
-      camera.classList.remove("is-animating");
-      contextHolder.current?.revert();
+      scroller.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+      if (frame) window.cancelAnimationFrame(frame);
     };
   }, [scrollContainerRef]);
+
+  // Mobile scroll tracker for dot indicator
+  const handleMobileScroll = () => {
+    if (!mobileGalleryRef.current) return;
+    const { scrollLeft, clientWidth } = mobileGalleryRef.current;
+    const index = Math.round(scrollLeft / (clientWidth * 0.75));
+    setActiveMobileIndex(Math.min(MEMORIES.length - 1, Math.max(0, index)));
+  };
 
   return (
     <section
       ref={sectionRef}
       id="memories"
       aria-label="GENESIS Memories photo journey"
-      className="genesis-memories"
-      data-runtime="memories-scrollaroids-v1"
-      style={{ minHeight: `${MEMORIES.length * 70}svh` }}
+      className="brawl-memories-section relative w-full bg-[#030015] text-white"
     >
-      <div className="memories-viewport">
-        <div className="memories-background" aria-hidden="true" />
+      {/* ── Background Atmosphere ─────────────────────────────── */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+        <Image
+          src="/landing-pages/memories/backgrounds/memories-background.webp"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover opacity-75"
+        />
+        <div className="absolute inset-0 bg-[#030015]/40" />
+        <div className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-[#030015] to-transparent pointer-events-none" />
+        <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-[#030015] to-transparent pointer-events-none" />
+      </div>
 
-        <div ref={cameraRef} className="memories-camera">
+      {/* ── DESKTOP STAGE (>= 768px): Sticky Viewport with Pan ── */}
+      <div className="hidden md:block relative w-full h-[220vh]">
+        <div className="sticky top-0 w-full h-screen overflow-hidden flex flex-col justify-between py-10 px-8 z-10">
+          
+          {/* Header Title Banner */}
+          <header className="relative w-full flex flex-col items-center z-20 shrink-0">
+            <div className="relative w-72 sm:w-96 md:w-[460px] h-16 sm:h-20 drop-shadow-[0_8px_20px_rgba(0,0,0,0.85)]">
+              <Image
+                src="/landing-pages/memories/ui/memories-title.svg"
+                alt="MEMORIES"
+                fill
+                className="object-contain"
+              />
+            </div>
+            <p className="font-lilita text-xs sm:text-sm text-cyan-300 tracking-wider uppercase mt-1 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+              MOMENTS FROM THE COSMIC ARENA
+            </p>
+          </header>
+
+          {/* Panoramic Panning Photo Ribbon (4 photos visible comfortably) */}
+          <div className="relative w-full flex-1 flex items-center overflow-visible z-10">
+            <div
+              ref={trackRef}
+              className="flex items-center gap-8 pl-12 pr-24 will-change-transform transition-transform duration-75 ease-out"
+            >
+              {MEMORIES.map((memory) => (
+                <figure
+                  key={memory.id}
+                  className="brawl-memory-card shrink-0 w-[310px] lg:w-[340px] rounded-2xl bg-[#FFF9EA] border-[3px] border-[#080D1D] shadow-[0_12px_28px_rgba(0,0,0,0.7),0_0_0_1px_rgba(255,255,255,0.4)] p-3 pb-2 transition-transform duration-200 hover:scale-105 hover:z-30 cursor-pointer"
+                  style={{
+                    transform: `rotate(${memory.tilt}deg)`,
+                  }}
+                >
+                  <div className="relative w-full aspect-[960/700] rounded-xl overflow-hidden border border-[#080D1D]/20">
+                    <Image
+                      src={memory.src}
+                      alt={`GENESIS memory photograph ${String(memory.id).padStart(2, "0")}`}
+                      fill
+                      sizes="340px"
+                      className="object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                  <figcaption className="font-lilita text-center text-sm tracking-wider text-[#241533] pt-2">
+                    MEMORY {String(memory.id).padStart(2, "0")}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+
+          {/* Bottom helper cue */}
+          <div className="relative w-full flex justify-center text-xs font-bold text-slate-400 tracking-widest uppercase">
+            <span>SCROLL TO EXPLORE ARCHIVE • 8 MEMORIES</span>
+          </div>
+
+        </div>
+      </div>
+
+      {/* ── MOBILE STAGE (< 768px): Touch-Friendly Horizontal Gallery ── */}
+      <div className="block md:hidden relative z-10 w-full py-12 px-4">
+        
+        {/* Header Title */}
+        <header className="relative w-full flex flex-col items-center mb-6">
+          <div className="relative w-64 h-14 drop-shadow-[0_6px_14px_rgba(0,0,0,0.85)]">
+            <Image
+              src="/landing-pages/memories/ui/memories-title.svg"
+              alt="MEMORIES"
+              fill
+              className="object-contain"
+            />
+          </div>
+          <span className="font-lilita text-xs text-cyan-300 tracking-wider uppercase mt-1">
+            SWIPE TO EXPLORE • {activeMobileIndex + 1} / 8
+          </span>
+        </header>
+
+        {/* Horizontal Native Swipe Gallery (Zero Vertical Scroll Trap!) */}
+        <div
+          ref={mobileGalleryRef}
+          onScroll={handleMobileScroll}
+          className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-4 pb-4 pt-2 no-scrollbar"
+          style={{
+            WebkitOverflowScrolling: "touch",
+            scrollSnapType: "x mandatory",
+          }}
+        >
           {MEMORIES.map((memory) => (
             <figure
               key={memory.id}
-              className="memories-photo"
-              style={{
-                left: `${memory.x}%`,
-                top: `${memory.y}%`,
-                ["--memory-tilt" as string]: `${memory.tilt}deg`,
-              }}
+              className="snap-center shrink-0 w-[78vw] max-w-[290px] rounded-2xl bg-[#FFF9EA] border-[3px] border-[#080D1D] shadow-[0_8px_20px_rgba(0,0,0,0.7)] p-2.5 pb-2 transition-transform duration-150 active:scale-98"
             >
-              <Image
-                src={memory.src}
-                alt={`GENESIS memory photograph ${String(memory.id).padStart(2, "0")}`}
-                width={960}
-                height={700}
-                sizes="(max-width: 639px) 76vw, (max-width: 1023px) 320px, 360px"
-                className="memories-photo-image"
-                loading="lazy"
-                fetchPriority="auto"
-                decoding="async"
-              />
-              <figcaption className="memories-photo-caption">
+              <div className="relative w-full aspect-[960/700] rounded-xl overflow-hidden border border-[#080D1D]/20">
+                <Image
+                  src={memory.src}
+                  alt={`GENESIS memory photograph ${String(memory.id).padStart(2, "0")}`}
+                  fill
+                  sizes="290px"
+                  className="object-cover"
+                  loading="lazy"
+                />
+              </div>
+              <figcaption className="font-lilita text-center text-xs tracking-wider text-[#241533] pt-2">
                 MEMORY {String(memory.id).padStart(2, "0")}
               </figcaption>
             </figure>
           ))}
         </div>
 
-        <header className="memories-header">
-          <Image
-            className="memories-title"
-            src="/landing-pages/memories/ui/memories-title.svg"
-            width={490}
-            height={130}
-            alt="MEMORIES"
-          />
-        </header>
+        {/* Dot Pagination Indicator */}
+        <div className="flex items-center justify-center gap-1.5 mt-4">
+          {MEMORIES.map((_, idx) => (
+            <span
+              key={idx}
+              className={`h-2 rounded-full transition-all duration-200 ${
+                activeMobileIndex === idx
+                  ? "w-6 bg-[#FFD447] shadow-[0_0_8px_#FFD447]"
+                  : "w-2 bg-blue-900/60"
+              }`}
+            />
+          ))}
+        </div>
+
       </div>
     </section>
   );

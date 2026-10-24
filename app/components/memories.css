@@ -1,162 +1,27 @@
-/* Scoped GENESIS Memories styles. No global Hero/Timeline/Prize Pool changes. */
-.genesis-memories {
+/* Scoped GENESIS Memories styling */
+.brawl-memories-section {
   position: relative;
   width: 100%;
   background: #030015;
   isolation: isolate;
 }
 
-.memories-viewport {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  height: 100svh;
-  min-height: 450px;
-  overflow: hidden;
-  background: #030015;
+.brawl-memory-card {
+  transition: transform 0.22s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.22s ease;
 }
 
-.memories-background {
-  position: absolute;
-  inset: 0;
-  background: #08062f url('/landing-pages/memories/backgrounds/memories-background.webp') center center / cover no-repeat;
-  pointer-events: none;
-}
-
-.memories-background::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(3,0,21,.25), rgba(3,0,21,.08) 40%, rgba(3,0,21,.4));
-}
-
-.memories-camera {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  translate: -50% -50%;
-  width: 1600px;
-  height: 1400px;
-  will-change: auto;
-  pointer-events: none;
-}
-
-.memories-camera.is-animating {
-  will-change: transform;
-}
-
-.memories-photo {
-  position: absolute;
-  width: 330px;
-  padding: 11px 11px 0;
-  transform: translate(-50%, -50%) rotate(var(--memory-tilt, 0deg));
-  border: 2px solid rgba(255,255,255,.92);
-  background: #fff9ea;
-  box-shadow: 0 14px 40px rgba(0,0,0,.55), 0 0 25px rgba(52,180,255,.12);
-  overflow: hidden;
-}
-
-.memories-photo-image {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 960 / 700;
-  object-fit: cover;
-}
-
-.memories-photo-caption {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 38px;
-  font-family: var(--font-lilita), system-ui, sans-serif;
-  font-size: 18px;
-  letter-spacing: .045em;
-  font-weight: 800;
-  color: #241533;
-  text-align: center;
-}
-
-.memories-header {
-  position: absolute;
-  z-index: 5;
-  inset: 0 0 auto;
-  height: clamp(70px, 10vh, 112px);
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  pointer-events: none;
-  padding: clamp(5px, 1.4vw, 16px) clamp(10px, 2vw, 26px);
-}
-
-.memories-title {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  translate: -50% 0;
-  display: block;
-  width: clamp(230px, 35vw, 490px);
-  height: auto;
-  pointer-events: none;
-}
-
-.memories-icon-button {
-  position: relative;
-  z-index: 2;
-  appearance: none;
-  border: 0;
-  background: none;
-  padding: 0;
-  width: clamp(72px, 12vw, 160px);
-  height: auto;
-  cursor: pointer;
-  pointer-events: auto;
-  filter: drop-shadow(0 7px 6px rgba(0,0,0,.35));
-  transition: transform .18s ease;
-}
-
-.memories-icon-button img { display: block; width: 100%; height: auto; }
-.memories-icon-button:hover { transform: translateY(-3px); }
-.memories-icon-button:focus-visible { outline: 3px solid #ffd447; outline-offset: 4px; }
-
-@media (max-width: 767px) {
-  .memories-viewport { min-height: 0; }
-  .memories-camera { width: 1120px; height: 1180px; }
-  .memories-photo { width: clamp(248px, 74vw, 320px); padding: 8px 8px 0; }
-  .memories-photo-caption { min-height: 31px; font-size: 15px; }
-  .memories-header { height: 80px; padding: 4px 6px; }
-  .memories-title { top: 3px; width: min(52vw, 290px); }
-  .memories-icon-button { width: clamp(42px, 13vw, 64px); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .genesis-memories { min-height: 0 !important; }
-  .memories-viewport { position: relative; height: auto; min-height: 100svh; overflow: hidden; }
-  .memories-header { position: relative; height: 100px; }
-  .memories-camera {
-    position: relative;
-    left: auto;
-    top: auto;
-    translate: none;
-    transform: none !important;
-    width: min(100%, 1100px);
-    height: auto;
-    margin: 12px auto 50px;
-    padding: 12px 18px;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
-    pointer-events: auto;
-    will-change: auto;
+@media (hover: hover) and (pointer: fine) {
+  .brawl-memory-card:hover {
+    transform: translateY(-8px) scale(1.04) !important;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.85), 0 0 20px rgba(85, 217, 255, 0.3) !important;
   }
-  .memories-photo {
-    position: static;
-    width: 100%;
-    transform: none !important;
-  }
-  .memories-icon-button { transition: none; }
 }
 
-@media (max-width: 639px) and (prefers-reduced-motion: reduce) {
-  .memories-camera { grid-template-columns: 1fr; }
+/* Hide scrollbar for clean touch swipe */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

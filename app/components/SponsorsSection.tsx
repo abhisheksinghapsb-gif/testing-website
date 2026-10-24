@@ -34,19 +34,19 @@ const SPONSOR_CARDS: SponsorCardData[] = [
     id: "sponsor-tier-04",
     name: "Tier 4 Sponsor",
     svgPath: "/landing-pages/sponsors/cards/card-brawl-ball.svg",
-    tier: "???????",
+    tier: "TIER 4",
   },
   {
     id: "sponsor-tier-05",
     name: "Tier 5 Sponsor",
     svgPath: "/landing-pages/sponsors/cards/card-5v5.svg",
-    tier: "?????",
+    tier: "TIER 5",
   },
   {
     id: "sponsor-tier-06",
     name: "Tier 6 Sponsor",
     svgPath: "/landing-pages/sponsors/cards/card-target.svg",
-    tier: "????",
+    tier: "TIER 6",
   },
 ];
 
@@ -58,251 +58,161 @@ export default function SponsorsSection() {
   return (
     <section
       id="sponsors"
-      className="relative w-screen min-h-screen flex flex-col items-center justify-between overflow-x-hidden overflow-y-visible select-none bg-[#030015] py-4 sm:py-6 md:py-8 px-3 sm:px-6 lg:px-8"
-      style={{
-        background: "radial-gradient(ellipse at 50% 30%, #150a3c 0%, #0c0424 45%, #030014 100%)",
-      }}
+      className="brawl-sponsors-section relative w-full min-h-screen flex flex-col items-center justify-between overflow-x-hidden overflow-y-visible select-none bg-[#030015] py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 text-white"
     >
       {/* ── Background Cosmic Texture ─────────────────────── */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
         <Image
           src="/landing-pages/sponsors/backgrounds/cosmic-brawl-stars-pattern-hd.webp"
-          alt="Cosmic Brawl Stars Pattern"
+          alt=""
           fill
           sizes="100vw"
-          className="object-cover opacity-85 mix-blend-screen select-none pointer-events-none"
+          className="object-cover opacity-75 mix-blend-screen select-none pointer-events-none"
           loading="lazy"
-          decoding="async"
         />
-        {/* Soft vignette overlay */}
-        <div className="absolute inset-0 bg-radial-gradient from-transparent via-[#030015]/30 to-[#030015]/80 pointer-events-none" />
-        {/* Subtle Edge Transitions: Visual continuity between Prize Pool above and FAQs below */}
-        <div className="absolute top-0 inset-x-0 h-24 sm:h-32 bg-gradient-to-b from-[#030015] to-transparent pointer-events-none" />
-        <div className="absolute bottom-0 inset-x-0 h-24 sm:h-32 bg-gradient-to-t from-[#030015] to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-[#030015]/50 pointer-events-none" />
+        <div className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-[#030015] to-transparent pointer-events-none" />
+        <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-[#030015] to-transparent pointer-events-none" />
       </div>
 
-      {/* ── Content Centering Container ───────────────────── */}
-      <div className="relative z-10 w-full max-w-[1440px] flex flex-col items-center flex-grow justify-between">
+      <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col items-center flex-grow">
         
         {/* ── 1. Top SPONSORS Header ──────────────────────── */}
-        <header className="relative w-full flex items-center justify-center gap-2 sm:gap-4 md:gap-5 pt-1 pb-3 sm:pb-5 md:pb-6">
-          {/* Crown Left with Pop-out Animation */}
-          <div className="relative w-[44px] h-[56px] sm:w-[56px] sm:h-[72px] md:w-[68px] md:h-[86px] flex-shrink-0 animate-icon-pop-crown transition-transform duration-200 hover:scale-110 active:scale-95 cursor-default">
+        <header className="relative w-full flex items-center justify-center gap-3 sm:gap-5 mb-8 sm:mb-12">
+          {/* Crown Left */}
+          <div className="relative w-11 h-14 sm:w-14 sm:h-18 md:w-16 md:h-20 flex-shrink-0 animate-icon-pop-crown">
             <Image
               src="/landing-pages/sponsors/ui/header-crown.svg"
               alt="Genesis Crown"
               fill
-              className="object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)] drop-shadow-[0_0_12px_rgba(234,179,8,0.4)]"
-              loading="lazy"
-              decoding="async"
+              className="object-contain drop-shadow-[0_4px_12px_rgba(255,212,71,0.4)]"
             />
           </div>
 
-          {/* SPONSORS Title Center (Steady, No Text Jitter) */}
-          <div className="relative w-[210px] sm:w-[270px] md:w-[327px] aspect-[327/68] flex-shrink-0">
+          {/* SPONSORS Title Center */}
+          <div className="relative w-52 sm:w-72 md:w-84 aspect-[327/68] flex-shrink-0 drop-shadow-[0_8px_20px_rgba(0,0,0,0.85)]">
             <Image
               src="/landing-pages/sponsors/ui/header-sponsors-title.svg"
               alt="SPONSORS"
               fill
-              className="object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.8)]"
-              loading="lazy"
-              decoding="async"
+              className="object-contain"
             />
           </div>
 
-          {/* Gems Box Right with Pop-out Animation */}
-          <div className="relative w-[75px] h-[60px] sm:w-[98px] sm:h-[78px] md:w-[124px] md:h-[100px] flex-shrink-0 animate-icon-pop-gems transition-transform duration-200 hover:scale-110 active:scale-95 cursor-default">
+          {/* Gems Box Right */}
+          <div className="relative w-16 h-14 sm:w-20 sm:h-18 md:w-24 md:h-22 flex-shrink-0 animate-icon-pop-gems">
             <Image
               src="/landing-pages/sponsors/ui/header-gems.svg"
               alt="Gems and Credits Box"
               fill
-              className="object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)] drop-shadow-[0_0_14px_rgba(6,182,212,0.45)]"
-              loading="lazy"
-              decoding="async"
+              className="object-contain drop-shadow-[0_4px_12px_rgba(85,217,255,0.45)]"
             />
           </div>
         </header>
 
-        {/* ── 2. Main Sponsors Stage (Desktop Side-by-Side / Mobile Stack) ── */}
-        <div className="w-full flex flex-col lg:flex-row items-center lg:items-start justify-center gap-6 xl:gap-10 pb-6 sm:pb-8 flex-grow">
+        {/* ── 2. Main Sponsors Stage (Side-by-Side on Desktop, Stack on Mobile) ── */}
+        <div className="w-full flex flex-col lg:flex-row items-center lg:items-stretch justify-center gap-8 xl:gap-12 pb-8 flex-grow">
           
           {/* ── Left Column: PAST SPONSORS Panel ─────────── */}
-          <div className="relative w-full max-w-[310px] sm:max-w-[340px] md:max-w-[360px] lg:max-w-[380px] xl:max-w-[430px] aspect-[454/682] flex-shrink-0 flex items-center justify-center">
-            {/* Outer Blue Arcade Cabinet Frame */}
-            <div className="absolute inset-0 pointer-events-none z-1">
-              <Image
-                src="/landing-pages/sponsors/ui/past-sponsors-outer-frame.svg"
-                alt="Past Sponsors Cabinet Frame"
-                fill
-                className="object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.7)]"
-                loading="lazy"
-                decoding="async"
-              />
+          <div className="relative w-full max-w-[380px] lg:max-w-[400px] rounded-3xl bg-gradient-to-b from-[#1C2C5E] to-[#101A38] border-[3.5px] border-[#080D1D] shadow-[0_10px_0_#080D1D,0_20px_40px_rgba(0,0,0,0.8),inset_0_2px_0_rgba(85,217,255,0.3)] p-5 sm:p-6 flex flex-col items-center justify-between shrink-0">
+            
+            <div className="w-full flex items-center justify-center pb-4 mb-4 border-b-2 border-[#080D1D]/70">
+              <span className="font-lilita text-sm sm:text-base text-[#FFD447] tracking-wider uppercase bg-[#070B24] px-4 py-1.5 rounded-full border border-amber-400/40 shadow-[0_2px_0_#C78316]">
+                PAST EVENT PARTNERS
+              </span>
             </div>
 
-            {/* Inner Border & (i) Info Badge */}
-            <div className="absolute inset-[3.5%] pointer-events-none z-2">
-              <Image
-                src="/landing-pages/sponsors/ui/past-sponsors-inner-border.svg"
-                alt="Past Sponsors Border"
-                fill
-                className="object-contain"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-
-            {/* Logos: GameCloud & GameDoora with Natural Border Glow */}
-            <div className="relative z-3 w-[82%] flex flex-col items-center gap-5 sm:gap-7 md:gap-8 pt-[24%]">
-              {/* GameCloud: Enhanced Cool Cyan Permanent Glow + Restrained Hover */}
-              <div className="relative w-full max-w-[330px] aspect-[370/167] sponsor-glow-gamecloud">
-                <Image
-                  src="/landing-pages/sponsors/logos/sponsor-logo-gamecloud.svg"
-                  alt="GameCloud Technologies Private Limited"
-                  fill
-                  className="object-contain"
-                  loading="lazy"
-                  decoding="async"
-                />
+            {/* Past Sponsors Logos Grid with Equal Bounding Boxes */}
+            <div className="w-full flex flex-col items-center justify-around gap-6 py-4 flex-grow">
+              
+              {/* GameCloud Card */}
+              <div
+                onMouseEnter={handleCardHover}
+                className="relative w-full max-w-[280px] aspect-[320/140] rounded-2xl bg-[#08112C] border-2 border-[#55D9FF]/40 shadow-[0_4px_16px_rgba(85,217,255,0.25)] p-4 flex items-center justify-center transition-transform duration-200 hover:scale-105 hover:border-[#55D9FF] cursor-pointer"
+              >
+                <div className="relative w-full h-full">
+                  <Image
+                    src="/landing-pages/sponsors/logos/sponsor-logo-gamecloud.svg"
+                    alt="GameCloud Technologies"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
               </div>
 
-              {/* GameDoora: Enhanced Warm Amber Permanent Glow + Restrained Hover */}
-              <div className="relative w-full max-w-[320px] aspect-[355/154] sponsor-glow-gamedoora">
-                <Image
-                  src="/landing-pages/sponsors/logos/sponsor-logo-gamedoora.svg"
-                  alt="GameDoora"
-                  fill
-                  className="object-contain"
-                  loading="lazy"
-                  decoding="async"
-                />
+              {/* GameDoora Card */}
+              <div
+                onMouseEnter={handleCardHover}
+                className="relative w-full max-w-[280px] aspect-[320/140] rounded-2xl bg-[#08112C] border-2 border-[#FFD447]/40 shadow-[0_4px_16px_rgba(255,212,71,0.25)] p-4 flex items-center justify-center transition-transform duration-200 hover:scale-105 hover:border-[#FFD447] cursor-pointer"
+              >
+                <div className="relative w-full h-full">
+                  <Image
+                    src="/landing-pages/sponsors/logos/sponsor-logo-gamedoora.svg"
+                    alt="GameDoora"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
               </div>
+
             </div>
+
+            <p className="font-sans text-xs text-slate-400 font-medium text-center pt-3 border-t border-[#080D1D]/50">
+              Honoring our Genesis community champions
+            </p>
           </div>
 
           {/* ── Right Column: CURRENT SPONSOR CARDS ──────── */}
-          {/* DESKTOP & TABLET: Console Frame with 3-col × 2-row Grid */}
-          <div className="hidden lg:flex relative w-full max-w-[760px] xl:max-w-[890px] aspect-[947/404] flex-shrink-0 flex-col items-center justify-center self-center lg:mt-16 xl:mt-24">
-            {/* Console Frame with "SPONSORS" subheader tab */}
-            <div className="absolute inset-0 pointer-events-none z-1">
-              <Image
-                src="/landing-pages/sponsors/ui/console-frame-empty.svg"
-                alt="Sponsors Console Frame"
-                fill
-                className="object-contain drop-shadow-[0_12px_28px_rgba(0,0,0,0.7)]"
-                loading="lazy"
-                decoding="async"
-              />
+          <div className="relative w-full max-w-2xl rounded-3xl bg-gradient-to-b from-[#182654] to-[#0D1632] border-[3.5px] border-[#080D1D] shadow-[0_10px_0_#080D1D,0_20px_40px_rgba(0,0,0,0.8),inset_0_2px_0_rgba(85,217,255,0.3)] p-5 sm:p-7 flex flex-col justify-between flex-grow">
+            
+            <div className="w-full flex items-center justify-between pb-3 mb-4 border-b-2 border-[#080D1D]/70">
+              <span className="font-lilita text-sm sm:text-base text-cyan-300 tracking-wider uppercase bg-[#070B24] px-4 py-1 rounded-full border border-cyan-400/30">
+                CURRENT SPONSORS
+              </span>
+              <span className="font-sans text-xs font-bold text-slate-300 bg-[#070B24] px-3 py-1 rounded-full border border-slate-700">
+                6 TOURNAMENT TIERS
+              </span>
             </div>
 
-            {/* 6 Cards Grid inside Console Frame */}
-            <div className="relative z-3 w-[95%] h-[80%] mt-[5%] grid grid-cols-3 grid-rows-2 gap-x-3 gap-y-3 px-3">
+            {/* 6 Cards Grid (3 cols on desktop, 2 cols on tablet, 1 col / touch cards on phone) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4 flex-grow">
               {SPONSOR_CARDS.map((card) => (
                 <div
                   key={card.id}
                   onMouseEnter={handleCardHover}
-                  className="relative w-full h-full flex items-center justify-center cursor-pointer group"
+                  className="brawl-sponsor-card relative w-full aspect-[280/160] rounded-xl bg-gradient-to-b from-[#1C2C5E] to-[#101A38] border-2 border-[#080D1D] shadow-[0_4px_0_#080D1D,0_6px_14px_rgba(0,0,0,0.6)] p-2.5 flex flex-col items-center justify-center transition-all duration-200 hover:-translate-y-1.5 hover:border-[#55D9FF] hover:shadow-[0_6px_0_#080D1D,0_0_16px_rgba(85,217,255,0.35)] cursor-pointer group"
                 >
-                  {/* SponsorHoverWrapper: Moves upward 5px & scales 1.04 independently */}
-                  <div className="relative w-full h-full transition-transform duration-[240ms] ease-out group-hover:-translate-y-1.5 group-hover:scale-[1.04] group-hover:z-20">
+                  <div className="relative w-full h-full">
                     <Image
                       src={card.svgPath}
                       alt={card.name}
                       fill
-                      className="object-contain drop-shadow-[0_4px_10px_rgba(0,0,0,0.6)] group-hover:drop-shadow-[0_10px_20px_rgba(0,0,0,0.85)]"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* TABLET / MID-WIDTH (md to lg): Clean 3-col or 2-col Grid */}
-          <div className="hidden md:flex lg:hidden w-full max-w-[680px] flex-col items-center">
-            <div className="bg-blue-950/80 border border-blue-500/40 rounded-full px-5 py-1 text-xs font-bold text-cyan-300 uppercase tracking-widest mb-4 shadow-[0_0_12px_rgba(6,182,212,0.3)]">
-              Current Sponsors
-            </div>
-            <div className="w-full grid grid-cols-2 sm:grid-cols-3 gap-4">
-              {SPONSOR_CARDS.map((card) => (
-                <div
-                  key={card.id}
-                  onMouseEnter={handleCardHover}
-                  className="relative w-full aspect-[320/180] flex items-center justify-center cursor-pointer group"
-                >
-                  <div className="relative w-full h-full transition-transform duration-[240ms] ease-out group-hover:-translate-y-1.5 group-hover:scale-[1.04] group-hover:z-20">
-                    <Image
-                      src={card.svgPath}
-                      alt={card.name}
-                      fill
-                      className="object-contain drop-shadow-[0_4px_10px_rgba(0,0,0,0.6)] group-hover:drop-shadow-[0_10px_20px_rgba(0,0,0,0.85)]"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* MOBILE (<= 768px): Horizontal Swipeable Gallery with CSS Scroll Snapping */}
-          <div className="md:hidden w-full flex flex-col items-center mt-3">
-            {/* Subheading Badge */}
-            <div className="bg-blue-950/80 border border-blue-500/40 rounded-full px-4 py-1 text-xs font-bold text-cyan-300 uppercase tracking-widest mb-3 shadow-[0_0_12px_rgba(6,182,212,0.3)]">
-              Current Sponsors ✦ Swipe
-            </div>
-
-            {/* Horizontal Swipe Carousel Container */}
-            <div
-              className="w-full flex overflow-x-auto snap-x snap-mandatory scroll-smooth gap-4 px-4 py-3 no-scrollbar"
-              style={{
-                overscrollBehaviorX: "contain",
-                WebkitOverflowScrolling: "touch",
-              }}
-            >
-              {SPONSOR_CARDS.map((card) => (
-                <div
-                  key={card.id}
-                  className="flex-shrink-0 w-[82vw] max-w-[320px] aspect-[320/180] snap-center relative"
-                >
-                  <div className="relative w-full h-full transition-transform duration-200 active:scale-[0.98]">
-                    <Image
-                      src={card.svgPath}
-                      alt={card.name}
-                      fill
-                      className="object-contain drop-shadow-[0_6px_14px_rgba(0,0,0,0.7)]"
-                      loading="lazy"
-                      decoding="async"
+                      className="object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]"
                     />
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Swipe dots indicator for mobile */}
-            <div className="flex items-center gap-1.5 mt-3 mb-8">
-              {SPONSOR_CARDS.map((card, idx) => (
-                <span
-                  key={card.id}
-                  className={`w-2 h-2 rounded-full ${
-                    idx === 0 ? "bg-cyan-400 scale-125" : "bg-blue-900/60"
-                  }`}
-                />
-              ))}
+            <div className="mt-4 pt-3 flex items-center justify-between border-t border-[#080D1D]/50 text-xs font-sans text-slate-400">
+              <span>Interested in partnering with Genesis 2027?</span>
+              <a
+                href="mailto:contact@gdai.in"
+                className="font-lilita text-cyan-300 hover:text-[#FFD447] transition-colors uppercase tracking-wider"
+              >
+                Inquire Sponsor Deck →
+              </a>
             </div>
+
           </div>
 
         </div>
 
       </div>
 
-      {/* ── 3. Bottom-Right Character Decoration: Shadow Spike (Popping Out, Non-Clickable) ──────── */}
+      {/* ── Bottom-Right Shadow Spike Character Decoration ── */}
       <div 
-        className="absolute bottom-3 sm:bottom-5 md:bottom-7 lg:bottom-9 right-2 sm:right-4 md:right-8 lg:right-10 w-[155px] h-[190px] sm:w-[185px] sm:h-[227px] md:w-[215px] md:h-[264px] lg:w-[245px] lg:h-[300px] pointer-events-none z-30 animate-spike-pop select-none"
-        style={{
-          filter: "drop-shadow(0 0 22px rgba(34, 211, 238, 0.55)) drop-shadow(0 14px 28px rgba(0, 0, 0, 0.9))",
-        }}
+        className="absolute bottom-2 right-2 sm:bottom-4 sm:right-6 w-24 h-28 sm:w-32 sm:h-36 md:w-40 md:h-48 pointer-events-none z-20 animate-spike-pop select-none drop-shadow-[0_0_20px_rgba(85,217,255,0.4)]"
         aria-hidden="true"
       >
         <Image
@@ -310,8 +220,6 @@ export default function SponsorsSection() {
           alt="Shadow Spike"
           fill
           className="object-contain"
-          loading="lazy"
-          decoding="async"
         />
       </div>
     </section>
