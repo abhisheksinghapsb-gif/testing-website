@@ -72,6 +72,7 @@ export default function AboutSection() {
                 src="/landing-pages/about/ui/heading-about.svg"
                 alt="ABOUT"
                 fill
+                sizes="(max-width: 768px) 192px, 240px"
                 className="object-contain object-left"
               />
             </div>
@@ -83,6 +84,7 @@ export default function AboutSection() {
               src="/landing-pages/about/ui/heading-genesis.webp"
               alt="GENESIS"
               fill
+              sizes="(max-width: 768px) 288px, 384px"
               className="object-contain object-left"
             />
           </div>

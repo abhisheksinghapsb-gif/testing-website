@@ -291,6 +291,7 @@ export default function Home() {
                 alt="Blue Planet"
                 width={140}
                 height={140}
+                style={{ width: "100%", height: "100%" }}
                 className="w-full h-full object-contain drop-shadow-[0_0_18px_rgba(56,189,248,0.3)]"
               />
             </div>
@@ -663,6 +664,7 @@ export default function Home() {
                 alt="Observatory Cannon Turret"
                 width={240}
                 height={290}
+                style={{ width: "100%", height: "auto" }}
                 className="w-full h-auto object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.7)]"
               />
               {telescopeGlint && (
@@ -694,6 +696,7 @@ export default function Home() {
                 alt="Full Attention Squeak"
                 width={290}
                 height={190}
+                style={{ width: "100%", height: "auto" }}
                 className="w-full h-auto object-contain drop-shadow-[0_8px_18px_rgba(0,0,0,0.65)]"
               />
             </div>
